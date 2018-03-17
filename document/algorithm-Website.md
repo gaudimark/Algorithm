@@ -32,6 +32,16 @@
 
 
 
+[[CodingLabs](http://blog.codinglabs.org/)](http://blog.codinglabs.org/tag.html)
+
+
+
+[A simple way to share Jupyter Notebooks](http://nbviewer.jupyter.org/)
+
+
+
+
+
 ### **推荐的讲解算法的网站、好博客**
 
 [演算法筆記](http://www.csie.ntnu.edu.tw/~u91029/)
