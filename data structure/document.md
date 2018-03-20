@@ -14,3 +14,7 @@
 
 [**啊哈！算法**](https://github.com/xiaodingchen/xiaodingchen.github.io/blob/master/%E5%95%8A%E5%93%88%EF%BC%81%E7%AE%97%E6%B3%95.pdf)
 
+
+
+[程序设计思想与方法](https://wizardforcel.gitbooks.io/sjtu-cs902-courseware/content/index.html)
+
