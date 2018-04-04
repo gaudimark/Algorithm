@@ -20,3 +20,15 @@ HanLP：面向生产环境的自然语言处理工具包		http://hanlp.hankcs.co
 
 
 THUOCL：清华大学开放中文词库		http://thuocl.thunlp.org/
+
+
+
+中文料库			https://github.com/dongxiexidian/Chinese
+
+
+
+中文人名语料库		https://github.com/wainshine/Chinese-Names-Corpus
+
+
+
+凝聚数据的力量		http://bestonetech.com/
