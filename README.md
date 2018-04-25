@@ -32,3 +32,11 @@ THUOCL：清华大学开放中文词库		http://thuocl.thunlp.org/
 
 
 凝聚数据的力量		http://bestonetech.com/
+
+
+
+结巴中文分词			https://github.com/fxsjy/jieba
+
+
+
+爬取网易客户端内容的小爬虫		https://github.com/leyle
