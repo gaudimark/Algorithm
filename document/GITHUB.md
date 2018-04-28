@@ -4,3 +4,5 @@
 
 [Python学习笔记](https://www.kancloud.cn/digest/python-notes/163813)
 
+[python 安全编程教程](https://wizardforcel.gitbooks.io/py-sec-tutorial/content/)
+
