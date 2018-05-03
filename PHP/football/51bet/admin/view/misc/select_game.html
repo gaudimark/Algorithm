@@ -1,0 +1,67 @@
+<div class="panel" id="misc-game-panel">
+    <div class="panel-body" style="width: 400px">
+        <div>
+            <div class="input-group">
+                <input type="text" class="form-control" name="game_name" id="misc-game-name" value="" placeholder="游戏名称">
+                <span class="input-group-addon input-group-addon-btn">
+                    <button class="btn btn-primary btn-sm" id="misc-select-game"> 搜 索 </button>
+                </span>
+            </div>
+        </div>
+        <div id="misc-content-list" style="min-height: 300px;">
+            {if isset($lists)}
+            {if $lists}
+            <ul class="list-group mt10">
+                {foreach $lists as $vo}
+                <li class="list-group-item">
+                    <label class="checkbox-inline">
+                        {if $type eq 'radio'}
+                        <input type="radio" name="misc-game-lib" class="misc-game-lib" value="{$vo.id}" data-name="{$vo.name}">
+                        {else}
+                        <input type="checkbox" class="misc-game-lib" value="{$vo.id}" data-name="{$vo.name}">
+                        {/if}
+                        {$vo.name}({$vo.alias})
+                    </label></li>
+                {/foreach}
+            </ul>
+            {else}
+                <div class="mt10">
+                    <h5 class="text-muted">未检索到{if $item_id}{:getSport($item_id)}下{/if}“{$name}”相关信息的游戏</h5>
+                </div>
+            {/if}
+            {/if}
+        </div>
+        <div class="form-group dialog-handle">
+            <label class="col-md-3 control-label">&nbsp;</label>
+            <div class="col-md-8">
+                <button type="button" class="btn btn-primary" id="btn-misc-game-enter">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#misc-select-game').click(function () {
+            var name = $.trim($("#misc-game-name").val());
+            if(!name){return false;}
+            Ajax.get('{:url("misc/select_game")}',{'name':name,'item_id':{$item_id},'type':'{$type}'},function (ret) {
+                var content = extractContainer(ret,'#misc-content-list');
+                $("#misc-content-list").html(content.html());
+            });
+        });
+        $("#btn-misc-game-enter").click(function () {
+            var lib = [];
+            $(".misc-game-lib:checked").each(function () {
+                lib.push({'id' : $(this).val(),'name' : $(this).attr("data-name")});
+            });
+            try{
+                miscSelectGameRet(lib);
+                var dialog = $("#misc-game-panel").closest('.j-dialog');
+                if(dialog.length > 0) {
+                    dialogIndex = dialog.find("[name=j-dialog-index]").val();
+                    dialogIndex && jDialog.data[dialogIndex].close();
+                }
+            }catch (e){}
+        });
+    });
+</script>

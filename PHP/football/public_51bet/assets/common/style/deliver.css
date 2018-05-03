@@ -1,0 +1,615 @@
+body{font-size:.14rem;width:100%;height:100%;/* font-family:Consolas, "Liberation Mono", Courier, Verdana, "微软雅黑"; */background:#086626;color:#0dff64;overflow:hidden;}
+.btn{background:#055321;color:#0ced60;}
+.container{padding-bottom:.5rem;padding-top:.82rem;position: absolute;top:-40px; background:#086626;-webkit-transform:translate3d(0,0,0);}
+
+/* 底部 */
+.footer{width:100%;height:.65rem;position:fixed;bottom:0;left:0;background:#9c0000;z-index:9;}
+.footer ul{width:100%;height:100%;display:flex;}
+.footer li{flex:1;position:relative;}
+.footer li i{background:url(../images/footer.png) no-repeat;background-size:auto 100%;display:block; margin:0 auto;}
+.footer li:nth-child(1) i{ width:32px; height:29px;}
+.footer li.active:nth-child(1) i{background-position:-184px  0; }
+.footer li:nth-child(2) i{ width:32px; height:32px;background-position:-53px  0;}
+.footer li.active:nth-child(2) i{background-position:-254px   0;}
+.footer li.okami i{ width:39px; height:34px;background-position:-420px 0px;}
+.footer li.okami.active i{ width:39px; height:34px;background-position:-473px 0px;}
+/* .footer li:nth-child(5) i{ width:34px; height:35px;background-position:-164px  0; } */
+.footer li.odds i{ width:34px; height:35px;background-position:-539px  0; }
+/* .footer li:nth-child(5).active i{background-position:-378px  0; } */
+.footer li.odds.active i{ width:34px; height:35px;background-position:-582px  0; }
+.footer li:nth-child(5) b{position:absolute;width:6px;height:6px;border-radius:50%;background:#f4dbb7;    left: 50%; margin-left: 15px; top: 6px;}
+.footer li:nth-child(3) img{ width:32px; height:30px;margin-top:-.05rem;animation:animation_b_1 .3s linear 2;}
+@keyframes animation_b_1{
+0%{transform:rotate(0);-moz-transform:rotate(0);-webkit-transform:rotate(0);-o-transform:rotate(0);}
+25%{transform:rotate(30deg);-moz-transform:rotate(10deg);-webkit-transform:rotate(10deg);-o-transform:rotate(10deg);}
+50%{transform:rotate(0deg);-moz-transform:rotate(0deg);-webkit-transform:rotate(0deg);-o-transform:rotate(0deg);}
+75%{transform:rotate(-10deg);-moz-transform:rotate(-10deg);-webkit-transform:rotate(-10deg);-o-transform:rotate(-10deg);}
+100%{transform:rotate(0);-moz-transform:rotate(0);-webkit-transform:rotate(0);-o-transform:rotate(0);}
+}
+.footer li:nth-child(3){flex:2;}
+.footer li:nth-child(3).active i{background:#da0303;}
+.footer li a{width:100%;height:100%;display:block;padding-top:.07rem;color:#353535;}
+.footer li img{display:block;margin:0 auto;}
+.footer li span{width:100%;height:.3rem;position:absolute;line-height:.3rem;text-align:center;font-size:.14rem;color:#fff;bottom:-3px;}
+.footer .ft-cent img{margin-top:-10px;position:relative;z-index:99;}
+.footer .ft-cent i{width:96%;height:130px;position:absolute;background:#b90606;left:2%;top:-6px;border-radius:50%;box-shadow:0 0 8px 0 rgba(0,0,0,.3);}
+.footer .ft-cent span{height:.26rem;line-height:.26rem;}
+/* 首页 */
+/* 首页比赛列表 */
+.match-box{width:100%;height:auto;overflow:hidden;}
+.matchlist{width:100%;height:1.3rem;overflow:hidden;border-bottom:.01rem solid #00491a;background:#0b6f2f;}
+.matchlist:nth-child(even){background:#006223;}
+.matchlist a{display:flex;height:100%;}
+.matchlist .list-flex{flex:1;}
+.matchlist .list-flex .slidebox{position:relative;width:100%;height:.24rem;box-sizing:border-box;float:left;overflow:hidden;margin-top:.02rem;}
+.matchlist .list-flex  b{font-weight:normal;margin-left:.3rem;}
+.matchlist .list-flex .match-place{width:100%;height:.20rem;line-height:.20rem;color:#0dff64;font-size:.12rem;padding-left:.05rem;margin-top:.05rem;float:left;}
+.matchlist .list-flex .match-line{width:100%;position:relative;}
+.matchlist .list-flex .match-line .picbg{width:94px;height:77px;display:block;margin:0 auto;padding-top:.1rem;background:url(../images/matchlistbg.png) no-repeat 0 10px;background-size:100%;position:relative;    clear: both;}
+.matchlist .list-flex .match-line img{display:block;margin:0 auto;border-radius:999px;}
+@keyframes imgslide{
+0%{width:60px;}
+50%{width:4px;}
+100%{width:60px;}
+}
+.matchlist .list-flex .match-line span{width:auto;position:absolute;height:.22rem;line-height:.22rem;display:block;font-size:.12rem;text-align:center;clear:both;color:#fff;white-space: nowrap;}
+.hometeam .lord{width:.2rem;height:.2rem;font-size:.12rem;position:absolute;border-radius:50%;background:#df001f;color:#fff;text-align:center;line-height:.2rem;    right: .07rem;  top: .05rem;}
+.list-flex-right.hometeam .lord{width:.2rem;height:.2rem;font-size:.12rem;position:absolute;border-radius:50%;background:#df001f;color:#fff;text-align:center;line-height:.2rem;left:7px;right:auto;  top:5px;}
+.matchlist  .list-flex-right .match-place{float:right;text-align:right;padding-left:0rem;padding-right:.05rem;}
+.matchlist-cent{text-align:center;max-width:170px;margin:0 15px;padding-top:.21rem;box-sizing:border-box;}
+.matchlist-cent h3{text-align:center;line-height:.3rem;font-size:.14rem;font-weight:normal;color:#0dff64;position:absolute;white-space: nowrap;}
+.matchlist-cent p{text-align:center;line-height:.3rem;font-size:.12rem;color:#0dff64;}
+.matchlist-cent p .m-time{margin-left:.04rem;}
+.matchlist-cent p strong{font-weight:normal;}
+.matchlist-cent span{width:auto;max-width:100%;display:inline-block;height:.24rem;border-radius:.15rem;background:#055321;color:#0dff64;text-align:center;padding:0rem 12%;line-height:.24rem;margin:.02rem auto auto auto;font-size:.14rem;}
+/* 打擂列表 */
+.race-cont .racelist .race-flex-right .slidebox .tzprompt{font-size:.12rem;}
+.sealbg{background:url(../images/seal.png) no-repeat 70% center;width:1rem;height:.62rem;position:absolute;right:10%;top:.22rem;z-index:999;}
+/* 即时比分 */
+.forthwith{width:100%;height:.49rem;border-bottom:1px solid #00491a;padding-left:.1rem;background:#0b6f2f;}
+.forthwith span{float:left;margin-right:.2rem;margin-top:.13rem;}
+.yellow-warn{width:.13rem;height:.15rem;display:block;float:left;line-height:.15rem;text-align:center;color:#fff;margin-right:.05rem;background:#fdcf5c;font-size:.12rem;    margin-top: -2px;}
+.red-warn{width:.13rem;height:.15rem;display:block;float:left;line-height:.15rem;text-align:center;color:#fff;margin-right:.05rem;background:#df001f;font-size:.12rem;    margin-top: -2px;}
+.scorelist{width:100%;height:.82rem;background:#268c47;border-bottom:1px solid #033b15;padding:0 .1rem;overflow:hidden;position:relative;}
+.scorelist-over{background:#04511d;}
+.scorelist-in{background:#047729;}
+.scorelist a{color:#0dff64;}
+.scorelist .score-top{width:100%;height:.3rem;overflow:hidden;margin-top:.18rem;}
+.scorelist .score-top b{display:none;}
+.scorelist .slidebox{width:93%;height:.28rem;}
+.scorelist .score-top h3{font-size:.14rem;font-weight:normal;color:#fff;float:left;}
+.scorelist .score-top h3 span{display: inline-block;vertical-align:middle;margin-left:.03rem;}
+.scorelist .score-top h3:nth-child(2) span{margin-right:.03rem;}
+.scorelist .score-top .score-bf{float:left;color:#fff;font-size:.16rem;margin:0 .1rem;}
+.scorelist .score-top .score-bf strong{font-weight:normal;}
+.scorelist p span{float:left;font-size:.13rem;position:relative;line-height:.22rem;}
+.scorelist p .score-over{background:#04511d;padding:0 .03rem;}
+.scorelist-over p .score-over{background:#00230b;}
+.scorelist p span.org{background:none;padding:0;}
+.scorelist p .score-time{margin:0 .05rem;}
+.scorelist p b{font-weight:normal;float:left;margin:0 .08rem 0 .14rem;font-size:.12rem;}
+.scorelist p .ongoing{position:absolute;width:.05rem;height:.05rem;border-radius:50%;background:#0dff64;right:-8px;top:-0px;animation:i_opacity 1s linear infinite;}
+.main .arrow-right{font-size:.26rem;;position:absolute;right:.1rem;top:50%;color:#18b64b;margin-top:-17px;color:#0dff64;}
+@keyframes i_opacity{
+ 0% {opacity:0;}	
+ 50% {opacity:1;}	
+ 100% {opacity:0;}	
+}
+/* 主流赔率 */
+.probability{width:100%;height:auto;overflow:hidden;background:#0b6f2f;padding:0 .1rem;border-bottom:2px solid #006223;}
+.probability-title{width:100%;height:.4rem;overflow:hidden;}
+.probability-title span{width:23%;height:.4rem;float:left;font-size:.13rem;line-height:.4rem;}
+.probability-title span:last-child{text-align:right;max-width:75px;float:right;}
+.probability-title .slidebox{width:52%;height:.4rem;font-size:.14rem;float:left;overflow:hidden;}
+.probability-title h3{height:.4rem;font-size:.14rem;font-weight:normal;color:#fff;text-align:center;float:left;box-sizing:border-box;line-height:.4rem;overflow:hidden;}
+.probability-table{padding-bottom:.2rem;}
+.probability-table ul{width:100%;height:.56rem;border-bottom:1px solid #239347;border-right:1px solid #239347;box-sizing:border-box;line-height:.56rem;font-size:.14rem;}
+.probability-table ul:first-child{height:.3rem;line-height:.3rem;border-top:1px solid #239347;font-size:.13rem;background:#01b941;color:#133510;}
+.probability-table ul:first-child li{border:0;}
+.probability-table ul li{border-left:1px solid #239347;box-sizing:border-box;text-align:center;overflow:hidden;}
+.probability-table ul li p{width:100%;height:.22rem;font-size:.13rem;line-height:.22rem;overflow:hidden;text-align:center;padding:0 .03rem;box-sizing:border-box;}
+.probability-table ul li p span{width:33.3%;height:.22rem;float:left;background:#02c648;color:#002d00;border-left:1px solid #092e0d;box-sizing:border-box;}
+.probability-table ul li p span:first-child{border-left:0;}
+.probability-table ul li p:first-child{margin-top:.05rem;}
+.probability-table ul li p:first-child span{border-bottom:1px solid #092e0d;background:#065221;color:#28f67a;}
+.probability-table ul .orderlist{width: 100%; height: 100%; position: relative;margin-top:.05rem;}
+.probability-table ul .orderlist div{position:absolute;width:100%;height:100%;top:0;left:0;z-index:1;}
+.probability-table ul .orderlist p:first-of-type span{border-bottom:1px solid #092e0d;background:#065221;color:#28f67a;}
+.probability-table ul .orderlist a{position:absolute;width:40px;height:100%;right:-40px;top:0;background:#9c0000;line-height:.44rem;text-align:center;color:#fff;font-size:13px;}
+/* 搜索页 */
+.search-container{padding-top:.46rem;}
+.search-top{width:100%;height:auto;overflow:hidden;padding:.15rem .1rem;border-bottom:1px solid #00491a;}
+.search-top h3{line-height:.26rem;font-size:.14rem;font-weight:normal;color:#04c40f;margin-bottom:.04rem;}
+.search-top a{width:auto;padding:0 .13rem;height:.22rem;line-height:.22rem;float:left;border:1px solid #0eff64;background:#01501d;margin-right:.1rem;margin-bottom:.1rem;}
+.search-relevance{width:100%;height:auto;position:absolute;top:.26rem;left:0rem;padding:0 .1rem;display:flex;}
+.search-relevance ul{flex:1;background:#f8f8f8;height:auto;overflow:hidden;line-height:.34rem;border-top:1px solid #d7d7d7;}
+.search-relevance ul li{width:100%;height:.34rem;border-bottom:1px solid #ececec;}
+.search-relevance ul li a{width:100%;height:.34rem;display:block;color:#555;padding:0 .1rem;box-sizing:border-box;font-size:.12rem;}
+.search-relevance span{width:.4rem;}
+/* 大神擂台 */
+.container-bg{background:#00491a;}
+.fierce-show{width:100%;height:auto;overflow:hidden;}
+.fierce-show h3,.follow .fiercetitle,.manitotitle{font-weight:normal;line-height:.3rem;color:#0dff64;padding-left:.1rem;font-size:.14rem;background:#00541e;border-bottom:2px solid #00491a;border-top:2px solid #00491a;}
+.show{background:#00491a;}
+.show ul{display:flex;flex-wrap:wrap;width:100%;height:auto;overflow:hidden;box-sizing:border-box;}
+.show li{width:25%;height:.9rem;position:relative;border-bottom:1px solid #0b6f2f;border-right:1px solid #0b6f2f;box-sizing:border-box;overflow:hidden;}
+.show li i{width:.22rem;height:.22rem;position:absolute;top:-5px;right:-12px;background:#9c0000;background-size:100%;color:#fff;font-size:.14rem;text-align:center;line-height:.22rem;font-family:"Arial";border-radius:50%;transform: scale(.8);}
+.show li  .show-pic{width:45px;height:45px;display:block;margin:0 auto;position:relative;overflow:visible;margin-top:.1rem;}
+.show li img{width:45px;height:45px;display:block;margin:0 auto;border-radius:99px;}
+.show li span{width:90%;display:block;margin:.05rem auto auto auto;text-align:center;line-height:.22rem;height:.22rem;overflow:hidden;font-size:.12rem;color:#fff;}
+.follow{background:#00491a;padding-bottom:.3rem;border-bottom:2px solid #00491a;overflow:hidden;}
+.followlist{width:100%;height:.8rem;padding:0 .1rem;}
+.follow .followlist{margin-top: .1rem;}
+.followlist  .circlelist{width:100%;height:.8rem;}
+.followlist  .circle-info {margin-top: .09rem;}
+.followlist .circlelist img{border-radius:999px;float:left;margin-right:.1rem;display:block;margin-top: .05rem;}
+.circlelist a {padding: .1rem .1rem 0 .1rem; box-sizing: border-box; display: block;}
+.follow .followlist .circlelist a{padding-left:0;}
+.followlist .circlelist h3{color:#fff;font-weight:normal;font-size:.14rem;}
+.followlist .circle-info p{color:#0dff64;}
+.follow-btn{background:#003e16;border-radius:.08rem;color:#0dff64;font-size:.14rem;height:.28rem;line-height:.28rem;max-width:86px;float:right;margin-top:.32rem;padding:0 .02rem;width: 100%;text-align:center;}
+.follow-order{padding:0 .1rem;width: 100%;height: auto;overflow: hidden;}
+.follow .follow-order .orderlist{border:1px solid #0b6f2f;margin-top:10px;width: 100%; height: auto;overflow: hidden;padding: .05rem .1rem;
+    position: relative;z-index: 9;}
+.follow .follow-order .checkorder .ordertype span{background:#003c16;}
+.follow .follow-order .checkorder .ordertype span a{width:100%;height:100%;display:block;color:#fff;}
+.orderbox .orderlist p {font-size: .14rem;line-height: .26rem;}
+.orderbox .orderlist p i {color: #fff;margin-right: .03rem;}
+.orderbox .orderlist p em {color: #43c76d;}
+.orderbox .orderlist p b { font-weight: normal; margin: 0 .04rem; font-size: .13rem;}
+.orderbox .orderlist .ordertype { width: 100%; height: .3rem;}
+.orderbox .orderlist .ordertype span { height: .22rem; float: left; min-width: 2.3rem; text-align: center;background: #2b9b4e; font-size: .13rem;color: #fff;line-height: .22rem; margin-top: .01rem;border-radius: .06rem;box-sizing: border-box;}
+
+.circlelist img {
+    border-radius: 999px;
+    float: left;
+    margin-right: .1rem;
+    display: block;
+}
+/* 大神投注 */
+.fierce .followlist{margin-bottom:10px;}
+.fierce .circle-info{margin-top:25px;}
+.fierce .orderlist {margin-bottom:.1rem;}
+.fierce .ordertype{text-align:right;font-size:.12rem;line-height:.22rem;}
+.deity{background:none;}
+.deity li{height:auto;text-align:center;margin-bottom:.15rem;border:0;}
+.deity li span{margin-top:0;}
+.deity li a{font-size:.12rem;color:#26e3ff;width:100%;text-decoration:underline;}
+/* 擂台维护 */
+.cathectic-info{width:100%;height:auto;overflow:hidden;padding:0 .1rem .26rem;}
+.cathectic-info .putsports-table ul .second-title{line-height:.6rem;}
+.cathectic-table{width:100%;border-bottom:1px solid #239347;position:relative;}
+.cathectic-table .cathectic-title{width:.4rem;position:absolute;left:0;top:0;line-height:.28rem;text-align:center;color:#fff;padding-top:.1rem;}
+.cathectic-table ul{width:100%;height:.4rem;border:1px solid #239347;border-top:0;  box-sizing: border-box;}
+.cathectic-table ul:last-child{height:.9rem;border-bottom:0;margin:0;}
+.cathectic-table ul li{text-align:center;border-left:1px solid #239347;line-height:.4rem;}
+.cathectic-table ul:last-child li{line-height:.68rem;font-size:.16rem;}
+.cathectic-table ul li:first-child{border-left:0;}
+.cathectic-table ul li .cathectic-top{height:.68rem;border-bottom:1px solid #239347;line-height:.68rem;font-size:.2rem;}
+.cathectic-table ul li .cathectic-top input{width:100%;border:0;background:none;line-height: 0.68rem;font-size: 0.2rem;text-align: center;}
+.cathectic-bom{height:.22rem;line-height:.22rem;font-size:.14rem;position:relative;}
+.cathectic-bom span{position:absolute;max-width:100%;height:100%;top:0;left:0;background:#239347;z-index:1;}
+.cathectic-bom p{position:relative;height:100%;z-index:9;width:90%;margin:0 auto;}
+.cathectic-bom p span{background:none;max-width:1000%;}
+.incbl{width:100%;border:0;background:none;text-align:center;color: #0DFF64;font-size:.16rem;}
+.cathectic-info.putsports-info .putsports-table{padding:0rem .0rem;}
+.cathectic-info .maintain-title{border:1px solid #239347;width:100%;height:.5rem;text-align:center;line-height:.5rem;color:#fff;font-size:.18rem;border-top-left-radius:.1rem;border-top-right-radius:.1rem;}
+.cathectic-info.putsports-info .putsports-table ul{height:.66rem;box-sizing:border-box;line-height:.66rem;}
+.cathectic-info.putsports-info .putsports-table .ult{height:.4rem;box-sizing:border-box;line-height:.4rem;}
+.cathectic-info .putsports-table ul li input{background:none;font-size:.18rem;margin-bottom:0;color:#fdcf5c;text-align:center;}
+.cathectic-info .putsports-table ul li .cathectic-bom{height:.2rem;margin-top:.07rem;}
+.cathectic-info .putsports-table ul li .cathectic-bom p{color:#0dff64;font-size:12px;}
+.bettable{width:100%;height:auto;overflow:hidden;}
+.bettable ul{width:100%;height:.6rem;border-bottom:1px solid #00491a;padding:0 .1rem;box-sizing:border-box;line-height:.6rem;font-size:.14rem;text-align:center;}
+.bettable ul li{overflow:hidden;}
+.bettable ul li:first-child{text-align:left;text-indent:.1rem;}
+.bettable ul li:last-child{max-width:.74rem;}
+.bettable ul img{float:left;border-radius:999px;margin-top:.08rem;}
+.sys-fee-txt{text-align:center;color:#858585;line-height:.3rem;}
+.min-deposit-txt{text-indent:81px;color:#858585;line-height:.3rem; margin-top: -11px;margin-bottom:.1rem;}
+/* 擂台详情 */
+.arena-info .matchlist{border-bottom-color:#167d37;}
+.arena-info .matchlist strong{font-size:.16rem;margin-top:18px;}
+.myprofit{width:100%;height:.95rem;padding:0 .1rem;margin:.1rem auto;}
+.myprofit .myprofit-info{background:#086626;border:1px solid #00812e;border-radius:.1rem;text-align:center;font-size:.13rem;}
+.myprofit .myprofit-info span{font-size:.18rem;color:#fff;line-height:.3rem;margin-top:17px;display:block;}
+.myprofit .myprofit-info:nth-child(1){margin-right:.07rem;}
+.myprofit .myprofit-info:nth-child(2){background:#0b7832;border:1px solid #0cf05e;margin:0 .03rem;}
+.myprofit .myprofit-info:nth-child(3){margin-left:.07rem;}
+.myprofit-table{width:100%;height:auto;padding:0 .1rem;}
+.myprofit-table.myprofit-pad{padding:0;}
+.myprofit-table ul{width:100%;height:.4rem;line-height:.4rem;border-bottom:1px solid #167d37;border-right:1px solid #167d37;font-size:.14rem;}
+.myprofit-table ul:nth-child(1){height:.3rem;line-height:.3rem;border-top:1px solid #167d37;background:#044b1b;font-size:.13rem;}
+.myprofit-table #thelist ul:nth-child(1){height:.4rem;line-height:.4rem;border-top:0;background:none;font-size:.13rem;}
+.myprofit-table ul li:first-child{font-size:.13rem; word-wrap: break-word;word-break: break-all;}
+.myprofit-table ul li:first-child span{vertical-align:middle;}
+.myprofit-table ul li{float:left;width:19%;height:100%;text-align:center;border-left:1px solid #167d37;position:relative; overflow: hidden; word-wrap: break-word;word-break: break-all;}
+.myprofit-table ul li input{width:100%;box-sizing:border-box;border:0;background:none;text-align:center;font-size:.14rem;}
+input::-webkit-inner-spin-button{-webkit-appearance:none !important;}
+.myprofit-table ul li:nth-child(2){width:16%;}
+.myprofit-table ul li:nth-child(2) .slidebox{height:100%;}
+.myprofit-table ul li.give-select{color:#e7e294;}
+.myprofit-table ul li.give-select select{width:100%;height:100%;opacity:0;position:absolute;top:0;left:0;margin:0;}
+.myprofit-table ul li:nth-child(5){width:27%;}
+.cathectic-list-table{margin-top:.15rem;}
+.cathectic-list-table ul li{font-size:.12rem;}
+.myprofit-table ul:first-of-type li:first-child{line-height:.3rem;}
+.myprofit-table #thelist ul:nth-child(1) li:first-child{line-height:.4rem;}
+.cathectic-list-table ul li:first-child{font-size:.12rem;display:block;line-height:.4rem;}
+.match-end-result{font-size:.13rem;margin-top:.1rem;    color: #0db54a;}
+.cathectic-list-table .bet-notes{font-size:.12rem;line-height:.2rem;margin-top:.1rem;color:#07b947;}
+.cathectic-list-table .bet-notes i{margin-right:.05rem;}
+/* 我的投注 */
+.myguess{width:100%;height:auto;overflow:hidden;padding-top:.05rem;}
+.myguesslist{width:100%;height:auto;border-bottom:2px solid #00491a;padding:.15rem .1rem;position:relative;}
+.winning i{width:1rem;height:.64rem;position:absolute;background:url(../images/winning-b.png) no-repeat;top:.3rem;left:65%;background-size:100% auto;}
+.no-winning i{width:1rem;height:.64rem;position:absolute;background:url(../images/winning-b.png) no-repeat 0 -67px;top:.3rem;left:65%;background-size:100% auto;}
+.cancel i{width:1rem;height:.64rem;position:absolute;background:url(../images/winning-b.png) no-repeat 0 -203px; top:.3rem;left:65%;background-size:100% auto;}
+.notstarted i{width:1rem;height:.64rem;position:absolute;background:url(../images/winning-b.png) no-repeat 0 -135px;top:.3rem;left:65%;background-size:100% auto;}
+.myguesslist p{line-height:.28rem; width: 100%; height: 28px;overflow: hidden;font-size:.14rem;}
+.profit{margin-top:.1rem;margin-bottom:.05rem;width:100%;height:auto;border-top:1px solid #239347;}
+.profit li{width:100%;height:.4rem;line-height:.4rem;border-bottom:1px solid #239347;border-right:1px solid #239347;}
+.profit li span{width:33.3%;height:100%;float:left;text-align:center;border-left:1px solid #239347;box-sizing:border-box;}
+.about-guess{width:100%;height:.3rem;background:#00491a;font-size:.12rem;line-height:.3rem;padding:0 .08rem;margin:.2rem auto .05rem auto;text-align:center;}
+.about-guess span:first-child{float:left;}
+.about-guess span:last-child{float:right;}
+.payguess{position:relative;margin-top:18px;}
+.payguess .selectbtn{width:auto;height:.3rem;position:absolute;right:.1rem;top:25%;background:#00491a;margin:0;margin-top:-15px;font-size:.12rem;text-align:center;line-height:.3rem;}
+.payguess select{width:auto;height:.3rem;position:absolute;right:.1rem;top:25%;margin:0;margin-top:-15px;font-size:.12rem;text-align:center;line-height:.3rem;opacity:0;}
+.payguess .myguesslist:first-child{border-top:2px solid #00491a;}
+.payguess .myguesslist p{font-size:12px;}
+.payguess .manitotitle,.payguess .myguesslist{border-width:1px;}
+/* 分析页 */
+.analysis{padding:0 .05rem;}
+.lt-about{padding:.1rem;text-align:center;background:#01501d;border-top:1px solid #0eff64;border-bottom:1px solid #0eff64;}
+.lt-about span{display:block;text-align:center;margin-bottom:.08rem;}
+.lt-about p a{display:inline-block;width:auto;height:.22rem;background:#0b6f2f;padding:0 .2rem;line-height:.22rem;font-size:.13rem;}
+.lt-about p a:first-child{margin-right:.06rem;}
+.lt-null-data{background:none;border:0;margin-top:.22rem;}
+.lt-null-data p a{background:#01501d;margin-top:.13rem;}
+.analysis h3{font-size:.14rem;line-height:.3rem;font-weight:normal;}
+.analysis-recently h3{text-indent:.05rem;}
+.analysistable{width:100%;height:auto;overflow:hidden;border-top:1px solid #002a0d;}
+.analysistable ul{width:100%;height:.4rem;border-bottom:1px solid #002a0d;border-right:1px solid #002a0d;box-sizing:border-box;font-size:.13rem;}
+.analysistable .atitle{font-size:.14rem;}
+.analysistable li{border-left:1px solid #002a0d;float:left;height:100%;line-height:.4rem;text-align:center;box-sizing:border-box;padding:0 .05rem;font-size:.13rem;}
+.analysistable li .slidebox{height:.4rem;}
+.analysistable li span{line-height:.4rem;}
+.analysistable .a-mat{width:20%;}
+.analysistable .a-time{width:20%;}
+.analysistable .a-ht{width:23%;}
+.analysistable .a-score{width:14%;}
+.analysistable .a-ke{width:23%;}
+.analysis-recently{padding:0;margin-top:.2rem;}
+.recently-record{width:100%;height:auto;}
+.recently-record .recentlybox{width:100%;height:auto;padding:0 .1rem;overflow:hidden;border-bottom:1px solid #00491a;}
+.recently-record .recentlybox:nth-child(odd){background:#006223;}
+.recently-record .recentlybox:first-child{border-top:1px solid #00491a;}
+.recently-record .recentlylist{width:50%;height:auto;overflow:hidden;float:right;font-size:.15rem;padding:.1rem 0;border-left:1px solid #00491a;}
+.recently-record .recentlylist p{margin-left:.1rem;font-size:.13rem;line-height:.24rem;}
+.recently-record .recentlylist:first-child{float:left;border:0;}
+.recently-record .recentlylist:first-child p{margin-left:0px;}
+/* 投注统计 */
+.statistics{width:100%;height:auto;overflow:hidden;padding:.2rem .1rem;}
+.statistics ul{width:100%;height:.46rem;border-bottom:1px solid #239347;border-right:1px solid #239347;box-sizing:border-box;line-height:.46rem;font-size:.15rem;}
+.statistics ul:first-child{height:.34rem;line-height:.34rem;border-top:1px solid #239347;}
+.statistics ul li{float:left;border-left:1px solid #239347;width:23%;box-sizing:border-box;height:100%;text-align:center;}
+.statistics ul li:nth-child(3){width:31%;}
+/* 竞技平台 */
+.sports-container{padding-bottom:1.9rem;}
+.sports-container .main{overflow:visible;}
+.athleticstop{width:100%;height:70px;overflow:hidden;text-align:center;padding:0 6%;margin-top:.4rem;}
+.athleticstime,.athleticspot,.athleticspic{width:30%;height:.6rem;background:#015d21;float:left;border:1px solid #00832e;border-radius:.1rem;position:relative;}
+.athleticstime {padding-left:.3rem;}
+.athleticstime i ,.athleticspot i {width:.22rem;height:.22rem;position:absolute;top:18px;left:.04rem;background:url(../images/terrace-b.png) no-repeat;background-size:100% auto;}
+.athleticstime span,.athleticspot span{color:#fff;display:block;text-align:center;margin-top:.13rem;font-size:.14rem;}
+.athleticstime p,.athleticspot p {font-size:.13rem;}
+.athleticspot i{background-position:0 -0.39rem;}
+.athleticspic{width:70px;margin:0 .14rem;position:relative;background:none;border:0;}
+.athleticspic img{width:.54rem;height:.54rem;border-radius:999px;display:block;margin:0 auto;border:2px solid #0dff64;}
+.athleticspic i{width:100%;height: 16px;background: url(../images/village.png) no-repeat; background-size: 100% auto; position: absolute; bottom: -2px; left: 0;}
+.athletics-arena .arenalist .arenalist-top p{width:100%;}
+.athletics-arena .arenalist .arenalist-bom{overflow:visible;}
+.athletics-arena .arenalist ul{height:.54rem;}
+.athletics-arena .arenalist ul li{line-height:.54rem;}
+.athletics-arena .arenalist ul li span{top:16px;}
+.athletics-arena .arenalist-bom .flex-box-comb li{padding-right:.35rem;}
+.athletic-menu{width:100%;height:.7rem;position:absolute;top:.46rem;left:0;background:#2c2c2c;z-index:9999;display:none;}
+.athleticlist{width:18%;float:left;text-align:center;font-size:.12rem;color:#fff;line-height: 14px;}
+.athleticlist span{color:#fff;}
+.athleticlist i{width:.3rem;height:.28rem;display:block;margin:.1rem auto auto auto;background:url(../images/athletic-menu.png) no-repeat;margin-bottom:.06rem;background-size:auto 100%;}
+.athleticlist:nth-child(1) i{background:none;color:#fff;font-size:.28rem;height:30px;}
+.athleticlist:nth-child(2) i{width:.3rem;height:.31rem;background-position:-49px 0;}
+.athleticlist:nth-child(3){width:26%;color:#ff0101;}
+.athleticlist:nth-child(3) i{width:.45rem;height:.4rem;margin:7px auto auto auto;background:url(../images/octoupuses.png) no-repeat 1px 0;background-size:auto 100%;}
+.athleticlist:nth-child(4) i{width:.33rem;height:.31rem;background-position:-92px 0;}
+.athleticlist:nth-child(5) i{width:.3rem;height:.31rem;background-position:-124px 1px;background-size:auto 95%;}
+.chipin-income{clear:both;padding:0 .1rem; color: #c1c3c2;font-size:.12rem;}
+.result{padding:0 .1rem;}
+.result .arenalist-bom{box-shadow:none;}
+.result .arenalist-bom ul{background:none;}
+.chipin-icon-1{background:url(../images/chipin-icon-1.png) no-repeat;background-size:100%;color:#c11e00;}
+.chipin-icon-2{background:url(../images/chipin-icon-2.png) no-repeat;background-size:100%;color:#ff7800;}
+.chipin-icon-3{background:url(../images/chipin-icon-3.png) no-repeat;background-size:100%;color:#0024c1;}
+.chipin-icon-4{background:url(../images/chipin-icon-4.png) no-repeat;background-size:100%;color:#00c105;}
+.chipin-icon-5{background:url(../images/chipin-icon-5.png) no-repeat;background-size:100%;color:#00c105;}
+.betting-open i{width:.4rem;height:.3rem;position:absolute;z-index:999;background:url(../images/hand.png) no-repeat;top:10px;right:0rem;background-size:100% auto;}
+@keyframes hand {
+ 0% {background:url(../images/hand.png) no-repeat;background-size:100% auto;}
+ 100% {background:url(../images/hand-1.png) no-repeat;background-size:100% auto;}
+}
+@-webkit-keyframes hand {
+ 0% {background:url(../images/hand.png) no-repeat;background-size:100% auto;}
+ 100% {background:url(../images/hand-1.png) no-repeat;background-size:100% auto;}
+}
+.octopusbox{width:220px;height:220px;position:fixed;top:35%;left:50%;margin-left:-110px;transform: scale(0) rotate(0deg);transition: all 0.3s ease-in-out 0s;z-index:9999;}
+.octopusbox i{width:220px;height:220px;position:absolute;top:0;left:0;background:url(../images/light.png) no-repeat;transform: scale(0) rotate(0deg);-webkit-transition: all 0.3s ease-in-out 0s;z-index:999;-webkit-animation:xuanz 4s linear infinite;}
+.octopus{width:150px;height:150px;background:url(../images/octopus.png) no-repeat;z-index:999;background-size:100% auto;position:absolute;top:35px;left:50%;margin-left:-75px;}
+.octopus span{width:150px;height:150px;background:url(../images/octopus.gif) no-repeat;z-index:999;background-size:100% auto;position:absolute;top:0px;left:50%;margin-left:-75px;}
+@keyframes xuanz {
+    0% {transform: rotate(0deg);}	
+    100% {transform: rotate(360deg); }
+}
+@-webkit-keyframes xuanz {
+    0% {transform: rotate(0deg);}	
+    100% {transform: rotate(360deg); }
+}
+@keyframes spin{
+ 0% {-webkit-transform:rotate(0deg);}	
+ 50% {-webkit-transform:rotate(180deg);}	
+ 100% {-webkit-transform:rotate(360deg);}	
+}
+@-webkit-keyframes spin{
+ 0% {-webkit-transform:rotate(0deg);}	
+ 50% {-webkit-transform:rotate(180deg);}	
+ 100% {-webkit-transform:rotate(360deg);}	
+}
+.statistics .ulded{height:auto;overflow: hidden;position:relative;border-left:1px solid #239347;}
+.statistics .ulded li:first-child{height:100%;width:23%;    line-height: 350%;border-bottom:0;border-left:0;border-right:1px solid #239347;padding:0;box-sizing:content-box;position:absolute;top:0;left:0;background:#0B6F2F;box-sizing:border-box;}
+.statistics .ulded li:first-child div{width:55%;height:100%;float:right;border-left:1px solid #239347;}
+.statistics .ulded li:first-child div span{width:100%;height:.3rem;float:none;display:block;border:0;border-bottom:1px solid #239347;box-sizing:border-box;}
+.statistics .ulded li:first-child div span:last-child{border:0;}
+.statistics .ulded li{float:none;height:.3rem;width:100%;line-height:.3rem;border-left:0;border-bottom:1px solid #239347;}
+.statistics .ulded li span{float:left;height:100%;width:23%;line-height:.3rem;border-right:1px solid #239347;box-sizing:border-box;}
+.statistics .ulded li span:nth-child(2){box-sizing:content-box;}
+.statistics .ulded li span:nth-child(3){width:31%;}
+.statistics .ulded li span:last-child{width:22.5%;border-left:0;border-right:0;}
+.statistics .ulded li:nth-child(3){width:100%;}
+.statistics .ulded li:last-child{border-bottom:0;}
+.emptyStr{width:100%;text-align:center;font-size:.12rem;color:#fff;line-height:.4rem;margin-top:.2rem;}
+/* 打擂 */
+.select-menu{width:100%;height:.52rem;background:#0b6f2f;border-bottom:2px solid #00491a;position:relative;overflow:visible !important;}
+.select-menu .menu-list{height:.50rem;white-space:nowrap;}
+.select-menu .menu-list a{width:auto;height:.49rem;line-height:.48rem;padding:0 .2rem;color:#0dff64;font-size:.14rem;float:left;white-space:nowrap;}
+.select-menu .menu-list a.select{color:#fdcf5c;border-bottom:2px solid #fdcf5c;}
+.select-menu .menu-list a:active{color:#0dff64;}
+.select-menu .menu-list a.select:active{color:#fdcf5c;}
+.arena-cont{padding-bottom:80px;background:#086626;min-height:100%;box-sizing:content-box;}
+.arena-cont .pullUp{margin-top:.4rem;}
+.arena-menu{height:.34rem;line-height:.34rem;background:#202020;border:0;border-bottom:1px solid #000000;}
+.arena-menu .menu-list{height:.34rem;line-height:.34rem;}
+.arena-menu .menu-list a{height:.33rem;line-height:.34rem;font-size:.14rem;color:#0bfa62;}
+.arena-menu .menu-list a.select{color:#0bfa62;border-bottom:1px solid #01b841;}
+.arenabox{width:100%;height:auto;padding:0 .1rem;}
+.arenalist{width:100%;height:auto;margin-top:.2rem;position:relative;}
+.arenalist .arenalist-top{width:100%;height:.3rem;overflow:hidden;position:relative;padding-right:.2rem;}
+.arenalist .arenalist-top .fa-angle-right{position:absolute;right:0;top:2px;font-size:24px;}
+.arenalist .arenalist-top p{width:49%;height:.3rem;line-height:.3rem;float:left;font-size:.12rem;color:#43c76d;overflow:hidden;}
+.arenalist .arenalist-top p i{width:20px;height:21px;float:left;background:url(../images/arena-icon.png) no-repeat;margin:5px 3px auto auto;background-size:100% auto;}
+.arenalist .arenalist-top p .arena-icon-vs{background-position:0 0;}
+.arenalist .arenalist-top p .arena-icon-rq{background-position:0 -21px;}
+.arenalist .arenalist-top p .arena-icon-z{background-position:0 -42px;}
+.arenalist .arenalist-top p .arena-icon-k{background-position:0 -64px;}
+.arenalist .arenalist-top p .arena-icon-hp{background-position:0 -85px;}
+.arenalist .arenalist-top p .arena-icon-start{background-position:0 -107px;}
+.arenalist .arenalist-top p .arena-icon-all{background-position:0 -129px;}
+.arenalist .arenalist-top p .arena-icon-bf{background-position:0 -151px;}
+.arenalist .arenalist-top p .arena-icon-zh{background-position:0 -173px;}
+.arenalist .arenalist-top p .arena-icon-ds{background-position:0 -216px;}
+.arenalist .arenalist-top p .arena-icon-db{background-position:0 -194px;}
+.arenalist .arenalist-top p .arena-icon-else{background-position:0 -238px;}
+.arenalist .arenalist-top p span{color:#0dff64;}
+.arenalist .arenalist-top p .privacy-icon{width:.18rem;height:18px;display:inline-block;background:url(../images/privacy-icon.png) no-repeat 0 4px;margin-left:.05rem;background-size:85% auto;vertical-align:middle;}
+.arenalist .arenalist-top p .fa-key{font-size:13px;margin-left:.06rem;}
+.arenalist .arenalist-top p .privacy-friends-cion{background-position: 0 -17px;}
+.arenalist .arenalist-top .right-about{width:51%;height:.3rem;float:right;font-size:.12rem;line-height:.3rem;text-align:right;}
+.arenalist .arenalist-top .right-about img{width:.3rem;height:.3rem;border:2px solid #00c746;display:inline-block;border-radius:999px;vertical-align: middle;}
+.arenalist .arenalist-top .right-about span {display:inline-block;margin-left:.05rem;}
+.arenalist .arenalist-top .right-about span em{color:#f5e0a7;font-size:.14rem;}
+.arenalist .arenalist-top .right-about span i {width: 16px;    height: 18px;    display: inline-block;    background: url(../images/terrace.png) no-repeat 0 -30px; vertical-align: middle;  margin-right: .05rem;	background-size:100% auto;margin-bottom: .04rem;}
+.arenalist-bom{width:100%;height:auto;box-shadow:2px 0px 6px 0px rgba(0,0,0,.6);}
+.arenalist-bom .match-about{width:100%;height:.22rem;line-height:.22rem;font-size:.14rem;text-align:center;background:#01b841;color:#003c15;}
+.arenalist-bom .match-about .slidebox{width:70%;float:left;height:100%;}
+.arenalist-bom p span{float:right;margin-right:.05rem;}
+.arenalist-bom ul{width:100%;height:.36rem;border-top:1px solid #0dff64;border-right:1px solid #0dff64;box-sizing:border-box;background:#01501d;}
+.arenalist-bom ul:first-of-type{box-shadow:0 -1px 6px 0px rgba(0,0,0,.7);}
+.arenalist-bom ul:last-child{border-bottom:1px solid #0dff64;}
+.arenalist-bom li{font-size:.12rem;text-align:center;border-left:1px solid #0dff64;line-height:.36rem;position:relative;z-index:9;text-shadow:0 3px 3px rgba(0,0,0,.8);}
+.arenalist-bom li.betting-disabled{background:#017c2c;}
+.arenalist-bom li em{color:#fff;margin-left:.03rem;}
+.arenalist-bom .flex-box-comb li{padding:0 .2rem 0 .47rem;}
+.arenalist-bom .flex-box-comb li em{color:#fff;position:absolute;right:6px;top:0;}
+.arenalist-bom .flex-box-comb li span{position:absolute;top:7px;left:5px;}
+.chipin-gold{bottom:-78px;}
+.chipin .down-btn{width:.52rem;height:.2rem;position:absolute;top:-20px;left:50%;margin-left:-26px;background:#8d0101;border-bottom:0;border-top-left-radius:.08rem;border-top-right-radius:.08rem;text-align:center;line-height:.24rem;}
+.chipin .down-btn i{width:10px;color:#c1c3c2;height:10px;display:inline-block;font-size:.16rem;line-height:10px;transform: rotate(180deg);-webkit-transition: all 0.3s ease-in-out 0s;transition: all 0.3s ease-in-out 0s;}
+@keyframes glow {
+  0% {border:.02rem solid #b5cd17;border-right:0;-webkit-box-shadow: 0 0 5px #b5cd17, inset 0 0 5px #b5cd17, 0 2px 0 #ddfc0d;}	
+  100% {border:.02rem solid #ddfc0d;border-right:0;-webkit-box-shadow: 0 0 30px #ddfc0d, inset 0 0 10px #ddfc0d, 0 2px 0 #ddfc0d; }
+}
+@-webkit-keyframes glow {
+  0% {border:.02rem solid #b5cd17;border-right:0;-webkit-box-shadow: 0 0 5px #b5cd17, inset 0 0 5px #b5cd17, 0 2px 0 #ddfc0d;}	
+  100% {border:.02rem solid #ddfc0d;border-right:0;-webkit-box-shadow: 0 0 30px #ddfc0d, inset 0 0 10px #ddfc0d, 0 2px 0 #ddfc0d; }
+}
+@keyframes glow-b{
+  0% {border:.01rem solid #b5cd17;border-bottom:0;-webkit-box-shadow: 0 0 2px #b5cd17, inset 0 0 3px #b5cd17, 0 1px 0 #ddfc0d;}	
+  100% {border:.01rem solid #ddfc0d;border-bottom:0;-webkit-box-shadow: 0 0 10px #ddfc0d, inset 0 0 5px #ddfc0d, 0 1px 0 #ddfc0d; }
+}
+@-webkit-keyframes glow-b{
+  0% {border:.01rem solid #b5cd17;border-bottom:0;-webkit-box-shadow: 0 0 2px #b5cd17, inset 0 0 3px #b5cd17, 0 1px 0 #ddfc0d;}	
+  100% {border:.01rem solid #ddfc0d;border-bottom:0;-webkit-box-shadow: 0 0 10px #ddfc0d, inset 0 0 5px #ddfc0d, 0 1px 0 #ddfc0d; }
+}
+
+.showimg{width:0px;height:0px;position:fixed;right:180px;opacity:.5; z-index: 99;animation:showimg .8s linear 1 forwards;transform-origin:50% 100px;transition: all 0.3s ease-in-out 0s;}
+.showimg i{width:100%;height:100%;position:absolute;top:0;left:0;background:url(../images/light.png) no-repeat;background-size:100%;animation:xuanz 4s linear infinite; }
+.showimg .imgslide{width:45%;height:45%;position:absolute;top: 50px;left: 52px;animation:showimgb .5s linear forwards; }
+.showimg .imgslide span{width:110px;height:25px;display:block;background:url(../images/village-b.png) no-repeat;position:absolute;bottom:-4px;left:-10px;display:none;}
+.showimg .imgslide img{width:100%;height:100%;display:block;border:2px solid #00c746;border-radius:999px;box-sizing:border-box;}
+@keyframes showimg{
+   to{width:200px;height:200px;top:50%;margin-top:-150px;right:50%;margin-right:-100px;transform:rotate(.5turn);opacity:1;}
+}
+@-webkit-keyframes showimg{
+   to{width:200px;height:200px;top:50%;margin-top:-150px;right:50%;margin-right:-100px;transform:rotate(.5turn);opacity:1;}
+}
+@keyframes showimgb{
+   to{transform:rotate(.5turn);}
+}
+@-webkit-keyframes showimgb{
+   to{transform:rotate(.5turn);}
+}
+/* 比赛擂台 */
+.header-slide .header-bom{padding:0 .32rem;box-sizing:border-box;}
+.matchinfo {width:100%;height:100%;text-align:center;overflow:hidden;}
+.matchinfo h3{height:auto;float:left;color:#fff;font-weight:normal;position:relative;font-size:.14rem;text-align:right;}
+.matchinfo h3 .slidebox{width:98%;height:46px;float:right;}
+.matchinfo h3 i{width:.2rem;height:.2rem;color:#fff;line-height:.2rem;display:inline-block;text-align:center;font-size:.12rem;border-radius:.15rem;background:#c81010;font-weight:normal;;transform: scale(.8);}
+.matchinfo h3:last-child{padding:0;padding-right:.2rem;text-align:left;}
+.matchinfo h3:last-child i{margin-left:.05rem;left:auto;right:0;}
+.matchinfo span{width:auto;min-width:85px;height:.22rem;margin:0 .08rem;line-height:.22rem;float:left;padding:0 .08rem;font-size:.12rem;background:#7c0000;color:#fff;margin-top:12px;}
+.header .downlist{position:absolute;right:.1rem;top:0;text-align:center;background:none;}
+.header .downlist ul{width:1.2rem;height:auto;background:#1d1d1d;position:absolute;right:0px;top:.46rem;padding:.1rem;box-sizing:border-box;border-radius:10px;}
+.header .downlist ul li{width:100%;height:.34rem;line-height:.34rem;border-bottom:1px solid #2c2c2c;color:#fff;position:relative;}
+.header .downlist ul li i{float: left;margin-top: 10px;}
+.header .downlist ul li:last-child{border-bottom:0;}
+.header .downlist .fa-bars{color:#fff;font-size:.26rem;line-height:.46rem;}
+.header .downlist ul li select{width:100%;height:.34rem;z-index:9;}
+.match-arenabox .arenalist-bom{box-shadow:none;}
+.arenalist-bom li span{height:.22rem;line-height:.22rem;font-size:.12rem;background:#003b15;display:inline-block;padding:0 .1rem;border-radius:.06rem;transform: scale(0.9);}
+.arenalist-bom li b{font-weight:normal;margin:0 .03rem;}
+.main .arena-group .arenalist{background:url(../images/arena-group-bg.png) no-repeat 0 bottom;background-size:100% 8px;padding-bottom:8px;}
+.main .arena-group .down-more{width:.3rem;height:.4rem;float:right;position:relative;transform-origin:50% -10%;animation:down-more 1s linear infinite;}
+.main .down-more{display:none;}
+.main .arena-group .down-more{width:.3rem;height:.4rem;float:right;position:relative;transform-origin:50% -10%;animation:down-more 1s linear infinite;display:block;}
+.main .arena-group .down-more b{width:1px;height:8px;background:#0dff64;display:block;margin:0 auto;}
+.main .arena-group .down-more i{width:26px;height:26px;display:block;position:absolute;top:.05rem;border-radius:30px;border:1px solid #0df962;font-size:.12rem;text-align:center;line-height:.26rem;transform: scale(0.8);}
+.main .arena-group .right-about{position:relative;}
+.main .arena-group .right-about img{}
+@keyframes down-more{
+    0% {transform:rotateZ(0);}	
+	25% {transform:rotateZ(10deg);}
+    50% {transform:rotateZ(0deg);}
+	 75% {transform:rotateZ(-10deg);}
+	100% {transform:rotateZ(0deg);}
+}
+@-webkit-keyframes down-more{
+    0% {transform:rotateZ(0);}	
+	25% {transform:rotateZ(10deg);}
+    50% {transform:rotateZ(0deg);}
+	 75% {transform:rotateZ(-10deg);}
+	100% {transform:rotateZ(0deg);}
+}
+.title{line-height:.3rem;text-align:center;font-size:.16rem;}
+.sub_title{line-height:.3rem;font-size:.14rem;}
+.hamlet-popup {display:none;}
+.hamlet-popup  .popup-cont{background:#02501e;border-radius:.1rem;top:29%;}
+.hamlet-popup .hamlet-top{width:100%;height:auto;overflow:hidden;}
+.hamlet-popup .hamlet-top img{width:40px;height:40px;float:left;border-radius:999px;margin-right:.1rem;}
+.hamlet-popup .hamlet-top h3{font-size:.13rem;font-weight:normal;line-height:.4rem;color:#00fa73;margin:0;}
+.hamlet-popup .hamlet-btn a{width:48%;float:left;height:.3rem;border-radius:.06rem;background:#0d8136;text-align:center;line-height:.3rem;color:#fff;margin:.08rem auto;}
+.hamlet-popup .hamlet-btn a:last-child{margin-left:4%;}
+.hamlet-popup .popup-cont p{text-align:left;font-size:.12rem;color:#0b8c39;}
+.popup-tips .popup-cont{border-radius:.08rem;}
+.popup-tips .popup-cont p{font-size:.12rem;text-align:left;    color: #12e15c;}
+.dope{width:60%;height:auto;min-height:34px;padding:.03rem;position:fixed;left:20%;background:#006320;top:85%;text-align:center;opacity:0;}
+.dope p{width:100%;min-height:100%;border:1px solid #649566;line-height:30px;color:#f2dcb7;}
+.dope p span{font-size:16px;margin:0 .04rem;}
+.arenanews{background:#faeac9;height:.28rem;min-height:.28rem;padding:0;border-radius:.06rem;}
+.arenanews p{border:0;color:#997737;line-height:.28rem;}
+.agent-pop-up{position:fixed;width:100%;height:100%;top:0;left:0;z-index:20;display:none;}
+.agent-pop-up-bg{position:absolute;width:100%;height:100%;top:0;left:0;background:rgba(0,0,0,.6);}
+.agent-pop-up-cont{position:absolute;width:80%;height:100px;overflow:hidden;left:10%;z-index:101;background:#ebebeb;border-radius:.15rem .1rem;top:30%;padding:.1rem;position:relative;}
+.agent-pop-up-cont h3{font-size:.14rem;line-height:.28rem;font-weight:normal;color:#353535;}
+.agent-pop-up-cont .sign-input{width:100%;height:.48rem;position:relative;}
+.agent-pop-up-cont .sign-input input{width:100%;height:.28rem;padding:0 .1rem;box-sizing:border-box;}
+.agent-pop-up-cont .sign-input button{width:.46rem;height:.28rem;position:absolute;right:0;border:0;background:#4fbf7e;top:0;color:#fff;}
+.agent-pop-up-cont .sign-input p{font-size:.12rem;color:#666;line-height:.28rem;}
+.agent-pop-up-cont .fa-close{width:.2rem;height:.2rem;text-align:center;line-height:.2rem;color:#555;position:absolute;right:.05rem;top:.05rem;}
+#pullUp,#pullDown{color:#fff;}
+.popup .popup-cont .yqminput{width:94%;margin:0 auto;text-align:left;line-height:.3rem;margin-top:.1rem;}
+.popup .popup-cont .yqminput input{padding: 0px 0.1rem; width: 100%;  height: 0.32rem;box-sizing: border-box; border: 1px solid #239347; font-size: 0.16rem; color: #0DFF64;line-height: .32rem;background: #0B6F2F;}
+.popup .popup-cont .btnbox{text-align:center;margin:.2rem auto .1rem auto;}
+.popup .popup-cont .popup-btn{width:auto;height:.3rem;border:0;padding:0 .16rem;line-height:.3rem;background:#003e16;color:#0dff64;display:inline-block;border-radius:.06rem;}
+@keyframes dope{
+    0% {top:85%;opacity:0;}	
+	100% {top:75%;opacity:1;}
+}
+@-webkit-keyframes dope{
+    0% {top:85%;opacity:0;}	
+	100% {top:75%;opacity:1;}
+}
+@keyframes dopeout{
+    0% {top:75%;left:20%;opacity:1;}	
+	100% {top:65%;left:20%;opacity:0;}
+}
+@-webkit-keyframes dopeout{
+    0% {top:75%;left:20%;opacity:1;}	
+	100% {top:65%;left:20%;opacity:0;}
+}
+@media screen and (max-width:400px){
+.follow-table ul{font-size:.13rem;}
+.footer{height:.54rem;}
+.footer li:nth-child(3){flex:2.5;}
+.footer li span{font-size:.12rem;line-height:20px;height:.22rem;}
+.footer li:nth-child(1) i{ width:27px; height:24px;}
+.footer li:nth-child(1).active i{background-position: -152px 0;}
+.footer li:nth-child(2) i{ width:27px; height:26px;background-position: -43px 0;}
+.footer li:nth-child(2).active i{background-position:-206px 0;}
+/* .footer li:nth-child(4) i{ width:27px; height:26px;background-position: -80px 0;}
+.footer li:nth-child(4).active i{background-position:-241px 0;} */
+.footer li.okami i{ height: 29px;background-position:-355px 0;}
+.footer li.okami.active i{ height: 29px;background-position:-400px 0;}
+/* .footer li:nth-child(5) i{ width:26px; height:27px;background-position: -127px 0;}
+.footer li:nth-child(5).active i{ width:26px; height:27px;background-position:-292px 0;} */
+.footer li.odds i{ width:26px; height:27px;background-position: -417px 0;}
+.footer li.odds.active i{ width:26px; height:27px;background-position:-447px 0;} 
+
+}
+
+@media screen and (max-width:350px){
+.cathecticlist li img{width:45px;height:45px;}
+.follow-btn{font-size:.14rem;}
+.arenalv b{font-size:.12rem;}
+.applyfor .circlelist a{width:.5rem;height:.22rem;line-height:.22rem;font-size:.15rem;right:.65rem;}
+.userlist .userlist-r{max-width: 144px;}
+.userlist .userlist-r a{width:.68rem;padding:0;font-size:.13rem;height:.26rem;line-height:.26rem;}
+.about-guess{height:auto;}
+.about-guess span{width:50%;display:block;float:left;text-align:left;}
+.about-guess span:nth-child(2){text-align:right;}
+.about-guess span:nth-child(3){float:none;}
+.probability-box ul .result-rate span{font-size:.12rem;}
+.probability-box ul .btn{font-size:.13rem;padding:0 .12rem;}
+.bottom .empty,.bottom .refresh{font-size:.13rem;}
+.recently-record .recentlylist{font-size:.14rem;}
+}
+@media screen and (max-width:330px){
+.matchlist-cent p{font-size:.16rem;}
+.matchlist-cent p .m-time{margin-left:.05rem;}
+.put-list .putarmy .slidebox{width:42%;}
+.probability-box ul .btn{font-size:.12rem;padding:0 .1rem;}
+.bottom .refresh{margin-left:.05rem;}
+}
+@media screen and (min-width:400px){
+.put-list .putarmy .slidebox{width:44%;}
+.footer li:nth-child(3) img{ margin-top:.0rem;}
+}
+@media screen and (min-width:450px){
+.full-price-info .sum-input input{width:50%;}
+.bottom .empty,.bottom .refresh{padding:0 .13rem;}
+}
+@media screen and (min-width:760px){
+.footer li:nth-child(3) i{max-width:243px;left:50%;margin-left:-121px;top:-15px;}
+.footer li:nth-child(3) img{ margin-top:.0rem;}
+}
+@media screen and (max-height:500px){
+.left-menu .left-menu-info .checkbox{font-size:.14rem;margin-bottom:.06rem;}
+}

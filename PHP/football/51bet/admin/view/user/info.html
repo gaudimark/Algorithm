@@ -1,0 +1,129 @@
+<div class="panel">
+    <div class="panel-body" style="width: 900px;">
+        <div class="mb10">
+            <ul class="nav nav-tabs my-nav-tabs mb10" id="user-info-tab-{$user.id}" role="tablist">
+                <li role="presentation" class="active"><a role="tab" data-toggle="tab" href="#tab-basic-__formId__">基本信息</a></li>
+                <li role="presentation"><a role="tab" data-toggle="tab" href="#tab-goldinfo-__formId__">财富信息</a></li>
+                <li role="presentation"><a role="tab" data-toggle="tab" href="#tab-log-__formId__">记录信息</a></li>
+            </ul>
+        </div>
+        <div class="tab-content form-horizontal form-table" style="width: 90%;margin: 0 auto">
+            <div role="tabpanel" class="tab-pane active" id="tab-basic-__formId__">
+                <div class="form-group">
+                    <label class="col-md-2 control-label">用户编号(ID)</label>
+                    <div class="col-md-10 control-label text-left">
+                        {$user.cpid}（{$user.id}）
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">用户昵称</label>
+                    <div class="input-group col-md-4">
+
+                        <span class="col-md-7 control-label text-left">{$user.nickname}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">IMEI</label>
+                    <div class="col-md-4 control-label text-left">{$user.imei}</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">UUID</label>
+                    <div class="col-md-8 control-label text-left">{$user.uuid}</div>
+                </div>
+                <div class="panel-heading panel-default" style="margin:15px -30px 5px -30px;"><h5>登录信息</h5></div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">登录次数</label>
+                    <div class="col-md-4 control-label text-left">{$user.login_total} 次</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">最后登录</label>
+                    <div class="col-md-8 control-label text-left">{:date("Y-m-d H:i:s",$user.last_login_time)}&nbsp;&nbsp;{$user.last_login_ip}&nbsp;&nbsp;{:getLocationByIp($user.last_login_ip)}</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">注册时间</label>
+                    <div class="col-md-4 control-label text-left">{:date("Y-m-d H:i:s",$user.reg_time)}</div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="tab-goldinfo-__formId__">
+                <div class="form-group">
+                    <label class="col-md-2 control-label">用户</label>
+                    <div class="col-md-10 control-label text-left">
+                        {$user.nickname}({$user.id})
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">帐户金币</label>
+                    <div class="col-md-10 control-label text-left">
+                        {:numberFormat($user.gold,2,true)}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">总投注次数</label>
+                    <div class="col-md-10 control-label text-left">
+                        {$user.deposit_total}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">总中奖次数</label>
+                    <div class="col-md-10 control-label text-left">
+                        {$user.win_total}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">总中奖率</label>
+                    <div class="col-md-10 control-label text-left">
+                        {if $user.deposit_total>0}{:round($user.win_total/$user.deposit_total*100,2)}%{else}0{/if}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">开房收益</label>
+                    <div class="col-md-10 control-label text-left">
+                        {:numberFormat($user.arena_money,2,true)}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">投注中奖金额</label>
+                    <div class="col-md-10 control-label text-left">
+                        {:numberFormat($user.win_money,2,true)}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">近七天战绩</label>
+                    <div class="col-md-10 control-label text-left">
+                        {$user.top_bonus.total ?? '0'}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">最多连红</label>
+                    <div class="col-md-10 control-label text-left">
+                        {$user.most_win ?? '0'}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">盈利率</label>
+                    <div class="col-md-10 control-label text-left">
+                        {$user.profit}%
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="tab-log-__formId__">
+                <div class="panel-heading panel-default mb10" style="margin:15px -30px 5px -30px;"><h5>基本信息记录</h5></div>
+                {if checkPermit('User','login_log')}
+                <a href="{:url('user/login_log',['id' => $user.id])}" title="登录记录" class="btn btn-primary btn-xs j-dialog-handle">登录记录</a>
+                {/if}
+                {if checkPermit('User','opt_log')}
+                <a href="{:url('user/opt_log',['id' => $user.id])}" title="操作记录" class="btn btn-primary btn-xs j-dialog-handle">操作记录</a>
+                {/if}
+
+                <div class="panel-heading panel-default mb10" style="margin:15px -30px 5px -30px;"><h5>财富记录</h5></div>
+                {if checkPermit('User','userArenaBet')}
+                <a href="{:url('user/userArenaBet',['id'=>$user.id])}" class="btn btn-primary btn-xs j-dialog-handle" title="投注记录">投注记录</a>
+                {/if}
+                {if checkPermit('User','userArenaBet')}
+                <a href="{:url('user/memberlog')}?user_type=2&username={$user.id}" target="_blank" class="btn btn-primary btn-xs">资金流水</a>
+                {/if}
+
+            </div>
+        </div>
+    </div>
+</div>

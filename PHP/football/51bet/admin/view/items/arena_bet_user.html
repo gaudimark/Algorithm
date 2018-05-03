@@ -1,0 +1,129 @@
+<div class="panel">
+    <div class="panel-body" style="width: 900px">
+        <div class="mb10">
+            投注总额：<span class="number text-danger">{:number_format($arena.bet_money,2)}</span>&nbsp;&nbsp;
+            {if $arena.classify eq ARENA_CLASSIFY_CREDIT}
+            收回本金：<span class="number text-danger">{:number_format($arena.ret_credit_gold,2)}</span>&nbsp;&nbsp;
+            房主最终收益：<span class="number text-danger">{:number_format($arena.win,2)}</span>
+            {else}
+            {if $arena.status == ARENA_STATEMENT_END}
+            实际支付奖金：<span class="number text-danger">{:number_format($arena.win_target.win,2)}</span>&nbsp;&nbsp;
+            房主最终收益：<span class="number text-danger">{:number_format($arena.win,2)}</span>
+            {else}
+            房主可能收益：<span class="number text-danger" id="stat-max-win">{:number_format($arena.bet_money-$maxBonus,2)}</span>
+            {/if}
+            {/if}
+        </div>
+        <div class="mb10">
+            <form class="form-inline" method="get" action="{:url($controller.'arena_bet_user')}" >
+                <input type="hidden" name="id" value="{$arena_id}">
+                <div class="input-group">
+                    <span class="input-group-addon">用户昵称</span>
+                    <input type="text" class="form-control" name="nickname" style="width: 120px;" id="nickname" value="{$nickname ?? ""}">
+                    <span class="input-group-addon">投注时间</span>
+                    <input type="text" class="form-control" name="btime" id="btime" data-toggle="datetime" data-timepicker="true" data-end-date="#etime" name="match" value="{$btime ?? ""}">
+                    <span class="input-group-addon">至</span>
+                    <input type="text" class="form-control" name="etime" id="etime" data-toggle="datetime" data-timepicker="true" data-start-date="#btime" name="mark" value="{$etime ?? ""}">
+                </div>
+                <button class="btn btn-primary btn-sm" type="button" id="bet-search">搜索</button>
+            </form>
+        </div>
+        <div id="bet-list-content" class="table-responsive clear">
+            <table class="table table-hover table-bordered table-condensed table-head">
+                <thead>
+                <tr>
+                    <th>用户昵称</th>
+                    <th>投注内容</th>
+                    <th>投注金额</th>
+                    <th>赔率</th>
+                    <th>盘口/预设总分</th>
+                    <th>可能收益</th>
+                    {if $arena['status'] eq ARENA_STATEMENT_END}
+                    <th class="text-danger">结算</th>
+                    <th class="text-danger">佣金</th>
+                    <th class="text-danger">状态</th>
+                    {/if}
+                    <th>投注时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                <tr>
+                    <td>{:getUser($vo.user_id,'nickname')}</td>
+                    <td>{$odds[$vo['target'].$vo['item']]['name']}
+                        {if $odds[$vo['target'].$vo['item']]['target_name'] && !is_numeric($odds[$vo['target'].$vo['item']]['target_name'])}
+                        &nbsp;{$odds[$vo['target'].$vo['item']]['target_name']}
+                        {/if}
+                    </td>
+                    <td class="number">{:numberformat($vo.money,2,true)}</td>
+                    <td class="number">{$vo.odds}</td>
+                    <td class="number">
+                        {if in_array($arena.rules_type,[RULES_TYPE_ASIAN])}{$vo['handicap']}
+                        {elseif in_array($arena.rules_type,[RULES_TYPE_OU,RULES_TYPE_KILL_NUM])}{$vo['under']}{/if}
+                    </td>
+                    <td class="number">
+                        {if $arena.classify eq ARENA_CLASSIFY_CREDIT}
+                        {:number_format(forWin($vo.money,$vo.odds,$rules_type,$vo.brok,$arena.game_type)['win_total'] - $vo.money,2)}
+                        {else}
+                        {:number_format(forWin($vo.money,$vo.odds,$rules_type,$vo.brok,$arena.game_type)['win_total'],2)}
+                        {/if}
+                    </td>
+                    {if $arena['status'] eq ARENA_STATEMENT_END}
+                    {if $vo.status eq DEPOSIT_LOST_HALF}
+                        <td class="number text-info">
+                            {$vo.money / 2}
+                        </td>
+                        <td class="number text-muted">-</td>
+                    {else}
+                        <td class="number text-danger">
+                            {if $arena.classify eq ARENA_CLASSIFY_CREDIT && $vo.win_money > 0}
+                            {:number_format($vo.win_money-$vo.money,2)}
+                            {else}
+                            {:number_format($vo.win_money,2)}
+                            {/if}
+                        </td>
+                        <td class="number text-danger">{$vo.fee}</td>
+                    {/if}
+
+                    <td>
+                        {if in_array($arena.status,[ARENA_START,ARENA_PLAY,ARENA_END,ARENA_STATEMENT_END])}
+                        {:betStatus($vo.status,true,$vo.win_money)}
+                        {else}
+                        {:arenaStatusToWord($arena.status,true,$arena.play.play_time,$arena.play.status)}
+                        {/if}
+                    </td>
+                    {/if}
+                    <td>{:date("Y-m-d H:i:s",$vo.create_time)}</td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <center id="page-ajax-content" data-toggle="#bet-list-content">{$list->render()}</center>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#bet-search").click(function () {
+            Ajax.post("{:url($controller.'/arena_bet_user')}",{
+                'id' : {$arena_id},
+                'nickname' : $("#nickname").val(),
+                'btime' : $("#btime").val(),
+                'etime' : $("#etime").val(),
+            },function (ret) {
+                ret = extractContainer(ret,'#bet-list-content');
+                $("#bet-list-content").html(ret.html());
+            });
+        });
+        $(document).on('click',"#page-ajax-content a",function () {
+            var self = $(this);
+            var target = $("#bet-list-content");
+            var url = self.attr("href");
+            Ajax.get(url,{'ajax':1},function (ret) {
+                ret = extractContainer(ret,'#bet-list-content');
+                $("#bet-list-content").html(ret.html());
+            });
+            return false;
+        });
+    });
+</script>

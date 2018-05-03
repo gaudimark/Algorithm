@@ -1,0 +1,21 @@
+<div class="kf-reply {if $vo.manager_id}kf-reply-right{else}kf-reply-left{/if}">
+    <h5>
+        {if $vo.manager_id}
+            {if !isset($manager[$vo.manager_id])}
+                客服（{$vo.manager_id}）
+        {else}
+
+            {if $manager[$vo.manager_id]['nickname']}{$manager[$vo.manager_id]['nickname']}{else}{$manager[$vo.manager_id]['username']}{/if}
+        {/if}
+        {else}
+        {$user.nickname}
+        {/if}
+        <span class="text-muted">{:date("Y-m-d H:i:s",$vo.create_time)}</span>
+        {if checkPermit('customer','reply_del')}
+        <a class="btn btn-xs btn-danger delete-reply" href="{:url('agent.customer/reply_del',['id' => $vo.id,])}">删除</a>
+        {/if}
+    </h5>
+    <div class="question-content clear">
+        {$vo.content}
+    </div>
+</div>

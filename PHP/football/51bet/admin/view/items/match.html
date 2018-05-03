@@ -1,0 +1,83 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="mb10">
+            <div style="display: inline-block">
+                {if checkPermit($controller,'match_add')}
+                <a href="{:url($controller.'/match_add')}" class="btn btn-sm btn-success j-dialog-handle" title="添加赛事"><i class="fa fa-plus"></i> 添加赛事</a>
+                {/if}
+            </div>
+            <div style="display: inline-block">
+                <form class="form-inline" method="get">
+                    <div class="input-group">
+                        <span class="input-group-addon">赛事名称</span>
+                        <input type="text" class="form-control" name="name" value="{$name ?? ""}">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">热门</span>
+                        <select class="form-control"  id="is_hot" name="is_hot">
+                            <option value="">全部</option>
+                            <option value="1" {if $is_hot == 1}selected{/if}>是</option>
+                            <option value="2" {if $is_hot == 2}selected{/if}>否</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">推荐</span>
+                        <select class="form-control"  id="is_recommend" name="is_recommend">
+                            <option value="">全部</option>
+                            <option value="1" {if $is_recommend == 1}selected{/if}>是</option>
+                            <option value="2" {if $is_recommend == 2}selected{/if}>否</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">显示</span>
+                        <select class="form-control"  id="is_show" name="is_show">
+                            <option value="">全部</option>
+                            <option value="1" {if $is_show == 1}selected{/if}>是</option>
+                            <option value="2" {if $is_show == 2}selected{/if}>否</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary btn-sm">搜索</button>
+                </form>
+            </div>
+        </div>
+        <div class="table-responsive clear">
+            <table class="table table-hover table-bordered table-head">
+                <thead>
+                    <tr>
+                        <th width="80">ID</th>
+                        <th>赛事名称</th>
+                        <th>赛事别名</th>
+                        <th width="200">图标名称</th>
+                        <!--<th width="100">logo_hover</th>-->
+                        <th width="200">国家/区域</th>
+                        <th width="100">热门</th>
+                        <th width="100">推荐</th>
+                        <th width="100">显示</th>
+                        <th width="100">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {volist name="list" id="vo"}
+                    <tr>
+                        <td>{$vo.id}</td>
+                        <td>{$vo.name}</td>
+                        <td>{$vo.alias}</td>
+                        <td>{$vo.logo}</td>
+                        <!--<td>{$vo.logo_hover}</td>-->
+                        <td>{$vo.country_name}</td>
+                        <td>{if $vo.is_hot eq 0}否{else}<span style="color:red;">是</span>{/if}</td>
+                        <td>{if $vo.is_recommend eq 0}否{else}<span style="color:red;">是</span>{/if}</td>
+                        <td>{if $vo.is_show eq 0}否{else}<span style="color:red;">是</span>{/if}</td>
+                        <td>
+                            {if checkPermit($controller,'match_add')}
+                            <a href="{:url($controller.'/match_add',['id'=>$vo.id])}" class="btn btn-xs btn-primary j-dialog-handle" title="编辑">编辑</a>
+                            {/if}
+                        </td>
+                    </tr>
+                    {/volist}
+                </tbody>
+            </table>
+            <center>{$list->render()}</center>
+        </div>
+    </div>
+</div>

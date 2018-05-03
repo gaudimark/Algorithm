@@ -1,0 +1,31 @@
+<div class="panel">
+    <div class="panel-body" style="width: 800px;">
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url($controller."/play_live")}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+        <input type="hidden" name="play_id" value="{$play.id ?? 0}">
+        <div class="form-group">
+            <label class="col-md-3 control-label">直播类型</label>
+            <div class="col-md-5">
+                <select class="form-control" name="live_type" id="live_type">
+                    <option value="{$Think.const.PLAY_LIVE_VIDEO}" {if $play.live_type eq PLAY_LIVE_VIDEO}selected{/if}>视频直播</option>
+                    <option value="{$Think.const.PLAY_LIVE_TEXT}" {if $play.live_type eq PLAY_LIVE_TEXT}selected{/if}>文字直播</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">直播URL地址</label>
+            <div class="col-md-7">
+                <input type="text" class="form-control" name="live" id="live" value="{$play.live ?? ""}">
+                <div class="help-block">支持斗鱼直播</div>
+            </div>
+        </div>
+
+
+        <div class="form-group dialog-handle">
+            <label class="col-md-3 control-label">&nbsp;</label>
+            <div class="col-md-8">
+                <button type="submit" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>

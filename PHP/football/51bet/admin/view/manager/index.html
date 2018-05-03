@@ -1,0 +1,45 @@
+<div class="panel">
+    <div class="panel-body">
+        {if checkPermit('Manager','add')}
+        <div class="mb10 clearfix">
+            <a href="{:url('Manager/add')}" class="btn btn-success btn-sm j-dialog-handle" title="添加管理员"><i class="fa fa-plus"></i> 添加管理员</a>
+        </div>
+        {/if}
+        <div class="table-responsive clear">
+            <table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th width="100">ID</th>
+                    <th width="200">角色</th>
+                    <th width="200">用户名</th>
+                    <th>昵称</th>
+                    <th width="100">状态</th>
+                    <th width="200">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach $list as $vo}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{if $vo.role_id == -1}系统管理员{else}{$roleList[$vo.role_id]['name']}{/if}</td>
+                    <td>{$vo.username}</td>
+                    <td>{$vo.nickname}</td>
+                    <td>{if $vo.status eq STATUS_ENABLED}正常{else}禁用{/if}</td>
+                    <td>
+                        {if $vo.role_id gt 0}
+                            {if checkPermit('Manager','add')}
+                            <a class="btn btn-xs btn-primary j-dialog-handle" href="{:url('Manager/add',['id' => $vo.id])}" title="修改管理员">修改</a>
+                            {/if}
+                            {if checkPermit('Manager','del')}
+                            <a class="ajax-delete btn btn-xs btn-danger" href="{:url('Manager/del',['id' => $vo.id])}">删除</a>
+                            {/if}
+                        {/if}
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+            <center>{$list->render()}</center>
+        </div>
+    </div>
+</div>

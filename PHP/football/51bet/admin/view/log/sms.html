@@ -1,0 +1,25 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="table-responsive clear">
+            <table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th>发送日期</th>
+                    <th>接收</th>
+                    <th>发送内容</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach $list as $vo}
+                <tr>
+                    <td>{:date("Y-m-d H:i:s",$vo.create_time)}</td>
+                    <td>{:hideStr($vo.target,3)}</td>
+                    <td>{$vo.content}</td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+            <center>{$list->render()}</center>
+        </div>
+    </div>
+</div>

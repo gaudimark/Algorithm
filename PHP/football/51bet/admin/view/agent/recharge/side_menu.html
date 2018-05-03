@@ -1,0 +1,7 @@
+<div class="mb10">
+    <ul class="nav nav-tabs my-nav-tabs mb10" >
+        <li {if in_array(request()->action(),['index'])}class="active"{/if}><a href="{:url('agent.recharge/index')}" data-target="pjax">代理管理</a></li>
+        <li {if in_array(request()->action(),['logs'])}class="active"{/if}><a href="{:url('agent.recharge/logs')}" data-target="pjax">代理账户日志</a></li>
+        <li {if in_array(request()->action(),['withdrawal_log'])}class="active"{/if}><a href="{:url('agent.recharge/withdrawal_log')}" data-target="pjax">代理兑换订单</a></li>
+    </ul>
+</div>

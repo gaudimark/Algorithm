@@ -1,0 +1,1778 @@
+think\exception\ErrorException::__set_state(array(
+   'severity' => 8,
+   'data' => 
+  array (
+    'Error Context' => 
+    array (
+      'data' => 
+      array (
+        'id' => 65,
+        'has_sys' => 0,
+        'arena_id' => 80,
+        'user_id' => 6,
+        'agent_id' => 0,
+        'agent_sign' => NULL,
+        'agent_remark' => NULL,
+        'target' => 'home',
+        'item' => '',
+        'odds' => '1',
+        'handicap' => '0',
+        'under' => '0',
+        'over' => '0',
+        'money' => 500,
+        'win_money' => 0,
+        'brok' => 0.01,
+        'fee' => NULL,
+        'buy' => 0,
+        'buy_count' => 0,
+        'buy_total' => 0,
+        'status' => 3,
+        'follow_user_id' => 0,
+        'follow_bet_id' => 0,
+        'win_time' => 0,
+        'create_time' => 1524631268,
+      ),
+      'user' => 
+      array (
+        'id' => 6,
+        'has_robot' => 0,
+        'has_online' => 1,
+        'has_bind' => 1,
+        'has_homeowner' => 0,
+        'imei' => 'Fkenf234232934',
+        'uuid' => 'pad_uv7d3fhs574tdes4ba73a207232e5798',
+        'cpid' => '891023020',
+        'mobile' => '13912623142',
+        'username' => NULL,
+        'nickname' => 'ceshi009',
+        'avatar' => NULL,
+        'gold' => 10000,
+        'nouseaccount' => 0,
+        'reg_time' => 1524384997,
+        'reg_ip' => '127.0.0.1',
+        'reg_platform' => 0,
+        'last_login_time' => 1524633585,
+        'login_total' => 54,
+        'last_login_ip' => '27.98.199.36',
+        'location' => 'shanghai',
+        'sex' => 1,
+        'deposit_money' => 9100,
+        'deposit_total' => 19,
+        'arena_money' => 0,
+        'win_money' => 8514,
+        'win_total' => 17,
+        'fans_num' => 0,
+        'most_win' => 0,
+        'bet_view_total' => 0,
+        'follow_win' => 0,
+        'profit' => 0,
+        'status' => 1,
+        'sys_message_total' => 0,
+        'remarks' => NULL,
+        'device' => NULL,
+        'create_time' => 1524384997,
+        'update_time' => 1524384997,
+        'money' => 500,
+      ),
+      'logContent' => '安达赫治U19 VS 拜仁慕尼黑U19',
+      'capital' => 500,
+      'message' => '投注单（安达赫治U19 VS 拜仁慕尼黑U19）,平局',
+    ),
+  ),
+   'message' => 'Undefined index: money',
+   'string' => '',
+   'code' => 0,
+   'file' => '/opt/wwwroot/football/library/service/statement/Basic.php',
+   'line' => 372,
+   'trace' => 
+  array (
+    0 => 
+    array (
+      'file' => '/opt/wwwroot/football/library/service/statement/Basic.php',
+      'line' => 372,
+      'function' => 'appError',
+      'class' => 'think\\Error',
+      'type' => '::',
+      'args' => 
+      array (
+        0 => 8,
+        1 => 'Undefined index: money',
+        2 => '/opt/wwwroot/football/library/service/statement/Basic.php',
+        3 => 372,
+        4 => 
+        array (
+          'data' => 
+          array (
+            'id' => 65,
+            'has_sys' => 0,
+            'arena_id' => 80,
+            'user_id' => 6,
+            'agent_id' => 0,
+            'agent_sign' => NULL,
+            'agent_remark' => NULL,
+            'target' => 'home',
+            'item' => '',
+            'odds' => '1',
+            'handicap' => '0',
+            'under' => '0',
+            'over' => '0',
+            'money' => 500,
+            'win_money' => 0,
+            'brok' => 0.01,
+            'fee' => NULL,
+            'buy' => 0,
+            'buy_count' => 0,
+            'buy_total' => 0,
+            'status' => 3,
+            'follow_user_id' => 0,
+            'follow_bet_id' => 0,
+            'win_time' => 0,
+            'create_time' => 1524631268,
+          ),
+          'user' => 
+          array (
+            'id' => 6,
+            'has_robot' => 0,
+            'has_online' => 1,
+            'has_bind' => 1,
+            'has_homeowner' => 0,
+            'imei' => 'Fkenf234232934',
+            'uuid' => 'pad_uv7d3fhs574tdes4ba73a207232e5798',
+            'cpid' => '891023020',
+            'mobile' => '13912623142',
+            'username' => NULL,
+            'nickname' => 'ceshi009',
+            'avatar' => NULL,
+            'gold' => 10000,
+            'nouseaccount' => 0,
+            'reg_time' => 1524384997,
+            'reg_ip' => '127.0.0.1',
+            'reg_platform' => 0,
+            'last_login_time' => 1524633585,
+            'login_total' => 54,
+            'last_login_ip' => '27.98.199.36',
+            'location' => 'shanghai',
+            'sex' => 1,
+            'deposit_money' => 9100,
+            'deposit_total' => 19,
+            'arena_money' => 0,
+            'win_money' => 8514,
+            'win_total' => 17,
+            'fans_num' => 0,
+            'most_win' => 0,
+            'bet_view_total' => 0,
+            'follow_win' => 0,
+            'profit' => 0,
+            'status' => 1,
+            'sys_message_total' => 0,
+            'remarks' => NULL,
+            'device' => NULL,
+            'create_time' => 1524384997,
+            'update_time' => 1524384997,
+            'money' => 500,
+          ),
+          'logContent' => '安达赫治U19 VS 拜仁慕尼黑U19',
+          'capital' => 500,
+          'message' => '投注单（安达赫治U19 VS 拜仁慕尼黑U19）,平局',
+        ),
+      ),
+    ),
+    1 => 
+    array (
+      'file' => '/opt/wwwroot/football/library/service/statement/Football.php',
+      'line' => 172,
+      'function' => 'same',
+      'class' => 'library\\service\\statement\\Basic',
+      'type' => '->',
+      'args' => 
+      array (
+        0 => 
+        array (
+          'id' => 65,
+          'has_sys' => 0,
+          'arena_id' => 80,
+          'user_id' => 6,
+          'agent_id' => 0,
+          'agent_sign' => NULL,
+          'agent_remark' => NULL,
+          'target' => 'home',
+          'item' => '',
+          'odds' => '1',
+          'handicap' => '0',
+          'under' => '0',
+          'over' => '0',
+          'money' => 500,
+          'win_money' => 0,
+          'brok' => 0.01,
+          'fee' => NULL,
+          'buy' => 0,
+          'buy_count' => 0,
+          'buy_total' => 0,
+          'status' => 3,
+          'follow_user_id' => 0,
+          'follow_bet_id' => 0,
+          'win_time' => 0,
+          'create_time' => 1524631268,
+        ),
+        1 => 
+        array (
+          'id' => 6,
+          'has_robot' => 0,
+          'has_online' => 1,
+          'has_bind' => 1,
+          'has_homeowner' => 0,
+          'imei' => 'Fkenf234232934',
+          'uuid' => 'pad_uv7d3fhs574tdes4ba73a207232e5798',
+          'cpid' => '891023020',
+          'mobile' => '13912623142',
+          'username' => NULL,
+          'nickname' => 'ceshi009',
+          'avatar' => NULL,
+          'gold' => 10000,
+          'nouseaccount' => 0,
+          'reg_time' => 1524384997,
+          'reg_ip' => '127.0.0.1',
+          'reg_platform' => 0,
+          'last_login_time' => 1524633585,
+          'login_total' => 54,
+          'last_login_ip' => '27.98.199.36',
+          'location' => 'shanghai',
+          'sex' => 1,
+          'deposit_money' => 9100,
+          'deposit_total' => 19,
+          'arena_money' => 0,
+          'win_money' => 8514,
+          'win_total' => 17,
+          'fans_num' => 0,
+          'most_win' => 0,
+          'bet_view_total' => 0,
+          'follow_win' => 0,
+          'profit' => 0,
+          'status' => 1,
+          'sys_message_total' => 0,
+          'remarks' => NULL,
+          'device' => NULL,
+          'create_time' => 1524384997,
+          'update_time' => 1524384997,
+        ),
+      ),
+    ),
+    2 => 
+    array (
+      'file' => '/opt/wwwroot/football/library/service/statement/Football.php',
+      'line' => 66,
+      'function' => '_asian',
+      'class' => 'library\\service\\statement\\Football',
+      'type' => '->',
+      'args' => 
+      array (
+      ),
+    ),
+    3 => 
+    array (
+      'file' => '/opt/wwwroot/football/library/service/Statement.php',
+      'line' => 72,
+      'function' => 'run',
+      'class' => 'library\\service\\statement\\Football',
+      'type' => '->',
+      'args' => 
+      array (
+      ),
+    ),
+    4 => 
+    array (
+      'file' => '/opt/wwwroot/football/51bet/console/controller/Statement.php',
+      'line' => 68,
+      'function' => 'play',
+      'class' => 'library\\service\\Statement',
+      'type' => '->',
+      'args' => 
+      array (
+        0 => 88583,
+      ),
+    ),
+    5 => 
+    array (
+      'function' => 'football',
+      'class' => 'app\\console\\controller\\Statement',
+      'type' => '->',
+      'args' => 
+      array (
+      ),
+    ),
+    6 => 
+    array (
+      'file' => '/opt/wwwroot/football/thinkphp/library/think/App.php',
+      'line' => 224,
+      'function' => 'invokeArgs',
+      'class' => 'ReflectionMethod',
+      'type' => '->',
+      'args' => 
+      array (
+        0 => 
+        app\console\controller\Statement::__set_state(array(
+           'mainDataBase' => 'football',
+           'mainDataTablePrefix' => 'lt_',
+           'odds_company' => 
+          array (
+            1 => 
+            array (
+              'id' => 22,
+              'name' => '澳门',
+              'has_asia' => 1,
+              'has_europe' => 1,
+              'zc_id' => 1,
+            ),
+            3 => 
+            array (
+              'id' => 2,
+              'name' => 'ＳＢ/皇冠',
+              'has_asia' => 1,
+              'has_europe' => 1,
+              'zc_id' => 3,
+            ),
+            4 => 
+            array (
+              'id' => 14,
+              'name' => '立博',
+              'has_asia' => 0,
+              'has_europe' => 1,
+              'zc_id' => 4,
+            ),
+            7 => 
+            array (
+              'id' => 17,
+              'name' => 'SNAI',
+              'has_asia' => 0,
+              'has_europe' => 1,
+              'zc_id' => 7,
+            ),
+            8 => 
+            array (
+              'id' => 3,
+              'name' => 'Bet365',
+              'has_asia' => 1,
+              'has_europe' => 1,
+              'zc_id' => 8,
+            ),
+            12 => 
+            array (
+              'id' => 4,
+              'name' => '易胜博',
+              'has_asia' => 1,
+              'has_europe' => 1,
+              'zc_id' => 12,
+            ),
+            14 => 
+            array (
+              'id' => 5,
+              'name' => '韦德',
+              'has_asia' => 1,
+              'has_europe' => 0,
+              'zc_id' => 14,
+            ),
+            22 => 
+            array (
+              'id' => 7,
+              'name' => '10bet',
+              'has_asia' => 1,
+              'has_europe' => 1,
+              'zc_id' => 22,
+            ),
+            23 => 
+            array (
+              'id' => 8,
+              'name' => '金宝博',
+              'has_asia' => 1,
+              'has_europe' => 1,
+              'zc_id' => 23,
+            ),
+            24 => 
+            array (
+              'id' => 9,
+              'name' => '12bet/沙巴',
+              'has_asia' => 1,
+              'has_europe' => 0,
+              'zc_id' => 24,
+            ),
+            31 => 
+            array (
+              'id' => 10,
+              'name' => '利记',
+              'has_asia' => 1,
+              'has_europe' => 1,
+              'zc_id' => 31,
+            ),
+            35 => 
+            array (
+              'id' => 11,
+              'name' => '盈禾',
+              'has_asia' => 1,
+              'has_europe' => 0,
+              'zc_id' => 35,
+            ),
+            42 => 
+            array (
+              'id' => 12,
+              'name' => '18bet',
+              'has_asia' => 1,
+              'has_europe' => 1,
+              'zc_id' => 42,
+            ),
+          ),
+        )),
+        1 => 
+        array (
+        ),
+      ),
+    ),
+    7 => 
+    array (
+      'file' => '/opt/wwwroot/football/thinkphp/library/think/App.php',
+      'line' => 389,
+      'function' => 'invokeMethod',
+      'class' => 'think\\App',
+      'type' => '::',
+      'args' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          app\console\controller\Statement::__set_state(array(
+             'mainDataBase' => 'football',
+             'mainDataTablePrefix' => 'lt_',
+             'odds_company' => 
+            array (
+              1 => 
+              array (
+                'id' => 22,
+                'name' => '澳门',
+                'has_asia' => 1,
+                'has_europe' => 1,
+                'zc_id' => 1,
+              ),
+              3 => 
+              array (
+                'id' => 2,
+                'name' => 'ＳＢ/皇冠',
+                'has_asia' => 1,
+                'has_europe' => 1,
+                'zc_id' => 3,
+              ),
+              4 => 
+              array (
+                'id' => 14,
+                'name' => '立博',
+                'has_asia' => 0,
+                'has_europe' => 1,
+                'zc_id' => 4,
+              ),
+              7 => 
+              array (
+                'id' => 17,
+                'name' => 'SNAI',
+                'has_asia' => 0,
+                'has_europe' => 1,
+                'zc_id' => 7,
+              ),
+              8 => 
+              array (
+                'id' => 3,
+                'name' => 'Bet365',
+                'has_asia' => 1,
+                'has_europe' => 1,
+                'zc_id' => 8,
+              ),
+              12 => 
+              array (
+                'id' => 4,
+                'name' => '易胜博',
+                'has_asia' => 1,
+                'has_europe' => 1,
+                'zc_id' => 12,
+              ),
+              14 => 
+              array (
+                'id' => 5,
+                'name' => '韦德',
+                'has_asia' => 1,
+                'has_europe' => 0,
+                'zc_id' => 14,
+              ),
+              22 => 
+              array (
+                'id' => 7,
+                'name' => '10bet',
+                'has_asia' => 1,
+                'has_europe' => 1,
+                'zc_id' => 22,
+              ),
+              23 => 
+              array (
+                'id' => 8,
+                'name' => '金宝博',
+                'has_asia' => 1,
+                'has_europe' => 1,
+                'zc_id' => 23,
+              ),
+              24 => 
+              array (
+                'id' => 9,
+                'name' => '12bet/沙巴',
+                'has_asia' => 1,
+                'has_europe' => 0,
+                'zc_id' => 24,
+              ),
+              31 => 
+              array (
+                'id' => 10,
+                'name' => '利记',
+                'has_asia' => 1,
+                'has_europe' => 1,
+                'zc_id' => 31,
+              ),
+              35 => 
+              array (
+                'id' => 11,
+                'name' => '盈禾',
+                'has_asia' => 1,
+                'has_europe' => 0,
+                'zc_id' => 35,
+              ),
+              42 => 
+              array (
+                'id' => 12,
+                'name' => '18bet',
+                'has_asia' => 1,
+                'has_europe' => 1,
+                'zc_id' => 42,
+              ),
+            ),
+          )),
+          1 => 'football',
+        ),
+        1 => 
+        array (
+        ),
+      ),
+    ),
+    8 => 
+    array (
+      'file' => '/opt/wwwroot/football/thinkphp/library/think/App.php',
+      'line' => 130,
+      'function' => 'module',
+      'class' => 'think\\App',
+      'type' => '::',
+      'args' => 
+      array (
+        0 => 
+        array (
+          0 => 'console',
+          1 => 'statement',
+          2 => 'football',
+        ),
+        1 => 
+        array (
+          'app_namespace' => 'app',
+          'app_debug' => true,
+          'app_trace' => false,
+          'app_status' => '',
+          'app_multi_module' => true,
+          'auto_bind_module' => false,
+          'root_namespace' => 
+          array (
+            'org' => '/opt/wwwroot/football/extend/org/',
+            'library' => '/opt/wwwroot/football/library/',
+          ),
+          'extra_file_list' => 
+          array (
+            0 => '/opt/wwwroot/football/library/common.php',
+            1 => '/opt/wwwroot/football/thinkphp/helper.php',
+          ),
+          'default_return_type' => 'html',
+          'default_ajax_return' => 'json',
+          'default_jsonp_handler' => 'jsonp',
+          'var_jsonp_handler' => 'callback',
+          'default_timezone' => 'PRC',
+          'lang_switch_on' => true,
+          'default_filter' => 'htmlspecialchars,safeFilter',
+          'default_lang' => 'zh-cn',
+          'class_suffix' => false,
+          'controller_suffix' => false,
+          'default_module' => 'index',
+          'deny_module_list' => 
+          array (
+            0 => 'common',
+            1 => 'runtime',
+            2 => 'admin',
+            3 => 'library',
+            4 => 'console',
+          ),
+          'default_controller' => 'Index',
+          'default_action' => 'index',
+          'default_validate' => '',
+          'empty_controller' => 'Error',
+          'use_action_prefix' => false,
+          'action_suffix' => '',
+          'controller_auto_search' => false,
+          'var_pathinfo' => 's',
+          'pathinfo_fetch' => 
+          array (
+            0 => 'ORIG_PATH_INFO',
+            1 => 'REDIRECT_PATH_INFO',
+            2 => 'REDIRECT_URL',
+          ),
+          'pathinfo_depr' => '/',
+          'url_html_suffix' => 'html',
+          'url_common_param' => false,
+          'url_param_type' => 0,
+          'url_route_on' => true,
+          'route_config_file' => 
+          array (
+            0 => 'route',
+          ),
+          'route_complete_match' => false,
+          'url_route_must' => false,
+          'url_domain_deploy' => true,
+          'url_domain_root' => '',
+          'url_convert' => true,
+          'url_controller_layer' => 'controller',
+          'var_method' => '_method',
+          'var_ajax' => 'ajax',
+          'var_pjax' => 'pjax',
+          'request_cache' => false,
+          'request_cache_expire' => NULL,
+          'request_cache_except' => 
+          array (
+          ),
+          'template' => 
+          array (
+            'type' => 'Think',
+            'view_base' => '',
+            'view_path' => '',
+            'view_suffix' => 'html',
+            'view_depr' => '/',
+            'tpl_begin' => '{',
+            'tpl_end' => '}',
+            'taglib_begin' => '{',
+            'taglib_end' => '}',
+          ),
+          'view_replace_str' => 
+          array (
+            '__formId__' => 'form_5ae01afc0a247',
+            '__domain__' => 'http://ftb.tmttg.com/',
+            '__res__' => 'http://ftb.tmttg.com/assets/',
+            '__attach__' => 'http://ftb.tmttg.com/assets/',
+          ),
+          'dispatch_success_tmpl' => '/opt/wwwroot/football/thinkphp/tpl/dispatch_jump.tpl',
+          'dispatch_error_tmpl' => '/opt/wwwroot/football/thinkphp/tpl/dispatch_jump.tpl',
+          'exception_tmpl' => '/opt/wwwroot/football/thinkphp/tpl/think_exception.tpl',
+          'error_message' => '页面错误！请稍后再试～',
+          'show_error_msg' => true,
+          'exception_handle' => '',
+          'log' => 
+          array (
+            'type' => 'file',
+          ),
+          'trace' => 
+          array (
+            'type' => 'Html',
+          ),
+          'cache' => 
+          array (
+            'type' => 'redis',
+            'host' => '127.0.0.1',
+            'port' => 6379,
+            'password' => 'football2018666',
+            'timeout' => 0,
+            'expire' => 0,
+            'persistent' => false,
+            'prefix' => '_tablet_',
+          ),
+          'session' => 
+          array (
+            'prefix' => 'qUm_tablet',
+            'auto_start' => true,
+          ),
+          'cookie' => 
+          array (
+            'prefix' => 'tablet_',
+          ),
+          'database' => 
+          array (
+            'type' => 'mysql',
+            'dsn' => '',
+            'hostname' => '216.118.235.60',
+            'database' => 'football',
+            'username' => 'football',
+            'password' => 'football123',
+            'hostport' => '3306',
+            'params' => 
+            array (
+            ),
+            'charset' => 'utf8',
+            'prefix' => 'lt_',
+            'debug' => true,
+            'deploy' => 0,
+            'rw_separate' => false,
+            'master_num' => 1,
+            'slave_no' => '',
+            'fields_strict' => true,
+            'resultset_type' => 'array',
+            'auto_timestamp' => 'true',
+            'datetime_format' => false,
+            'sql_explain' => false,
+            'cache' => false,
+            'break_reconnect' => true,
+          ),
+          'paginate' => 
+          array (
+            'type' => 'bootstrap',
+            'var_page' => 'page',
+            'list_rows' => 15,
+          ),
+          'base_url' => '',
+          'http_exception_template' => 
+          array (
+            404 => '/opt/wwwroot/football/public_51bet/../51bet/library/view/mobile_404.html',
+            401 => '/opt/wwwroot/football/public_51bet/../51bet/library/view/mobile_404.html',
+            500 => '/opt/wwwroot/football/public_51bet/../51bet/library/view/mobile_404.html',
+          ),
+          'api_51bet_com' => 
+          array (
+            'app_id' => '',
+            'secret' => '',
+          ),
+          'datetime_format' => false,
+          'site_domain' => 'http://ftb.tmttg.com/',
+          'site_source_domain' => 'http://ftb.tmttg.com/assets/',
+          'assets_path' => '/opt/wwwroot/football/public_51bet/assets',
+          'captcha' => 
+          array (
+            'codeSet' => '0123456789',
+            'length' => 4,
+            'fontttf' => '4.ttf',
+            'fontSize' => 14,
+          ),
+          'send_email_code_expire' => 1800,
+          'think_hook_call' => false,
+          'socket' => 
+          array (
+            'register_address' => '192.168.188.172:1236',
+            'web_socket_address' => '192.168.188.172:8282',
+            'log_file' => '/var/log/tablet/socket.log',
+          ),
+          'sms_handle' => 'yunpian',
+          'handicap' => 
+          array (
+            0 => 
+            array (
+              0 => '平手',
+              1 => '0',
+            ),
+            '0.25' => 
+            array (
+              0 => '平手/半球',
+              1 => '0/0.5',
+            ),
+            '0.5' => 
+            array (
+              0 => '半球',
+              1 => 0.5,
+            ),
+            '0.75' => 
+            array (
+              0 => '半球/一球',
+              1 => '0.5/1',
+            ),
+            1 => 
+            array (
+              0 => '一球',
+              1 => '1',
+            ),
+            '1.25' => 
+            array (
+              0 => '一球/球半',
+              1 => '1/1.5',
+            ),
+            '1.5' => 
+            array (
+              0 => '球半',
+              1 => '1.5',
+            ),
+            '1.75' => 
+            array (
+              0 => '球半/两球',
+              1 => '1.5/2',
+            ),
+            2 => 
+            array (
+              0 => '两球',
+              1 => '2',
+            ),
+            '2.25' => 
+            array (
+              0 => '两球/两球半',
+              1 => '2/2.5',
+            ),
+            '2.5' => 
+            array (
+              0 => '两球半',
+              1 => '2.5',
+            ),
+            '2.75' => 
+            array (
+              0 => '两球半/三球',
+              1 => '2.5/3',
+            ),
+            3 => 
+            array (
+              0 => '三球',
+              1 => '3',
+            ),
+            '3.25' => 
+            array (
+              0 => '三球/三球半',
+              1 => '3/3.5',
+            ),
+            '3.5' => 
+            array (
+              0 => '三球半',
+              1 => '3.5',
+            ),
+            '3.75' => 
+            array (
+              0 => '三球半/四球',
+              1 => '3.5/4',
+            ),
+            4 => 
+            array (
+              0 => '四球',
+              1 => '4',
+            ),
+            '4.25' => 
+            array (
+              0 => '四球/四球半',
+              1 => '4/4.5',
+            ),
+            '4.5' => 
+            array (
+              0 => '四球半',
+              1 => '4.5',
+            ),
+            '4.75' => 
+            array (
+              0 => '四球半/五球',
+              1 => '4.5/5',
+            ),
+            5 => 
+            array (
+              0 => '五球',
+              1 => '5',
+            ),
+            '5.25' => 
+            array (
+              0 => '五球/五球半',
+              1 => '5/5.5',
+            ),
+            '5.5' => 
+            array (
+              0 => '五球半',
+              1 => '5.5',
+            ),
+            '5.75' => 
+            array (
+              0 => '五球半/六球',
+              1 => '5.5/6',
+            ),
+            6 => 
+            array (
+              0 => '六球',
+              1 => '6',
+            ),
+            '6.25' => 
+            array (
+              0 => '六球/六球半',
+              1 => '6/6.5',
+            ),
+            '6.5' => 
+            array (
+              0 => '六球半',
+              1 => '6.5',
+            ),
+            '6.75' => 
+            array (
+              0 => '六球半/七球',
+              1 => '6.5/7',
+            ),
+            7 => 
+            array (
+              0 => '七球',
+              1 => '7',
+            ),
+            '7.25' => 
+            array (
+              0 => '七球/七球半',
+              1 => '7/7.5',
+            ),
+            '7.5' => 
+            array (
+              0 => '七球半',
+              1 => '7.5',
+            ),
+            '7.75' => 
+            array (
+              0 => '七球半/八球',
+              1 => '7.5/8',
+            ),
+            8 => 
+            array (
+              0 => '八球',
+              1 => '8',
+            ),
+            '8.25' => 
+            array (
+              0 => '八球/八球半',
+              1 => '8/8.5',
+            ),
+            '8.5' => 
+            array (
+              0 => '八球半',
+              1 => '8.5',
+            ),
+            '8.75' => 
+            array (
+              0 => '八球半/九球',
+              1 => '8.5/9',
+            ),
+            9 => 
+            array (
+              0 => '九球',
+              1 => '9',
+            ),
+            '9.25' => 
+            array (
+              0 => '九球/九球半',
+              1 => '9/9.5',
+            ),
+            '9.5' => 
+            array (
+              0 => '九球半',
+              1 => '9.5',
+            ),
+            '9.75' => 
+            array (
+              0 => '九球半/十球',
+              1 => '9.5/10',
+            ),
+            10 => 
+            array (
+              0 => '十球',
+              1 => '10',
+            ),
+            '10.25' => 
+            array (
+              0 => '十球/十球半',
+              1 => '10/10.5',
+            ),
+            '10.5' => 
+            array (
+              0 => '十球半',
+              1 => '10.5',
+            ),
+            '10.75' => 
+            array (
+              0 => '十球半/十一球',
+              1 => '10.5/11',
+            ),
+            11 => 
+            array (
+              0 => '十一球',
+              1 => '11',
+            ),
+          ),
+          'items' => 
+          array (
+            1 => 
+            array (
+              'id' => 1,
+              'mark' => 'football',
+              'name' => '足球',
+            ),
+          ),
+          'mark' => 
+          array (
+            'test' => '12345',
+            'system' => '10000',
+            'token' => '10001',
+            'token_expire' => '10002',
+            'not_login' => '10003',
+            'srv_time' => '10004',
+            'csrf' => '10005',
+            'alert' => '10006',
+            'unverified' => '10007',
+            'captcha_rule_call' => '10008',
+            'word_captcha' => '11001',
+            'user' => 
+            array (
+              'login' => 20000,
+              'register' => 20001,
+              'visitor' => 20002,
+              'rand_nickname' => 20003,
+              'send_bind_mail' => 20004,
+              'bind_mail' => 20005,
+              'modify_pwd' => 20006,
+              'forgot_pwd' => 20007,
+              'forgot_pwd_code' => 20008,
+              'reset_pwd' => 20009,
+              'logout' => 29998,
+              'qlogin' => 29999,
+              'info_show' => 20010,
+              'my_add_friend' => 20011,
+              'my_un_friend' => 20012,
+              'my_add_follow' => 20013,
+              'my_un_follow' => 20014,
+              'info_record' => 20015,
+              'my_friend' => 20016,
+              'my_apply_friend_total' => 20017,
+              'info_search' => 20022,
+              'my_follow' => 20018,
+              'my_bet' => 20019,
+              'my_bet_detail' => 20020,
+              'my_modify_bet_price' => 20021,
+              'my_apply_friend_list' => 20023,
+              'my_apply_friend' => 20024,
+              'my_message' => 20025,
+              'my_check_in' => 20026,
+              'my_sys_task' => '20027',
+              'my_avatar' => '20028',
+              'my_buy_bet' => '20029',
+              'my_homeowner' => '20030',
+              'my_un_homeowner' => '20031',
+              'my_gift_alms' => '20032',
+              'my_info' => '20033',
+              'my_new_user_reward' => '20034',
+              'my_withdraw' => '20035',
+              'my_message_del' => '20036',
+              'my_promoter' => '20037',
+              'my_receive_brokerage' => '20038',
+              'send_sms' => '20050',
+              'reg_mobile' => '20051',
+              'reg_mobile_save' => '20052',
+              'forget_pwd_mobile_send' => '20053',
+              'forget_pwd_mobile_reset' => '20054',
+              'my_re_mobile_check' => '20056',
+              'my_re_mobile_save' => '20057',
+              'my_mobile_send_not_exist' => '20058',
+              'my_mobile_send_code_exist' => '20059',
+              'info_game_vote' => 20060,
+              'my_log_funds' => 20100,
+              'arena_lists' => 20200,
+              'arena_detail' => 20201,
+              'arena_publish_get' => 20202,
+              'arena_odds_list' => 20203,
+              'arena_publish_save' => 20204,
+              'arena_bet_list' => 20205,
+              'arena_modify_odds' => 20206,
+              'arena_append_deposit' => 20207,
+              'arena_seal' => 20208,
+              'arena_unseal' => 20209,
+              'arena_conf' => 20210,
+              'arena_auth_user_list' => 20211,
+              'arena_auth_user_add' => 20212,
+              'arena_auth_user_info' => 20213,
+              'arena_recommend' => 20215,
+              'arena_auth_user_cancel' => 20216,
+              'agent_user' => 20300,
+              'agent_add_user' => 20301,
+              'agent_user_detail' => 20302,
+              'agent_arena_lists' => 20303,
+              'agent_modify_rate' => 20304,
+              'agent_add_arena' => 20305,
+              'agent_rm_arena' => 20306,
+              'agent_unsettlement' => 20307,
+              'agent_log' => 20308,
+              'agent_agent_arena_lists' => 20309,
+              'win_log' => 20310,
+              'bank_password' => '20500',
+              'bank_login' => '20501',
+              'bank_inc' => '20502',
+              'bank_dec' => '20503',
+              'bank_modify_pwd' => '20504',
+              'bank_log' => '20505',
+              'bank_send_sms' => '20506',
+              'bank_forget_modify_pwd' => '20507',
+              'withdrawal_info' => '21000',
+              'withdrawal_bind' => '21001',
+              'withdrawal_send' => '21002',
+              'recharge_conf' => '22000',
+              'recharge_pay' => '22001',
+              'recharge_apple' => '22002',
+              'active_lists' => '22100',
+              'active_one' => '22101',
+            ),
+            'play' => 
+            array (
+              'lists' => '30001',
+              'rule' => '30002',
+              'info' => '30003',
+              'arena' => '30004',
+              'all' => '30005',
+              'lists2' => '30006',
+              'team_play_list' => '30007',
+              'odds' => '30008',
+            ),
+            'arena' => 
+            array (
+              'lists' => '40001',
+              'info' => '40002',
+              'chk_invite' => '40003',
+              'bet' => '40004',
+              'buy_bet' => '40005',
+              'recommend' => '40006',
+              'odds' => '40007',
+              'status' => '40008',
+              'check_credit' => '40009',
+            ),
+            'agent' => 
+            array (
+              'login' => '50000',
+              'logout' => '50001',
+              'modify_pwd' => '50002',
+              'my_arena' => '50003',
+              'my_bet_user' => '50004',
+              'arena_lists' => '50005',
+              'check_mark' => '50100',
+            ),
+            'common' => 
+            array (
+              'item' => '90000',
+              'rules' => '90001',
+              'game' => '90002',
+              'match' => '90003',
+              'chips' => '90004',
+              'match_play' => '90005',
+              'sys_task' => '90006',
+              'default_avatar' => '90007',
+              'notice' => '90008',
+              'handicap' => '90009',
+              'win_top' => '90010',
+              'god_top' => '90011',
+              'award' => '90012',
+              'play_hot' => '90013',
+              'forum_list' => '90014',
+              'first_charge' => '90015',
+              'bank' => '90016',
+              'lost' => '90017',
+              'get_word_captcha' => '90018',
+              'check_word_captcha' => '90019',
+              'sport_layout' => '90020',
+              'send_user_sms' => '90021',
+              'check_user_sms' => '90022',
+              'ask_captcha' => '90023',
+              'check_ask_captcha' => '90024',
+              'rand_captcha' => '90025',
+              'customer_ask' => 90100,
+              'customer_lists' => 90101,
+              'customer_faq' => 90102,
+              'customer_agent_ask' => 90110,
+              'customer_agent_lists' => 90111,
+              'server_list' => '90200',
+            ),
+            'pad' => 
+            array (
+              'recharge' => '92000',
+              'query' => '92001',
+              'force' => '92002',
+              'callbackpoints' => '92003',
+            ),
+            'search' => 
+            array (
+              'q' => '91000',
+            ),
+            'push' => 
+            array (
+              'bind_uid' => '93000',
+              'bind_group' => '93001',
+              'send_group' => '93002',
+            ),
+            'socket' => 
+            array (
+              'to_pong' => '92000',
+              'to_connect' => '92001',
+              'to_send_uid' => '92002',
+              'to_send_group' => '92003',
+              'to_send_all' => '92004',
+              'to_send_customer' => '92010',
+              'to_send_message' => '92011',
+              'to_send_friend' => '92012',
+              'to_send_gold_change' => '92013',
+              'to_send_gold_update' => '92014',
+              'to_send_agent_customer' => '92015',
+              'ditch_tg_recharge_total' => '98000',
+              'to_off' => '92999',
+              'to_all_notice' => '99997',
+              'to_stop' => '99998',
+              'alert' => '99999',
+            ),
+          ),
+          'proxy' => 
+          array (
+            'proxy' => 
+            array (
+              'ip' => '216.118.235.60',
+              'port' => '3128',
+            ),
+          ),
+          'refresh' => 
+          array (
+            'system' => '系统配置',
+            'rules' => '房间玩法',
+            'odds_company' => '赔率公司',
+            'layout' => '首页模块',
+            'match' => '赛事',
+            'level' => '会员等级配置',
+            'agent' => '代理用户',
+            'team' => '球队/队伍',
+            'user' => '会员/用户',
+          ),
+          'rules' => 
+          array (
+            1 => 
+            array (
+              'list' => 
+              array (
+                1 => 
+                array (
+                  'home' => '主胜',
+                  'handicap' => '让球',
+                  'guest' => '客胜',
+                ),
+                2 => 
+                array (
+                  'home' => '主胜',
+                  'same' => '平局',
+                  'guest' => '客胜',
+                ),
+                14 => 
+                array (
+                  'home' => '大',
+                  'under' => '界值',
+                  'guest' => '小',
+                ),
+                10 => 
+                array (
+                  'bd_1_0' => 
+                  array (
+                    0 => '1:0',
+                    1 => 1,
+                    2 => 0,
+                  ),
+                  'bd_2_0' => 
+                  array (
+                    0 => '2:0',
+                    1 => 2,
+                    2 => 0,
+                  ),
+                  'bd_2_1' => 
+                  array (
+                    0 => '2:1',
+                    1 => 2,
+                    2 => 1,
+                  ),
+                  'bd_3_0' => 
+                  array (
+                    0 => '3:0',
+                    1 => 3,
+                    2 => 0,
+                  ),
+                  'bd_3_1' => 
+                  array (
+                    0 => '3:1',
+                    1 => 3,
+                    2 => 1,
+                  ),
+                  'bd_3_2' => 
+                  array (
+                    0 => '3:2',
+                    1 => 3,
+                    2 => 2,
+                  ),
+                  'bd_4_0' => 
+                  array (
+                    0 => '4:0',
+                    1 => 4,
+                    2 => 0,
+                  ),
+                  'bd_4_1' => 
+                  array (
+                    0 => '4:1',
+                    1 => 4,
+                    2 => 1,
+                  ),
+                  'bd_4_2' => 
+                  array (
+                    0 => '4:2',
+                    1 => 4,
+                    2 => 2,
+                  ),
+                  'bd_4_3' => 
+                  array (
+                    0 => '4:3',
+                    1 => 4,
+                    2 => 3,
+                  ),
+                  'bd_0_0' => 
+                  array (
+                    0 => '0:0',
+                    1 => 0,
+                    2 => 0,
+                  ),
+                  'bd_1_1' => 
+                  array (
+                    0 => '1:1',
+                    1 => 1,
+                    2 => 1,
+                  ),
+                  'bd_2_2' => 
+                  array (
+                    0 => '2:2',
+                    1 => 2,
+                    2 => 2,
+                  ),
+                  'bd_3_3' => 
+                  array (
+                    0 => '3:3',
+                    1 => 3,
+                    2 => 3,
+                  ),
+                  'bd_4_4' => 
+                  array (
+                    0 => '4:4',
+                    1 => 4,
+                    2 => 4,
+                  ),
+                  'other' => 
+                  array (
+                    0 => '其它',
+                  ),
+                ),
+                11 => 
+                array (
+                  'bd_1' => 
+                  array (
+                    0 => '1:0,2:0,3:0',
+                    1 => 
+                    array (
+                      0 => 
+                      array (
+                        0 => 1,
+                        1 => 0,
+                      ),
+                      1 => 
+                      array (
+                        0 => 2,
+                        1 => 0,
+                      ),
+                      2 => 
+                      array (
+                        0 => 3,
+                        1 => 0,
+                      ),
+                    ),
+                  ),
+                  'bd_2' => 
+                  array (
+                    0 => '2:1,3:1,4:0',
+                    1 => 
+                    array (
+                      0 => 
+                      array (
+                        0 => 2,
+                        1 => 1,
+                      ),
+                      1 => 
+                      array (
+                        0 => 3,
+                        1 => 1,
+                      ),
+                      2 => 
+                      array (
+                        0 => 4,
+                        1 => 0,
+                      ),
+                    ),
+                  ),
+                  'bd_3' => 
+                  array (
+                    0 => '3:2,4:1,4:2',
+                    1 => 
+                    array (
+                      0 => 
+                      array (
+                        0 => 3,
+                        1 => 2,
+                      ),
+                      1 => 
+                      array (
+                        0 => 4,
+                        1 => 1,
+                      ),
+                      2 => 
+                      array (
+                        0 => 4,
+                        1 => 2,
+                      ),
+                    ),
+                  ),
+                ),
+                3 => 
+                array (
+                  'home_0' => 
+                  array (
+                    0 => '0球',
+                    1 => 0,
+                    2 => 0,
+                  ),
+                  'home_1' => 
+                  array (
+                    0 => '1球',
+                    1 => 1,
+                    2 => 1,
+                  ),
+                  'home_2' => 
+                  array (
+                    0 => '2球',
+                    1 => 2,
+                    2 => 2,
+                  ),
+                  'home_3' => 
+                  array (
+                    0 => '3球',
+                    1 => 3,
+                    2 => 3,
+                  ),
+                  'home_4' => 
+                  array (
+                    0 => '4球',
+                    1 => 4,
+                    2 => 4,
+                  ),
+                  'home_5' => 
+                  array (
+                    0 => '5球及以上',
+                    1 => 5,
+                    2 => 99,
+                  ),
+                ),
+                4 => 
+                array (
+                  'guest_0' => 
+                  array (
+                    0 => '0球',
+                    1 => 0,
+                    2 => 0,
+                  ),
+                  'guest_1' => 
+                  array (
+                    0 => '1球',
+                    1 => 1,
+                    2 => 1,
+                  ),
+                  'guest_2' => 
+                  array (
+                    0 => '2球',
+                    1 => 2,
+                    2 => 2,
+                  ),
+                  'guest_3' => 
+                  array (
+                    0 => '3球',
+                    1 => 3,
+                    2 => 3,
+                  ),
+                  'guest_4' => 
+                  array (
+                    0 => '4球',
+                    1 => 4,
+                    2 => 4,
+                  ),
+                  'guest_5' => 
+                  array (
+                    0 => '5球及以上',
+                    1 => 5,
+                    2 => 99,
+                  ),
+                ),
+                5 => 
+                array (
+                  'score_1_0' => 
+                  array (
+                    0 => '1:0',
+                    1 => 1,
+                    2 => 0,
+                  ),
+                  'score_2_0' => 
+                  array (
+                    0 => '2:0',
+                    1 => 2,
+                    2 => 0,
+                  ),
+                  'score_3_0' => 
+                  array (
+                    0 => '3:0',
+                    1 => 3,
+                    2 => 0,
+                  ),
+                  'score_3_1' => 
+                  array (
+                    0 => '3:1',
+                    1 => 3,
+                    2 => 1,
+                  ),
+                  'score_3_2' => 
+                  array (
+                    0 => '3:2',
+                    1 => 3,
+                    2 => 2,
+                  ),
+                  'score_4_0' => 
+                  array (
+                    0 => '4:0',
+                    1 => 4,
+                    2 => 0,
+                  ),
+                ),
+                6 => 
+                array (
+                  'half_score_1_0' => 
+                  array (
+                    0 => '1:0',
+                    1 => 1,
+                    2 => 0,
+                  ),
+                  'half_score_2_0' => 
+                  array (
+                    0 => '2:0',
+                    1 => 2,
+                    2 => 0,
+                  ),
+                  'half_score_3_0' => 
+                  array (
+                    0 => '1:1',
+                    1 => 1,
+                    2 => 1,
+                  ),
+                  'half_score_3_1' => 
+                  array (
+                    0 => '2:2',
+                    1 => 2,
+                    2 => 2,
+                  ),
+                ),
+                7 => 
+                array (
+                  'yellow_0' => 
+                  array (
+                    0 => '0张',
+                    1 => 0,
+                    2 => 0,
+                  ),
+                  'yellow_1' => 
+                  array (
+                    0 => '1张',
+                    1 => 1,
+                    2 => 1,
+                  ),
+                  'yellow_2' => 
+                  array (
+                    0 => '2张',
+                    1 => 2,
+                    2 => 2,
+                  ),
+                  'yellow_3' => 
+                  array (
+                    0 => '3张',
+                    1 => 3,
+                    2 => 3,
+                  ),
+                  'yellow_4' => 
+                  array (
+                    0 => '4张',
+                    1 => 4,
+                    2 => 4,
+                  ),
+                  'yellow_5' => 
+                  array (
+                    0 => '5张及以上',
+                    1 => 5,
+                    2 => 99,
+                  ),
+                ),
+                8 => 
+                array (
+                  'home' => '主队',
+                  'guest' => '客队',
+                  'zero' => '没有入球',
+                ),
+                9 => 
+                array (
+                  'all_goals_0_1' => 
+                  array (
+                    0 => '0至1球',
+                    1 => 0,
+                    2 => 1,
+                  ),
+                  'all_goals_2_3' => 
+                  array (
+                    0 => '2至3球',
+                    1 => 2,
+                    2 => 3,
+                  ),
+                  'all_goals_4_6' => 
+                  array (
+                    0 => '4至6球',
+                    1 => 4,
+                    2 => 6,
+                  ),
+                  'all_goals_7' => 
+                  array (
+                    0 => '7球及以上',
+                    1 => 7,
+                    2 => 99,
+                  ),
+                ),
+                12 => 
+                array (
+                  'sd_1' => '单数',
+                  'sd_2' => '双数',
+                ),
+                13 => 
+                array (
+                  'max_goals_1' => '上半场较多',
+                  'max_goals_2' => '上/下半场相同',
+                  'max_goals_3' => '下半场较多',
+                ),
+              ),
+              'com' => 
+              array (
+                0 => 10,
+                1 => 11,
+              ),
+            ),
+          ),
+          'domain_api' => 'http://api.football.test/',
+          'domain_res' => 'http://res.pad.com/',
+          'domain_socket' => 
+          array (
+            'server' => '192.168.188.172',
+            'port' => '8282',
+          ),
+          'system' => 
+          array (
+            'site_name' => '51betty',
+            'site_domain' => 'http://www.51bet.com/',
+            'site_source_domain' => 'http://res.51bet.com/',
+            'title' => '51bet',
+            'keywords' => '51bet,足球',
+            'description' => '',
+            'stat' => '',
+            'sys_gold' => '1000',
+            'sys_yuan' => '1',
+            'sys_brok' => '5',
+            'sys_rec_prefix' => 'REC',
+            'sys_min_deposit' => '10000',
+            'com' => NULL,
+            'deposit' => '1000',
+            'max_deposit' => NULL,
+            'target' => '1',
+            'auto_arena' => '{"com":{"asia":["22","2","3","4","5","7","8","9","10","11","12"],"europe":["22","2","3","4","7","8","10","12","13","14","15","16","17","18","19","20","21"]},"has_auto":1,"deposit":5000,"max_deposit":null,"target":1}',
+            'sys_maker_brok' => '10',
+            'sys_player_brok' => '1',
+            'sys_arena_auto_statement' => '1',
+            'sys_max_arena_open_time' => '5',
+            'sys_max_arena_unsettled' => '60',
+            'sys_chip' => '[10,50,100,500,1000]',
+            'arena_auto_statement' => '{"1":"1"}',
+            'sys_freeze_home' => '20000',
+            'territory' => '{"domain_api":"http:\\/\\/api.football.test","domain_socket":"192.168.188.172:8282","domain_res":"res.pad.com"}',
+            'user_reg_word_validate' => '0',
+            'outside' => '[]',
+            'filter_word_faq_on' => '0',
+            'sys_homeowner_on' => '1',
+            'sys_user_min_bet_money' => '10',
+            'sys_arena_min_deposit' => '{"1":"30000","99":"10000"}',
+            'sys_arena_min_bet_money' => '{"1":"20","99":"20"}',
+            'arena_android_limit' => '{"1":{"1":{"min":"20","max":"8000"},"2":{"min":"20","max":"12000"},"3":{"min":"20","max":"20000"}},"99":{"1":{"1":{"min":"20","max":"5000"},"2":{"min":"20","max":"10000"},"3":{"min":"20","max":"15000"}},"2":{"1":{"min":"20","max":"5000"},"2":{"min":"20","max":"10000"},"3":{"min":"20","max":"15000"}},"3":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"4":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"5":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"6":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"7":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"8":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"9":{"1":{"min":"20","max":"5000"},"2":{"min":"20","max":"10000"},"3":{"min":"20","max":"15000"}}}}',
+            'arena_android_gt_rand' => '{"1":{"1":{"min":"1","max":"10"},"2":{"min":"1","max":"10"},"3":{"min":"1","max":"10"}},"99":{"1":{"1":{"min":"1","max":"10"},"2":{"min":"1","max":"10"},"3":{"min":"1","max":"10"}},"2":{"1":{"min":"1","max":"10"},"2":{"min":"1","max":"10"},"3":{"min":"1","max":"10"}},"3":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"4":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"5":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"6":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"7":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"8":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"9":{"1":{"min":"1","max":"10"},"2":{"min":"1","max":"10"},"3":{"min":"1","max":"10"}}}}',
+            'arena_android_lt_rand' => '{"1":{"1":{"min":"1","max":"5"},"2":{"min":"1","max":"5"},"3":{"min":"1","max":"5"}},"99":{"1":{"1":{"min":"1","max":"5"},"2":{"min":"1","max":"5"},"3":{"min":"1","max":"5"}},"2":{"1":{"min":"1","max":"5"},"2":{"min":"1","max":"5"},"3":{"min":"1","max":"5"}},"3":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"4":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"5":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"6":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"7":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"8":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"9":{"1":{"min":"1","max":"5"},"2":{"min":"1","max":"5"},"3":{"min":"1","max":"5"}}}}',
+            'arena_android_bfb_rand' => '{"1":{"1":{"min":"90","max":"110"},"2":{"min":"90","max":"110"},"3":{"min":"90","max":"110"}},"99":{"1":{"1":{"min":"90","max":"110"},"2":{"min":"90","max":"110"},"3":{"min":"90","max":"110"}},"2":{"1":{"min":"90","max":"110"},"2":{"min":"90","max":"110"},"3":{"min":"90","max":"110"}},"3":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"4":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"5":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"6":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"7":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"8":{"1":{"min":"0","max":"0"},"2":{"min":"0","max":"0"},"3":{"min":"0","max":"0"}},"9":{"1":{"min":"90","max":"110"},"2":{"min":"90","max":"110"},"3":{"min":"90","max":"110"}}}}',
+            'arena_android_on' => '["1","99"]',
+            'validate_code_auto_fill' => '0',
+            'user_guid_reg_warn_num' => '3',
+            'app_online_update_url_lb' => 'http://h5.zdjhsm.com/table/index.html',
+            'auto_seal' => 'null',
+            'agent_settled_on' => '0',
+            'system_report_on' => '0',
+            'system_report_on_weixin_account' => '没鸡儿是我儿',
+            'system_report_on_weixin_name' => '没鸡儿是我儿',
+            'user_login_word_validate' => '0',
+            'user_reg_mobile_change' => '0',
+            'user_new_guide' => '0',
+            'upload_upyun_username' => '',
+            'upload_upyun_timeout' => '300',
+            'upload_upyun_server' => '',
+            'upload_upyun_password' => '',
+            'upload_upyun_domain' => '',
+            'upload_upyun_bucket' => '',
+            'upload_type' => 'local',
+            'upload_size' => '2048',
+            'upload_qiniu_timeout' => '300',
+            'upload_qiniu_secretkey' => '',
+            'upload_qiniu_domain' => '',
+            'upload_qiniu_bucket' => '',
+            'upload_qiniu_accesskey' => '',
+            'upload_local_level' => '5',
+            'upload_local_domain' => '/assets/attach/',
+            'upload_local_bucket' => 'assets/attach/',
+            'upload_ftp_username' => '',
+            'upload_ftp_timeout' => '300',
+            'upload_ftp_server' => '',
+            'upload_ftp_port' => '21',
+            'upload_ftp_password' => '',
+            'upload_ftp_level' => '1',
+            'upload_ftp_domain' => '',
+            'upload_ftp_bucket' => '/',
+            'upload_exts' => 'jpg|jpeg|gif|png',
+            'upload_backstage_size' => '10240',
+            'upload_backstage_exts' => 'jpg|jpeg|gif|bmp|png|doc|docx|xls|xlsx|ppt|pptx|pdf|txt|rar|zip|swf',
+            'odds' => '1',
+          ),
+        ),
+        2 => NULL,
+      ),
+    ),
+    9 => 
+    array (
+      'file' => '/opt/wwwroot/football/thinkphp/start.php',
+      'line' => 18,
+      'function' => 'run',
+      'class' => 'think\\App',
+      'type' => '::',
+      'args' => 
+      array (
+      ),
+    ),
+    10 => 
+    array (
+      'file' => '/opt/wwwroot/football/public_51bet/croncut0888.php',
+      'line' => 18,
+      'args' => 
+      array (
+        0 => '/opt/wwwroot/football/thinkphp/start.php',
+      ),
+      'function' => 'require',
+    ),
+  ),
+   'previous' => NULL,
+))

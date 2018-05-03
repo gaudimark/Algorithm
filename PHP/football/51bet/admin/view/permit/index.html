@@ -1,0 +1,51 @@
+<div class="panel">
+    <div class="panel-body">
+        {if checkPermit('Permit','add')}
+        <div class="mb10 clearfix">
+            <a href="{:url('Permit/add')}" class="btn btn-success btn-sm j-dialog-handle" title="添加模块"><i class="fa fa-plus"></i> 添加模块</a>
+        </div>
+        {/if}
+        <div class="table-responsive clear">
+            <table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th width="100">ID</th>
+                    <th>名称</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach $permit as $vo}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td style="text-align: left">{$vo.name}</td>
+                    <td style="text-align: left">
+                        <a class="j-dialog-handle btn btn-xs btn-primary" href="{:url('Permit/add',['id' => $vo.id])}">修改</a>
+                        <a {if isset($vo['child'])}disabled{/if} class="ajax-delete btn btn-xs btn-danger" href="{:url('Permit/del',['id' => $vo.id])}">删除</a>
+                    </td>
+                </tr>
+                {if isset($vo['child'])}
+                    {foreach $vo['child'] as $m1}
+                        <tr>
+                            <td>{$m1.id}</td>
+                            <td style="text-align: left;padding-left:2em">├─ {$m1.name}</td>
+                            <td style="text-align: left">
+                                {if checkPermit('Permit','point')}
+                                <a class="j-dialog-handle btn btn-xs btn-primary" href="{:url('Permit/point',['id' => $m1.id])}">权限点</a>
+                                {/if}
+                                {if checkPermit('Permit','add')}
+                                <a class="j-dialog-handle btn btn-xs btn-primary" href="{:url('Permit/add',['id' => $m1.id])}">修改</a>
+                                {/if}
+                                {if checkPermit('Permit','del')}
+                                <a class="ajax-delete btn btn-xs btn-danger" href="{:url('Permit/del',['id' => $m1.id])}">删除</a>
+                                {/if}
+                            </td>
+                        </tr>
+                    {/foreach}
+                {/if}
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="mb10">
+            {if checkPermit($controller,'teams_add')}
+            <div style="display: inline-block">
+                <a href="{:url($controller.'/teams_add')}" class="btn btn-success btn-sm j-dialog-handle" title="添加队伍"><i class="fa fa-plus"></i> 添加队伍</a>
+            </div>
+            {/if}
+            <div style="display: inline-block">
+                <form class="form-inline" method="get">
+                    <div class="input-group">
+                        <span class="input-group-addon">球队名称</span>
+                        <input type="text" class="form-control" name="item" value="{$item ?? ""}">
+                    </div>
+                    <button class="btn btn-primary btn-sm">搜索</button>
+                </form>
+            </div>
+        </div>
+        <div class="table-responsive clear">
+            <table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th width="80">ID</th>
+                    <th>球队名称</th>
+                    <th>球队别名</th>
+                    <th width="150">logo</th>
+                    <th width="200">国家</th>
+                    <th width="150">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td style="text-align: left">{$vo.name}</td>
+                    <td style="text-align: left">{$vo.alias}</td>
+                    <td>{if $vo.logo}<img src="{$domain}{$vo.logo}" width="40"> {/if}</td>
+                    <td>{$vo.country_name}</td>
+                    <td>
+                        {if checkPermit($controller,'teams_add')}
+                        <a href="{:url($controller.'/teams_add',['id'=>$vo.id])}" class="btn btn-xs btn-primary j-dialog-handle" title="编辑">编辑</a>
+                        {/if}
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <center>{$list->render()}</center>
+        </div>
+    </div>
+</div>

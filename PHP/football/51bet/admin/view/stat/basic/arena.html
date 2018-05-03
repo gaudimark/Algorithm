@@ -1,0 +1,143 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="mb10">
+            <form class="form-inline" method="get" id="__formId__">
+                <div class="input-group">
+                    <span class="input-group-addon">时间段</span>
+                    <input type="text" class="form-control" readonly data-toggle="datetime" data-end-date="#etime" id="btime" name="btime" value="{$btime ?? ""}">
+                    <span class="input-group-addon">至</span>
+                    <input type="text" class="form-control" readonly data-toggle="datetime" data-start-date="#btime" id="etime" name="etime" value="{$etime ?? ""}">
+                </div>
+                <button class="btn btn-primary btn-sm">搜索</button>
+                <button name="export" class="btn btn-primary btn-sm" value="导出Excel">导出Excel</button>
+            </form>
+        </div>
+        <div class="mb10">
+            <label class="mr10"><input type="radio" name="type" class="chartType" value="1" checked> 房间押金，投注金额</label>
+            <label class="mr10"><input type="radio" name="type" class="chartType" value="2"> 房间数，下注数</label>
+            <label class="mr10"><input type="radio" name="type" class="chartType" value="3"> 房间佣金，投注佣金</label>
+        </div>
+        <div id="actChartsContainer" style="height: 300px;text-align: center;">趋势图加载中...</div>
+        <div class="table-responsive clear">
+            <table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th><strong>日期</strong></th>
+                    <th>项目</th>
+                    <th>房间数</th>
+                    <th>房间押金</th>
+                    <th>房间押金追加</th>
+                    <th>房间输赢</th>
+                    <th>房间佣金</th>
+                    <th>投注数</th>
+                    <th>投注金额</th>
+                    <th>投注输赢</th>
+                    <th>投注佣金</th>
+                    <th>流水</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach $list as $vo}
+                <tr>
+                    <td class="number" {if $vo.items}rowspan="{:count($vo.items)+1}"{/if}>{:date("Y-m-d",$vo.s_date)}</td>
+                    <td>-</td>
+                    <td class="number">{$vo.arena_total}</td>
+                    <td class="number">{:numberFormat($vo.arena_deposit,2,true)}</td>
+                    <td class="number">{:numberFormat($vo.arena_deposit_add,2,true)}</td>
+                    <td class="number">{:numberFormat($vo.arena_win,2,true)}</td>
+                    <td class="number">{:numberFormat($vo.arena_brok,2,true)}</td>
+                    <td class="number">{$vo.bet_total}</td>
+                    <td class="number">{:numberFormat($vo.bet_money,2,true)}</td>
+                    <td class="number">{:numberFormat(($vo.bet_win - $vo.bet_lost),2,true)}</td>
+                    <td class="number">{:numberFormat($vo.bet_bork,2,true)}</td>
+                    <td class="number text-primary">{:numberFormat(($vo.bet_win + $vo.bet_lost),2,true)}</td>
+                </tr>
+                {if $vo.items}
+                    {foreach $vo.items as $item}
+                        <tr style="background: #fffdf0">
+                            <td class="number">{:getSport($item.item_id)}</td>
+                            <td>{$item.arena_total}</td>
+                            <td class="number">{:numberFormat($item.arena_deposit,2,true)}</td>
+                            <td class="number">{:numberFormat($item.arena_deposit_add,2,true)}</td>
+                            <td class="number">{:numberFormat($item.arena_win,2,true)}</td>
+                            <td class="number">{:numberFormat($item.arena_brok,2,true)}</td>
+                            <td class="number">{$item.bet_total}</td>
+                            <td class="number">{:numberFormat($item.bet_money,2,true)}</td>
+                            <td class="number">{:numberFormat(($item.bet_win - $item.bet_lost),2,true)}</td>
+                            <td class="number">{:numberFormat($item.bet_bork,2,true)}</td>
+                            <td class="number text-primary">{:numberFormat(($item.bet_win + $item.bet_lost),2,true)}</td>
+                        </tr>
+                    {/foreach}
+                {/if}
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+        <center>{$list->render()}</center>
+    </div>
+
+    <div class="help-block bg-warning page-note mb10" style="margin-top: 30px;">
+        统计指标说明:
+        <div class="well-body">
+            房间数：当日开房数量<br/>
+            房间押金：当日开房保证金合计<br/>
+            房间押金追加：非当日开房追加的保证金合计<br/>
+            房间输赢：当日结算房间输赢合计（非征信局）<br/>
+            房间佣金：当日结算房间佣金合计<br/><br/>
+            投注数：当日投注数量<br/>
+            投注金额：当日投注总金额<br/>
+            投注输赢：当日结算投注输赢合计（非征信局）<br/>
+            投注佣金：当日结算投注佣金合计<br/>
+        </div>
+    </div>
+</div>
+<script>
+    function actUsersCharts(){
+        var form = $("#__formId__");
+        var type = $(".chartType:checked").val();
+        $.get('{:url("misc/arena_stat")}',{
+            'start' : '{$btime ?? ""}',
+            'end' : '{$etime ?? ""}',
+            'type' : type,
+            '_t' : new Date().getTime()
+        },function(ret){
+            var date = ret.data.date;
+            var data = ret.data.data;
+            ChartsOption.plotOptions = {
+            };
+            ChartsOption.yAxis = {
+                min : 0,
+                title : {text:''},
+                plotLines : [
+                    {
+                        value : 0,
+                        width : 1,
+                        color : '#808080'
+                    }
+                ]
+            };
+            ChartsOption.tooltip.crosshairs = true;
+            ChartsOption.title.text = '　';
+            ChartsOption.legend = {
+                'layout' : 'horizontal',
+                'align' : 'center',
+                'verticalAlign' : 'top'
+            };
+            ChartsOption.series = data;
+            ChartsOption.chart.renderTo = 'actChartsContainer';
+            //ChartsOption.yAxis.min = 0;
+            //ChartsOption.yAxis.max = 10000000;
+            new Highcharts.Chart(ChartsOption,function(chart){
+                //chart.series[0].setData(data);
+                chart.xAxis[0].setCategories(date);
+            });
+        },'json');
+    }
+
+    $(function(){
+        actUsersCharts();
+        $(".chartType").click(function () {
+            actUsersCharts();
+        })
+    })
+</script>

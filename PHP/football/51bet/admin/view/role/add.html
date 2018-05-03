@@ -1,0 +1,96 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="mb10 borderb clearfix">
+            <a href="{:url('Role/index')}" class="btn btn-primary btn-sm" title="角色列表"><i class="fa fa-list"></i> 角色列表</a>
+        </div>
+        <div>
+            <form class="form-horizontal parsley-form auto-submit-form" action="{:url("role/add")}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+            <input type="hidden" name="id" value="{$res.id ?? 0}">
+            <div class="form-group">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1  control-label">角色名称</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" name="name" id="name" value="{$res.name ?? ''}" data-parsley-required="">
+                </div>
+            </div><div class="form-group">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1  control-label">状态</label>
+                <div class="col-sm-2">
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="{$Think.const.STATUS_ENABLED}" {if !isset($res) || (isset($res) && $res.status eq STATUS_ENABLED)} checked{/if} />
+                        正常
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="{$Think.const.STATUS_DISABLED}" {if (isset($res) && $res.status eq STATUS_DISABLED)} checked{/if} />
+                        禁用
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1  control-label">模块权限列表</label>
+                <div class="col-lg-10">
+                    <table class="table table-hover table-bordered table-head">
+                        <thead>
+                        <tr>
+                            <th width="150">模块</th>
+                            <th width="150">功能菜单</th>
+                            <th>权限</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {foreach $permit as $kp => $p}
+                                {if $p['has_item'] eq 1}
+                                    {foreach $items as $item_id => $ic}
+                                        {include file="role/permit_list_item"}
+                                    {/foreach}
+                                {else}
+                                    {include file="role/permit_list"}
+                                {/if}
+                            {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1  control-label">其它权限</label>
+                <div class="col-lg-10">
+
+                    <table class="table table-hover table-bordered table-head">
+                        <thead>
+                        <tr>
+                            <th width="150">模块</th>
+                            <th width="150">功能菜单</th>
+                            <th>权限</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="0">渠道</td>
+                                <td>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkall" data-toggle=".other_ditch_classify"> 渠道分组
+                                    </label>
+                                </td>
+                                <td style="text-align: left">
+                                    {if $ditchclassify}
+                                    {foreach $ditchclassify as $vo}
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="other_ditch_classify" {if isset($res['other']['ditchclassify']) && in_array($vo.id,$res['other']['ditchclassify'])}checked{/if} name="other[ditchclassify][{$vo.id}]" value="1">
+                                        {$vo.name}
+                                    </label>
+                                    {/foreach}
+                                    {/if}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group dialog-handle">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1 control-label control-label">&nbsp;</label>
+                <div class="col-md-8">
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>

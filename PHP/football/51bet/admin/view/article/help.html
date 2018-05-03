@@ -1,0 +1,48 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="mb10">
+            <div style="display: inline-block">
+                {if checkPermit($controller,'help_add')}
+                <a href="{:url($controller.'/help_add')}" class="btn btn-sm btn-success j-dialog-handle" title="添加标签"><i class="fa fa-plus"></i> 添加标签</a>
+                {/if}
+            </div>
+        </div>
+        <div class="table-responsive clear">
+            <table class="table table-hover table-bordered table-condensed table-head" style="min-width: 1450px;">
+                <thead>
+                    <tr>
+                        <th width="80">ID</th>
+                        <th style="text-align: left;">标题</th>
+                        <th width="150">类型</th>
+                        <th width="150">锚点名称</th>
+                        <th width="150">修改时间</th>
+                        <th width="150">添加时间</th>
+                        <th width="150">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {foreach list as $vo}
+                    <tr>
+                        <td>{$vo.id}</td>
+                        <td style="text-align: left;">{$vo.name}</td>
+                        <td>{$vo.type_name}</td>
+                        <td>{$vo.anchor}</td>
+                        <td>{$vo.update_time|date="Y-m-d h:m",###}</td>
+                        <td>{$vo.add_time|date="Y-m-d h:m",###}</td>
+                        <td class="dr_option" >
+                            {if checkPermit('article','help_add')}
+                            <a class="btn btn-xs btn-primary j-dialog-handle" href="{:url('article/help_add',['id' => $vo.id])}" title="修改">修改</a>
+                            {/if}
+                            {if checkPermit('article','help_delete')}
+                            <a class="ajax-delete btn btn-xs btn-danger" href="{:url('article/help_delete',['id' => $vo.id])}">删除</a>
+                            {/if}
+                        </td>
+                    </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+            <center>{$list->render()}</center>
+        </div>
+    </div>
+</div>
+

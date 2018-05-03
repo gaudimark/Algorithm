@@ -1,0 +1,120 @@
+<div class="panel">
+    <div class="panel-body" style="width: 600px;">
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url($controller.'/match_add')}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+            <input type="hidden" name="id" value="{$info.id ?? 0}">
+            <input type="hidden" name="game_id" id="game_id" value="{$info.game_id ?? 0}">
+            <div class="form-group">
+                <label class="col-md-3 control-label">赛事名称：</label>
+                <div class="col-md-8">
+                    {if isset($info['game_id']) && getGame($info.game_id,'name') ==  '王者荣耀'}
+                    <input type="text" class="form-control" name="name" id="name" value='{$info.name}'>
+                    {else}
+                    <input type="text" class="form-control" {if $info} disabled{/if} name="name" id="name" value='{$info.name ?? ''}'>
+                           {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">赛事别名：</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" {if isset($info.alias) && $info.alias} disabled{/if} name="alias" id="alias" value='{$info.alias ?? ''}'>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">国家：</label>
+                <div class="col-md-4">
+                    <select class="form-control" name="country" id="country">
+                        {volist name="country" id="vo"}
+                        <option value="{$vo.id}" {if $info && $info.country_id == $vo.id}selected{/if}>{$vo.first}{$vo.name}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">图标名称：</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="logo" id="logo" value="{$info.logo ?? ''}">
+                </div>
+            </div>
+<!--            <div class="form-group">
+                <label class="col-md-3 control-label">logo_hover：</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="logo_hover" id="logo_hover" value="{$info.logo_hover ?? ''}">
+                </div>
+            </div>-->
+            <div class="form-group">
+                <label class="col-md-3 control-label">赛事开始时间：</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="begin_time" id="begin_time" value='{if $info && $info.begin_time}{$info.begin_time|date="Y-m-d H:i",###}{/if}'  data-end-date="#begin_time" data-timepicker="true" data-toggle="datetime">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">赛事结束时间：</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="end_time" id="end_time" value='{if $info && $info.end_time}{$info.end_time|date="Y-m-d H:i",###}{/if}'  data-end-date="#end_time" data-timepicker="true" data-toggle="datetime">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">赛事地址：</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="address" id="address" value="{$info.address ?? ''}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">热门：</label>
+                <div class="col-md-8">
+                    <label><input type="radio" name="is_hot" value="1" {if $info && $info.is_hot eq 1}checked{/if}>是</label>
+                    <label><input type="radio" name="is_hot" value="0" {if !$info || ($info && $info.is_hot eq 0)}checked{/if}>否</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">推荐：</label>
+                <div class="col-md-8">
+                    <label><input type="radio" name="is_recommend" value="1" {if $info && $info.is_recommend eq 1}checked{/if}>是</label>
+                    <label><input type="radio" name="is_recommend" value="0" {if !$info || ($info && $info.is_recommend eq 0)}checked{/if}>否</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">显示：</label>
+                <div class="col-md-8">
+                    <label><input type="radio" name="is_show" value="1" {if $info && $info.is_show eq 1}checked{/if}>是</label>
+                    <label><input type="radio" name="is_show" value="0" {if !$info || ($info && $info.is_show eq 0)}checked{/if}>否</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">赛事简介：</label>
+                <div class="col-md-8">
+                    <textarea class="form-control" name="explain" style="height: 100px;">{$info.explain ?? ''}</textarea>
+                </div>
+            </div>
+            <div class="form-group dialog-handle">
+                <label class="col-md-3 control-label">&nbsp;</label>
+                <div class="col-md-8">
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#begin_time").datetime();
+        $("#end_time").datetime();
+    });
+    function selectGame() {
+        new jDialog({
+            'content': "url:{:url('Misc/select_game')}?type=radio&item_id={$item_id}",
+            'title': '选择赛事'
+        });
+    }
+    function miscSelectGameRet(gameData) {
+        if (gameData) {
+            gameData = gameData[0];
+            $("#game_id").val(gameData['id']);
+            $("#game_name").val(gameData['name']);
+        }
+    }
+</script>
+
+
+

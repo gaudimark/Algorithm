@@ -1,0 +1,25 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "loadingAnimation",
+  "_duration": 2,
+  "sample": 10,
+  "wrapMode": 2,
+  "curveData": {
+    "props": {
+      "rotation": [
+        {
+          "frame": 0,
+          "value": 0
+        },
+        {
+          "frame": 1,
+          "value": -360
+        },
+        {
+          "frame": 2,
+          "value": -720
+        }
+      ]
+    }
+  }
+}

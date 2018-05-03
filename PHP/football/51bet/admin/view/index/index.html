@@ -1,0 +1,80 @@
+<div class="panel">
+    <div class="panel-body">
+        {if checkPermit('common','index_stat')}
+        <div class="mb10" style="overflow:hidden;">
+            <div class="col-md-3 col-sm-6">
+                <div class="index-static-wrap">
+                    <h5>流水</h5>
+                    <div class="icon">
+                        <i class="fa fa-line-chart" style="color:#f9bdbb"></i>
+                    </div>
+                    <div class="tile-body number">{:number_format($todayTurnover,2)}</div>
+                    <small>昨日：<span class="number">{:number_format($yesterdayTurnover,2)}</span></small>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="index-static-wrap">
+                    <h5>投注总额</h5>
+                    <div class="icon">
+                        <i class="fa fa-bar-chart" style="color:#dcedc8"></i>
+                    </div>
+                    <div class="tile-body number">{:number_format($todayBetting)}</div>
+                    <small>昨日：<span class="number">{:number_format($yesterdayBetting)}</span></small>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="index-static-wrap">
+                    <h5>系统收益</h5>
+                    <div class="icon">
+                        <i class="fa fa-dollar" style="color:#b2ebf2"></i>
+                    </div>
+                    <div class="tile-body number">{:number_format($todaySysIncome,2)}</div>
+                    <small>昨日：<span class="number">{:number_format($yesterdaySysIncome,2)}</span></small>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="index-static-wrap">
+                    <h5>开擂数</h5>
+                    <div class="icon">
+                        <i class="fa fa-gamepad" style="color:#ffe0b2"></i>
+                    </div>
+                    <div class="tile-body number">{:number_format($todayArena)}</div>
+                    <small>昨日：<span class="number">{:number_format($yesterdayArena)}</span></small>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="index-static-wrap">
+                    <h5>充值</h5>
+                    <div class="icon">
+                        <i class="fa fa-credit-card-alt" style="color:#f9bdbb"></i>
+                    </div>
+                    <div class="tile-body number">
+                        ￥{:number_format($todayRecharge,2)}
+                    </div>
+                    <small>昨日：￥<span class="number">{:number_format($yesterdayRecharge,2)}</span></small>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="index-static-wrap">
+                    <h5>新用户</h5>
+                    <div class="icon">
+                        <i class="fa fa-user-plus" style="color:#dcedc8"></i>
+                    </div>
+                    <div class="tile-body number">{:number_format($todaySignTotal)}</div>
+                    <small>昨日：<span class="number">{:number_format($yesterdaySignTotal)}</span></small>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="index-static-wrap">
+                    <h5>在线人数</h5>
+                    <div class="icon">
+                        <i class="fa fa-user-plus" style="color:#b2ebf2"></i>
+                    </div>
+                    <div class="tile-body number">{:number_format($onLineTotal)}</div>
+                    <small>&nbsp;</small>
+                </div>
+            </div>
+        </div>
+        {/if}
+    </div>
+</div>

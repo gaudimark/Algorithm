@@ -1,0 +1,158 @@
+<style>
+    .company-list{border-bottom: 1px solid #ddd;margin-bottom: 10px;padding-bottom: 10px;}
+    .odds-list{overflow: hidden;clear: both;background: #f9f9f9;margin-bottom: 5px;padding:10px;border:1px solid #f9f9f9;}
+    .odds-list-active{border:1px solid #FF5722}
+    .odds-list .odds-box{border:1px solid #eee;padding:6px 10px;display: inline-block;margin: 4px 2px;background: #fff}
+    .odds-list .odds-box label{font-size: 16px;}
+</style>
+<div class="panel">
+    <div class="panel-body">
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url($controller."/batch_arena_publish")}" id="__formId__" name="__formId__" method="post">
+            <div style="position: absolute;right:20px;">
+                <a href="javascript:history.back();" class="btn btn-primary btn-xs"><i class="fa fa-angle-double-left"></i> 返回</a>
+            </div>
+            <div class="mb10 clearfix">
+                <div class="alert alert-warning pull-left" style="margin-bottom: 0">
+                    <div class="play_home pull-left">
+                        <p class="text-danger">主场</p>
+                        <h4 style="text-align: right">{$play.team_home_name}</h4>
+                    </div>
+                    <div class="play_home pull-left" style="margin: 0 60px;">
+                        <p class="text-danger">{:date("Y-m-d H:i",$play.play_time)}</p>
+                        <h4 style="text-align: center">{$play.match.name}</h4>
+                    </div>
+                    <div class="play_home pull-left">
+                        <p class="text-danger">&nbsp;</p>
+                        <h4 style="text-align: right">{$play.team_guest_name}</h4>
+                    </div>
+                </div>
+                <div class="alert alert-danger pull-left" style="margin-bottom: 0;margin-left: 10px;padding:5px 10px;">
+                    <div class="help-block">
+                        大小、让球、单双为亚盘，<b class="text-danger">奖金 = (赔率 X 本金) + 本金</b>
+                    </div>
+                    <div class="help-block">
+                        其他玩法为欧赔，<b class="text-danger">奖金 = 赔率 X 本金</b>
+                    </div>
+                </div>
+            </div>
+        {if $oddsList}
+            <div class="mb10 clearfix">
+
+
+                {foreach $oddsList as $vo}
+                <div class="company-list">
+                    <h5>
+                        <label class="label-info" style="padding: 6px 10px;">
+                            <input type="checkbox" class="checkall-company" data-toggle=".libs-{$vo.id}">
+                            {$vo.name}
+                        </label>
+                    </h5>
+                    {foreach $vo.odds_list as $odds_id => $odds}
+                    <input type="hidden" name="libs[{$odds_id}][company_id]" value="{$vo.id ?? 0}">
+                    <input type="hidden" name="libs[{$odds_id}][play_id]" value="{$play_id ?? 0}">
+                    <input type="hidden" name="libs[{$odds_id}][game_id]" value="{$play.game_id ?? 0}">
+                    <input type="hidden" name="libs[{$odds_id}][rules_id]" value="{$odds.rule.id ?? 0}">
+                    <input type="hidden" name="libs[{$odds_id}][rules_type]" value="{$odds.rule.type ?? 0}">
+                    <div class="odds-list">
+                        <div class="col-md-4">
+                            <label class="checkbox text-danger">
+                                <input type="checkbox" class="libs libs-{$vo.id}" name="odds[]" value="{$odds_id}">
+                                {$odds.rule.name}{if chkAsianRule($item_id,$odds.rules_type)}(亚盘){else}(欧盘){/if}
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-addon">房间保证金</span>
+                                <input type="text" class="form-control" name="libs[{$odds_id}][deposit]" value="{if isset($sys_arena_min_deposit[$item_id])}{$sys_arena_min_deposit[$item_id]}{/if}">
+                                <span class="input-group-addon">每单最少投注</span>
+                                <input type="text" class="form-control" name="libs[{$odds_id}][min_bet]" value="{if isset($sys_arena_min_bet_money[$item_id])}{$sys_arena_min_bet_money[$item_id]}{/if}">
+                            </div>
+                        </div>
+                        {php}
+                        $isUnder = false;
+                        $isHandicap = false;
+                        {/php}
+                        <div class="col-md-8" style="overflow: hidden">
+                            {foreach $odds.odds as $oo}
+                        <span class="odds-box">
+                            {$oo.name} {if is_string($oo.target_name)}{$oo.target_name}{/if} {$oo.odds}
+                        </span>
+                            {if $odds.rules_type == RULES_TYPE_ASIAN && !$isHandicap}
+                            {php}$isHandicap = true;{/php}
+                            <span class="odds-box text-warning">{$oo.handicap}</span>
+                            {/if}
+                            {if in_array($odds.rules_type,[RULES_TYPE_OU,RULES_TYPE_KILL_NUM]) && !$isUnder}
+                            {php}$isUnder = true;{/php}
+                            <span class="odds-box text-warning">预设总分 {$oo.under}</span>
+                            {/if}
+                            {/foreach}
+                        </div>
+                    </div>
+                    {/foreach}
+                </div>
+                {/foreach}
+
+            </div>
+            <div style="padding-bottom: 15px;overflow: hidden">
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-primary btn-sm" id="checkall">全选</button>
+                    <button type="button" class="btn btn-primary btn-sm" id="uncheckall">反选</button>
+                </div>
+                <div class="col-md-8">
+
+                    <button type="submit" class="btn btn-primary" >确认批量开房</button>
+                </div>
+            </div>
+            <div class="help-block bg-warning page-note mb10" style="margin-top: 30px;">
+                说明：<Br/>
+                <div class="well-body">
+                    批量开房赔率将随赔率公司自动更新赔率<br/>
+                    房间保证金为0或不选中时，表示不开此项玩法<Br/>
+                    最低投注金：每单最少投注<Br/>
+                </div>
+            </div>
+        {else}
+         <div style="text-align: center;margin-top: 50px;"><h4>当前比赛无赔率信息</h4></div>
+        {/if}
+        </form>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('.odds-list').click(function () {
+            var self = $(this);
+            if(self.find(".libs").prop('checked')){
+                self.find(".libs").prop('checked',false);
+                self.removeClass('odds-list-active');
+            }else{
+                self.find(".libs").prop('checked',true);
+                self.addClass('odds-list-active');
+            }
+        });
+        $('#checkall').click(function () {
+            $(".libs").prop('checked',true);
+            $('.odds-list').addClass('odds-list-active');
+        });
+        $('#uncheckall').click(function () {
+            $(".libs").each(function () {
+                var self = $(this);
+                if(self.prop('checked')){
+                    self.prop('checked',false);
+                    self.closest('.odds-list').removeClass('odds-list-active');
+                }else{
+                    self.prop('checked',true);
+                    self.closest('.odds-list').addClass('odds-list-active');
+                }
+            });
+        });
+        $(".checkall-company").click(function () {
+            var self = $(this);
+            var toggle = $(self.attr('data-toggle'));
+            if(self.prop('checked')){
+                toggle.prop('checked',true);
+                toggle.closest('.odds-list').addClass('odds-list-active');
+            }else{
+                toggle.prop('checked',false);
+                toggle.closest('.odds-list').removeClass('odds-list-active');
+            }
+        });
+    });
+</script>

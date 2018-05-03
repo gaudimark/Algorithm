@@ -1,0 +1,32 @@
+{
+  "__type__": "cc.SpriteAtlas",
+  "_spriteFrames": {
+    "qiudui_font_0": {
+      "__uuid__": "9a8ABYEn1D25yoVVXzF9Cj"
+    },
+    "deguo": {
+      "__uuid__": "49ssXc2/dIMLmqSeH8xawT"
+    },
+    "gamebarbg": {
+      "__uuid__": "37uOoZpiZH3Lc9MJ0f0POH"
+    },
+    "faguo": {
+      "__uuid__": "1bzRWVtOpAu4+cJy6ZYXiG"
+    },
+    "logomask": {
+      "__uuid__": "496JUFZE1NQqlxuZOms9l6"
+    },
+    "6171471260300647": {
+      "__uuid__": "59xRocZ0FF7rAjz1lXACmn"
+    },
+    "8521471259703716": {
+      "__uuid__": "24XjmKp+1Am5tdj9oocubt"
+    },
+    "kedui": {
+      "__uuid__": "6dp9rF9IdM1ZeHTPgrzp9u"
+    },
+    "zhudui": {
+      "__uuid__": "81d/3vZxNJ1JolbeGNCyMY"
+    }
+  }
+}

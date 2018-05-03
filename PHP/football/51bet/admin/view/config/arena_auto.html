@@ -1,0 +1,27 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="help-block bg-warning page-note mb10" style="margin-top: -20px;">
+            修改高级设置后，需要更新“系统配置”缓存，前台方能生效
+        </div>
+        <form class="form-horizontal parsley-form auto-submit-form" id="__formId__" name="__formId__" action="{:url('config/arena_auto')}" method="post" data-parsley-validate="">
+            <div class="form-group form-group-title">足球</div>
+            <div class="form-group">
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">距比赛结束后</span>
+                        <input type="text" class="form-control" name="setting[arena_auto_statement][{$Think.const.GAME_TYPE_FOOTBALL}]" id="sys_arena_auto_statement_football" value="{$setting['arena_auto_statement'][GAME_TYPE_FOOTBALL] ?? '10'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                        <span class="input-group-addon">分钟，开启自动结算</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group"></div>
+            <div class="form-group" data-handle="btn-handle">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1 control-label">&nbsp;</label>
+                <div class="col-xs-7 col-sm-5 col-md-5 col-lg-4">
+                    <button type="submit" class="btn btn-success" ><i class="icon-save"></i> 保 存 </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

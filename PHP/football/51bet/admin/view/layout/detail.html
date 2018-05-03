@@ -1,0 +1,193 @@
+<div class="panel">
+    <div class="panel-body" style="width: 700px">
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url("layout/detail")}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+        <input type="hidden" name="id" value="{$res.id ?? 0}">
+        <ul class="nav nav-tabs my-nav-tabs" role="tablist">
+            {if $res.type eq LAYOUT_TYPE_ONE}
+            <li class="active"><a href="#t1" role="tab" data-toggle="tab">A项</a></li>
+            {elseif $res.type eq LAYOUT_TYPE_TWO}
+            <li class="active"><a href="#t1" role="tab" data-toggle="tab">A项</a></li>
+            <li><a href="#t2" role="tab" data-toggle="tab">B项</a></li>
+            {elseif $res.type eq LAYOUT_TYPE_THREE}
+            <li class="active"><a href="#t1" role="tab" data-toggle="tab">A项</a></li>
+            <li><a href="#t2" role="tab" data-toggle="tab">B项</a></li>
+            <li><a href="#t3" role="tab" data-toggle="tab">C项</a></li>
+            {/if}
+        </ul>
+        <div class="tab-content mt10 mb10">
+            {for start="1" end="$res.type" comparison="elt"}
+            {php}
+            $detail = isset($res['detail']) && isset($res['detail'][$i-1]) ? $res['detail'][$i-1] : [];
+            {/php}
+            <div class="tab-pane {if $i eq 1}active{/if}" id="t{$i}" data-value="{$i}">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">项目名称：</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" name="name[{$i}]" id="name_{$i}" value="{$detail.name ?? ''}"  data-parsley-required="true">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">项目图片：</label>
+                    <div class="col-md-8">
+                        {:widget('Upload/single',[
+                        'name' => 'img['.$i.']',
+                        'value' => isset($detail['img']) ? $detail['img'] : '' ,
+                        'text' => '上传图片',
+                        'required' => true,
+                        ])}
+                        <div class="help-block">
+                            {if $res.type eq 2}
+                            尺寸(px):236 X 170,支持格式jpg,png
+                            {elseif $res.type eq 3}
+                            尺寸(px):230 X 109,支持格式jpg,png
+                            {/if}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">投注厅背景：</label>
+                    <div class="col-md-8">
+                        {:widget('Upload/single',[
+                        'name' => 'res['.$i.'][info]',
+                        'value' => isset($detail['res']['info']) ? $detail['res']['info'] : '' ,
+                        'text' => '上传背景',
+                        ])}
+                        <div class="help-block">尺寸(px):1334 X 750,支持格式jpg,png</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">玩法大厅背景：</label>
+                    <div class="col-md-8">
+                        {:widget('Upload/single',[
+                        'name' => 'res['.$i.'][rule]',
+                        'value' => isset($detail['res']['rule']) ? $detail['res']['rule'] : '' ,
+                        'text' => '上传背景',
+                        ])}
+                        <div class="help-block">尺寸(px):1334 X 750,支持格式jpg,png</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">项目内容：</label>
+                    <div class="col-md-8">
+                        <select name="item_id[{$i}]" class="form-control pull-left item_id" style="display: inline-block;width: 100px;">
+                            {foreach $items as $key => $val}
+                            <option value="{$val.id}" {if isset($detail.item_id) && $detail.item_id eq $val.id}selected{/if}>{$val.name}</option>
+                            {/foreach}
+                            {foreach $gamelist as $val}
+                            <option value="{$val.id}" {if isset($detail.item_id) && $detail.item_id eq $val.id}selected{/if}>{$val.name}</option>
+                            {/foreach}
+                        </select>
+                        <select name="item_type[{$i}]" class="form-control pull-left change-item-value" style="display: inline-block;width: 100px;margin-left: 5px;">
+                            <option value="all" {if isset($detail.item_type) && $detail.item_type eq 'all'}selected{/if}>全部</option>
+                            <option value="match" {if isset($detail.item_type) && $detail.item_type eq 'match'}selected{/if}>赛事</option>
+                            <option value="game" {if isset($detail.item_type) && $detail.item_type eq 'game'}selected{/if}>游戏</option>
+                        </select>
+                        <button type="button" {if !$detail || $detail.item_type eq 'all'}disabled{/if} class="btn btn-primary btn-sm pull-left select-item-value" style="margin-top: 2px;margin-left: 5px;">
+                            <i class="fa fa-search"></i>
+                            搜索选择
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">已选内容：</label>
+                    <div class="col-md-8">
+                        <table class="table table-hover table-bordered table-head">
+                            <thead>
+                            <tr>
+                                <th>内容</th>
+                                <th width="60">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody class="layout-content-list">
+                            {if $detail && isset($detail['lib']) && $detail['lib']}
+                            {foreach $detail['lib'] as $lib}
+                                <tr>
+                                    <input type="hidden" name="lib_id[{$i}][]" value="{$lib.id}">
+                                    <input type="hidden" name="lib_name[{$i}][]" value="{$lib.name}">
+                                    <td style="text-align: left">{$lib.name}</td>
+                                    <td><a class="close text-danger layout-content-close" style="float:none">&times;</a></td>
+                                </tr>
+                            {/foreach}
+                            {/if}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {/for}
+        </div>
+        <div class="form-group dialog-handle">
+            <label class="col-md-3 control-label">&nbsp;</label>
+            <div class="col-md-8">
+                <button type="submit" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<script>
+    var tabPane = null;
+    var tabIndex = 0;
+    $(function () {
+        $(".change-item-value").change(function () {
+            var val = $(this).val();
+            if(val == 'all'){
+                $(this).siblings(".select-item-value").attr("disabled",true);
+            }else{
+                $(this).siblings(".select-item-value").removeAttr("disabled");
+            }
+            tabPane = $(this).closest(".tab-pane");
+        });
+        $(".select-item-value").click(function () {
+            if($(this).attr("disabled"))      {
+                return false;
+            }
+            var parent = $(this).parent();
+            var item_id = parent.find(".item_id").val();
+            var type = parent.find(".change-item-value").val();
+            if(!type || type == 'all'){return false;}
+            tabPane = $(this).closest(".tab-pane");
+            var title = '';
+            var href = '';
+            if(type == 'game'){
+                href = '{:url('Misc/select_game')}';
+                title = '游戏选择'
+            }else if(type == 'match'){
+                href = '{:url('Misc/select_match')}';
+                title = '赛事选择'
+            }
+            new jDialog({
+                'content': 'url:' + href + '?item_id='+item_id,
+                'title': title
+            });
+            return false;
+        });
+        $(document).on("click",'.layout-content-close',function () {
+            $(this).closest("tr").remove();
+            return false;
+        });
+    });
+    function miscSelectGameRet(gameList) {
+        var temp = '';
+        var tabIndex = tabPane.attr("data-value");
+        for(var k in gameList){
+            var game = gameList[k];
+            temp += '<tr>';
+            temp += '<input type="hidden" name="lib_id['+tabIndex+'][]" value="'+game['id']+'">';
+            temp += '<input type="hidden" name="lib_name['+tabIndex+'][]" value="'+game['name']+'">';
+            temp += '<td style="text-align: left">'+game['name']+'</td><td><a class="close text-danger layout-content-close" style="float:none">&times;</a></td></tr>';
+        }
+        $(temp).appendTo(tabPane.find(".layout-content-list"));
+    }
+    function miscSelectMatchRet(matchList) {
+        var temp = '';
+        var tabIndex = tabPane.attr("data-value");
+        for(var k in matchList){
+            var match = matchList[k];
+            temp += '<tr>';
+            temp += '<input type="hidden" name="lib_id['+tabIndex+'][]" value="'+match['id']+'">';
+            temp += '<input type="hidden" name="lib_name['+tabIndex+'][]" value="'+match['name']+'">';
+            temp += '<td style="text-align: left">'+match['name']+'</td><td><a class="close text-danger layout-content-close" style="float:none">&times;</a></td></tr>';
+        }
+        $(temp).appendTo(tabPane.find(".layout-content-list"));
+    }
+</script>

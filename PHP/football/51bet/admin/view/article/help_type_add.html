@@ -1,0 +1,31 @@
+<div class="panel">
+    <div class="panel-body" style="width: 600px;">
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url($controller.'/help_type_add')}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+            <input type="hidden" name="id" value="{$info.id ?? 0}">
+            <div class="form-group">
+                <label class="col-md-3 control-label">标题：</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="name" id="address" value="{$info.name ?? ''}">
+                </div>
+            </div>
+            <div class="form-group dialog-handle">
+                <label class="col-md-3 control-label">&nbsp;</label>
+                <div class="col-md-8">
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function miscSelectGameRet(gameData) {
+        if(gameData){
+            gameData = gameData[0];
+            $("#game_id").val(gameData['id']);
+            $("#game_name").val(gameData['name']);
+        }
+    }
+</script>
+
+
+

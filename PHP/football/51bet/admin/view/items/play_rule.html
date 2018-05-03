@@ -1,0 +1,73 @@
+<div class="panel">
+    <div class="panel-body">
+        <div style="position: absolute;right:20px;">
+            <a href="javascript:history.back();" class="btn btn-primary btn-xs"><i class="fa fa-angle-double-left"></i> 返回</a>
+        </div>
+        <div class="mb10 clearfix">
+            <div class="alert alert-warning pull-left" style="margin-bottom: 0">
+                <div class="play_home pull-left">
+                    <p class="text-danger">主场</p>
+                    <h4 style="text-align: right">{$play.team_home_name}</h4>
+                </div>
+                <div class="play_home pull-left" style="margin: 0 60px;">
+                    <p class="text-danger">{:date("Y-m-d H:i",$play.play_time)}</p>
+                    <h4 style="text-align: center">{$play.match.name}</h4>
+                </div>
+                <div class="play_home pull-left">
+                    <p class="text-danger">&nbsp;</p>
+                    <h4 style="text-align: right">{$play.team_guest_name}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="mt10 col-md-6">
+            <form class="form-horizontal parsley-form mt10" id="__formId__" name="__formId__" method="post" data-parsley-validate="">
+                <input type="hidden" name="play_id" value="{$play.id}">
+                <table class="table table-hover table-bordered table-condensed table-head">
+                    <thead>
+                    <tr>
+                        <th rowspan="2">玩法名称</th>
+                        <th rowspan="2" width="120">排序</th>
+                        <th rowspan="2" width="120">默认房间ID</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach $rules as $vo}
+                    <tr>
+                        <td>{$vo.name}</td>
+                        <td><input type="text" class="form-control" name="sort[{$vo.id}]" value="{$playRules[$vo.id]['sort'] ?? '999'}"></td>
+                        <td><input type="text" class="form-control arena_id" name="arena[{$vo.id}]" data-rule="{$vo.id}" value="{$playRules[$vo.id]['arena_id'] ?? ''}" readonly placeholder="选择房间"></td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <div class="mt10">
+                    <button type="submit" class="btn btn-sm btn-primary mr10"><i class="fa fa-save"></i> 保存更新</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var dialogHandle = null;
+    var selfInput = null;
+    $(function () {
+        $("#__formId__").submitForm();
+        $(".arena_id").click(function () {
+            var rules = $(this).attr("data-rule");
+            selfInput = $(this);
+            dialogHandle = new jDialog({
+                'content': 'url:{:url($controller.'/arena_list')}?play_id={$play.id}&rules='+rules+'&private=1&status=1&opt=dialog',
+                'title': '选择房间'
+            });
+            return false;
+        });
+    });
+    function changeArena(arena_id) {
+        if(selfInput){
+            selfInput.val(arena_id);
+        }
+        if(dialogHandle){
+            dialogHandle.close();
+        }
+    }
+</script>

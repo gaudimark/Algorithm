@@ -1,0 +1,129 @@
+<div class="upload-single" id="{$unID}" style="min-width: 200px;min-height: 200px;">
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary" id="{$unID}-handle"><i class="icon-upload"></i> 上传文件</button>
+        <button  type="button" class="btn btn-primary dropdown-toggle" {if !$value}disabled{/if} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li class="attach-box">
+                {if $value}
+                <div class="abpdiv" style="text-align: center">
+                    <a href="javascript:;" class="close" title="删除上传图片">&times;</a>
+                    <a href="{$domain}{$value}" target="_blank"><img src="{$domain}{$value}"></a>
+                </div>
+                {/if}
+            </li>
+        </ul>
+        <div class="upload-progress">
+            <div class="progress">
+                <div style="width: 0%;" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+        <label class="upload-speed">
+            <span>0.00%</span>
+            <span>0.00 kb/s</span>
+        </label>
+    </div>
+    <input type="hidden" name="{$name}" value="{$value}">
+    {if $tips}
+    <div class="help-block">{$tips}</div>
+    {/if}
+</div>
+<script>
+    $(function () {
+        $(document).on('mouseenter',"#{$unID} object",function () {
+            $("#{$unID}-handle-button").addClass("active");
+        }).on('mouseleave',"#{$unID} object",function () {
+            $("#{$unID}-handle-button").removeClass("active");
+        }).on('click',"#{$unID} .close",function () {
+            $("#{$unID}").find(".dropdown-toggle").attr("disabled","disabled");
+            $("#{$unID}").find(".attach-box").html("");
+            $("#{$unID}").find("input[name={$name}]").val('');
+        });
+        $("#{$unID}-handle").uploadify({
+            'buttonCursor' : 'cursor',
+            'debug' : false,
+            'auto' : true,
+            'uploader' : '{:url("Misc/uploadsave")}',
+            'swf' : '/assets/common/plugins/uploadify/swfupload.swf',
+            'width' : '98',
+            'height' : '34',
+            'formData' :{
+                'file_post_name' : 'uploadfile'
+            },
+            'fileObjName' : 'uploadfile',
+            'file_post_name' : 'uploadfile',
+            'buttonText' : '<i class="icon-upload"></i> 上传文件',
+            'buttonClass' : 'btn btn-primary upload-handle',
+            'uploadLimit' : 9999,
+            'multi' : false,
+            'queueSizeLimit' : 9999,
+            'fileTypeExts' : '{$exts}',
+            'onInit' : function () {},
+            'onSelect' : function (event,queueId,fileObj) {},
+            'onUploadProgress' : function (file,bytesUploaded,bytesTotal,totalBytesUploaded,totalBytesTotal) {
+                var num = parseFloat((bytesUploaded / bytesTotal) * 100);
+                var speed = Math.max(0,bytesUploaded - this.bytesUploaded);
+                this.bytesUploaded = bytesUploaded;
+                var width = Math.min(100,num.toFixed(2));
+                var uploadSpeed = $("#{$unID}").find(".upload-speed");
+                uploadSpeed.find("span").eq(0).text(width + '%');
+                uploadSpeed.find("span").eq(1).text(formatSize(speed) + '/s');
+                $("#{$unID}").find(".progress-bar").width(width+'%');
+            },
+            'onUploadStart' : function (file) {
+                $("#{$unID}").find(".upload-speed").show();
+                $("#{$unID}").find(".upload-progress").show();
+                $("#{$unID}").find(".progress-bar").width(0);
+            },
+            'onUploadSuccess' : function (file,ret,response) {
+                $("#{$unID}").find(".upload-speed").hide();
+                $("#{$unID}").find(".upload-progress").hide();
+                $("#{$unID}").find(".progress-bar").width(0);
+                if(!ret){alert("上传文件失败");return false;}
+                try{
+                    if(typeof ret == 'string'){
+                        ret = $.parseJSON(ret);
+                    }
+                    if(ret.status == 0) {
+                        msgBox.error(ret.info)
+                    }
+                    var data = ret['data'];
+                    $("#{$unID}").find(".dropdown-toggle").removeAttr("disabled");
+                    if($.inArray(ret.ext,['jpg','gif','png','jpeg'])) {
+                        $("#{$unID}").find(".attach-box").html('<div class="abpdiv"><a href="javascript:;" class="close" title="删除上传图片">&times;</a><a href="' + data.url + '" target="_blank"><img src="' + data.url + '"></a></div>');
+                    }else{
+                        $("#{$unID}").find(".attach-box").html('<div class="abpdiv"><a href="javascript:;" class="close" title="删除上传文件">&times;</a><a href="' + data.url + '" target="_blank">上传文件</div>');
+                    }
+                    $("#{$unID}").find("input[name={$name}]").val(data.path);
+                    window.top.msgBox.success("文件上传成功");
+
+                }catch(e){
+                    alert(e);
+                }
+            },
+            'onUploadError' : function (file,errorCode,errorMsg,errorString) {
+                if(errorString != 'Cancelled'){
+                    msgBox.error(errorString+'('+errorMsg+')');
+                }
+                $("#{$unID}").find(".upload-speed").hide();
+                $("#{$unID}").find(".upload-progress").hide();
+                $("#{$unID}").find(".progress-bar").width(0);
+
+            },
+            'onAddQueueItem' : function (file) {
+
+            },
+            'onUploadComplete' : function (file) {
+                $("#{$unID}").find(".upload-speed").hide();
+                $("#{$unID}").find(".upload-progress").hide();
+            },
+            'onQueueComplete' : function (queueData) {
+
+            },
+            'onFallback' : function () {
+
+            }
+        });
+    });
+</script>

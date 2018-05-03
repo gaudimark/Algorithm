@@ -1,0 +1,83 @@
+<div class="panel">
+    <div class="panel-body" style="width: 800px;">
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url("Permit/point")}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+        <input type="hidden" name="id" value="{$id ?? 0}">
+        <div class="form-group">
+            <label class="col-md-2 control-label">权限点名称</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control" disabled value="{$res.name ?? ''}">
+            </div>
+        </div>
+        <div class="form-group" id="list-box" style="display: ">
+            <label class="col-md-2 control-label">添加权限点</label>
+            <div class="col-md-10">
+                <table class="table table-hover table-bordered table-head">
+                    <thead>
+                    <tr>
+                        <th width="25%">权限点名称</th>
+                        <th width="25%">控制器</th>
+                        <th>方法名<small class="text-muted">，多方法用逗号分隔</small></th>
+                        <th width="8%"><button type="button" class="btn btn-success btn-xs" id="addPermit"><i class="fa fa-plus"></i></button></th>
+                    </tr>
+                    </thead>
+                    <tbody id="list-tbody">
+                        {if isset($res) && $res['content']}
+                            {foreach $res['content'] as $vo}
+                        <tr>
+                            <td><input type="text" value="{$vo.name}" name="conf[name][]" placeholder="权限点名称" class="form-control"></td>
+                            <td><input type="text" value="{$vo.controller}" name="conf[controller][]" placeholder="控制器" class="form-control"></td>
+                            <td><input type="text" value="{$vo.action}" name="conf[action][]" placeholder="方法名" class="form-control"></td>
+                            <td><button type="button" class="btn btn-danger btn-xs permit-point-remove"><i class="fa fa-times"></i></button></td>
+                        </tr>
+                            {/foreach}
+                        {else}
+                        <tr>
+                            <td><input type="text" name="conf[name][]" placeholder="权限点名称" class="form-control"></td>
+                            <td><input type="text" name="conf[controller][]" placeholder="控制器" class="form-control"></td>
+                            <td><input type="text" name="conf[action][]" placeholder="方法名" class="form-control"></td>
+                            <td><button type="button" class="disabled btn btn-danger btn-xs permit-point-remove"><i class="fa fa-times"></i></button></td>
+                        </tr>
+                    {/if}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-group dialog-handle">
+            <label class="col-md-3 control-label">&nbsp;</label>
+            <div class="col-md-8">
+                <button type="submit" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<script>
+    var template = '<tr><td><input type="text" name="conf[name][]" placeholder="权限点名称" class="form-control"></td>'
+            +'<td><input type="text" name="conf[controller][]" placeholder="控制器" class="form-control"></td>'
+            +'<td><input type="text" name="conf[action][]" placeholder="方法名" class="form-control"></td>'
+            +'<td><button type="button"  class="btn btn-danger btn-xs permit-point-remove"><i class="fa fa-times"></i></button></td></tr>';
+    $(function () {
+        $("#addPermit").click(function () {
+            var temp = $(template);
+            temp.appendTo($("#list-tbody")).find("button")
+            jDialog.data[jDialog.currentID].position();
+            $(".permit-point-remove").removeClass("disabled");
+        });
+        $(document).on("click",".permit-point-remove",function () {
+            var self = $(this);
+            var tr = self.closest("tr");
+            if($("#list-tbody").find("tr").length == 1){
+                return false;
+            }
+            else{
+                tr.remove();
+            }
+            if($("#list-tbody").find("tr").length == 1){
+                $(".permit-point-remove").addClass("disabled");
+            }
+
+        });
+    });
+
+</script>

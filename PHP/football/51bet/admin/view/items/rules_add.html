@@ -1,0 +1,136 @@
+<div class="panel">
+    <div class="panel-body" style="width: 800px;">
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url($controller."/rules_add")}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+        <input type="hidden" name="id" value="{$res.id ?? 0}">
+        <div class="form-group">
+            <label class="col-md-3 control-label">玩法名称</label>
+            <div class="col-md-7">
+                <input type="text" class="form-control" {if $res && $res.is_edit neq 1}disabled{/if} name="name" id="name" value="{$res.name ?? ""}" data-parsley-required="true">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">玩法别名</label>
+            <div class="col-md-7">
+                <input type="text" class="form-control" name="alias" id="alias" value="{$res.alias ?? ''}" data-parsley-required="true">(长度5个字以内)
+            </div>
+        </div>
+        {if $gameList}
+        <div class="form-group">
+            <label class="col-md-3 control-label">所属游戏</label>
+            <div class="col-md-4">
+                <select name="game" class="form-control" name="type" {if $res}disabled{/if}>
+                {foreach $gameList as $game}
+                <option value="{$game.id}" {if $res && $res['game_id'] eq $game.id}selected{/if}>{$game.name}</option>
+                {/foreach}
+                </select>
+            </div>
+        </div>
+        {/if}
+        <div class="form-group">
+            <label class="col-md-3 control-label">玩法类型</label>
+            <div class="col-md-4">
+                <select class="form-control" name="type" {if $res}disabled{/if}>
+                {foreach $rulesList as $key => $val}
+                <option value="{$key}" {if $res && $res.type eq $key}selected{/if}>{$val}</option>
+                {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group" id="rule-items" style="display: none;">
+        <label class="col-md-3 control-label">玩法投注项</label>
+        <div class="col-md-8">
+            <div class="row ml10">
+                <div class="input-group">
+                    <span class="input-group-addon">投注项1</span>
+                    <input type="text" class="form-control" name="rule_items[]" value="{$res.explain[0] ?? ''}">
+                </div>
+            </div>
+            <div class="row ml10">
+                <div class="input-group">
+                    <span class="input-group-addon">投注项2</span>
+                    <input type="text" class="form-control" name="rule_items[]" value="{$res.explain[1] ?? ''}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">开擂最低保证金</label>
+        <div class="col-md-8">
+            <div class="col-md-5 pdl0">
+                <input type="text" class="form-control" name="min_deposit" id="min_deposit" value="{$res.min_deposit ?? "0"}" data-parsley-required="true">
+            </div>
+            <div class="clear help-block help-block-pd">如果填写为0则使用系统设置中的开擂最低保证金</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">玩法简介</label>
+        <div class="col-md-7">
+            <input type="text" class="form-control" name="intro" id="intro" value="{$res.intro ?? ""}">(长度30个字以内)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">玩法帮助说明</label>
+        <div class="col-md-7">
+            {:widget('Editor/single',[
+            'name' => 'help_intro',
+            'value' => isset($res['help_intro']) ? $res['help_intro'] : '',
+            'toolbars' => ['insertimage']
+            ])}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">排序</label>
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="sort" id="sort" value="{$res.sort ?? "999"}">
+            <div class="help-block">按升序排列</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">状态</label>
+        <div class="col-md-7">
+            <label class="radio-inline">
+                <input type="radio" name="status" value="{$Think.STATUS_ENABLED}" {if ($res && $res.status == STATUS_ENABLED) || !$res}checked{/if} />
+                启用
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="status" value="{$Think.STATUS_DISABLED}"  {if $res && $res.status == STATUS_DISABLED}checked{/if}/>
+                禁用
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group dialog-handle">
+        <label class="col-md-3 control-label">&nbsp;</label>
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-primary">确定</button>
+        </div>
+    </div>
+    </form>
+</div>
+</div>
+<script>
+    var type = {$res.type ?? '0'};
+    var isData = {if isset($res) && $res}1{else}0{/if};
+    var explain = [
+        {$Think.const.RULES_TYPE_OTHER}
+    ];
+    $(function () {
+        if(isData && $.inArray(type,explain) != -1){
+            $("#rule-items").show();
+        }
+
+
+
+        $("select[name=type]").change(function () {
+            var val = $(this).val();
+            if(val != {$Think.const.RULES_TYPE_OTHER}){
+                $("#rule-items").hide();
+                return false;
+            }
+            $("#rule-items").show();
+        })
+    });
+
+</script>

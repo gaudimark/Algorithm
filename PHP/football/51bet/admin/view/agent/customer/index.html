@@ -1,0 +1,107 @@
+<div class="panel">
+    <div class="panel-body" {if $opt == 'dialog'}style="width:700px;" id="kf-__formId__"{/if}>
+    {if !$opt}
+        <div class="mb10 clearfix">
+            <form class="form-inline" method="get">
+                <div class="input-group">
+                    <span class="input-group-addon input-group-addon-select"><select class="form-control" name="user_type">
+                        <option value="2" {if $user_type eq 2}selected{/if}>用户ID</option>
+                        <option value="3" {if $user_type eq 3}selected{/if}>用户昵称</option>
+                        <option value="4" {if $user_type eq 4}selected{/if}>GUID</option>
+                        <option value="1" {if $user_type eq 1}selected{/if}>用户编号</option>
+                    </select></span>
+                    <input type="text" class="form-control" name="nickname" value="{$nickname ?? ""}">
+                </div>
+                <button class="btn btn-primary btn-sm">搜索</button>
+            </form>
+
+        </div>
+    {/if}
+        <div class="table-responsive clear">
+            <table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th rowspan="2" width="80"><input type="checkbox" class="checkall" data-toggle=".checkbox-libs">全选</th>
+                    <th rowspan="2" width="80">ID</th>
+                    <th rowspan="2" width="80">用户编号</th>
+                    <th rowspan="2" width="80">GUID</th>
+                    <th rowspan="2" width="150">用户昵称</th>
+                    <th rowspan="2">提问内容</th>
+                    <th rowspan="2">提问时间</th>
+                    <th rowspan="2">最后回复时间</th>
+                    <th rowspan="2" width="150">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="lists" id="vo"}
+                <tr>
+                    <td><input type="checkbox" class="checkbox-libs" name="libs[]" value="{$vo.id}|{$vo.user_id}"></td>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.user_number}</td>
+                    <td>{$vo.guid}</td>
+                    <td>
+                        {if checkPermit('User','info')}
+                        <a href="{:url('user/info',['id'=>$vo.user_id])}" class="j-dialog-handle btn btn-default btn-xs text-primary" title="用户详情">{$vo.nickname}</a>
+                        {else}
+                        {$vo.nickname}
+                        {/if}
+                    </td>
+                    <td style="text-align: left" {if $vo.has_reply neq 1} class="text-warning"{/if}>
+                    {if $vo.has_reply neq 1} <span class="text-danger"><i class="fa fa-question-circle"></i></span>{/if}
+                        {$vo.last_question_content}</td>
+                    <td>{:date("Y-m-d H:i:s",$vo.last_question_time)}</td>
+                    <td>{if $vo.last_reply_time}{:date("Y-m-d H:i:s",$vo.last_reply_time)}{else}-{/if}</td>
+                    <td>
+                        {if checkPermit('customer','reply')}
+                        <a class="btn btn-xs btn-primary j-dialog-handle" href="{:url('agent.customer/reply',['id' => $vo.id,'user_id' => $vo.user_id])}" title="回复“{$vo.nickname}”提问">回复</a>
+                        {/if}
+                        {if checkPermit('customer','del')}
+                        <a class="btn btn-xs btn-danger ajax-delete" href="{:url('agent.customer/del',['id' => $vo.id,])}">删除</a>
+                        {/if}
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <div class="mb10">
+                <button type="button" class="btn btn-primary btn-sm batch-reply">批量回复</button>
+            </div>
+            <center>{$lists->render()}</center>
+        </div>
+    </div>
+</div>
+{if $opt == 'dialog'}
+<script>
+    $(function () {
+        $(document).on("click","#kf-__formId__ .pagination a",function () {
+            var href = $(this).attr("href");
+            Ajax.get(href,{},function (data) {
+                var content = extractContainer(data,'#user_log');
+                $("#kf-__formId__").html(content.html());
+            });
+            return false;
+        })
+    });
+</script>
+{/if}
+
+<script>
+    $(function () {
+        $(document).on('click','.batch-reply',function () {
+            var data = [];
+            $('input.checkbox-libs:checked').each(function () {
+                data.push($(this).val());
+            });
+
+            if(!data || data.length == 0){
+                Tips.error('请先选择需要批量回复的数据');
+                return false;
+            }
+            new window.top.jDialog({
+                'content': 'url:{:url('customer/batch_reply')}?ids='+data.join(','),
+                'title': '批量回复'
+            });
+
+        });
+    });
+</script>

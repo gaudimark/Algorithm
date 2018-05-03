@@ -1,0 +1,74 @@
+<div class="panel">
+    <div class="panel-body" style="width: 700px;">
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url($controller.'/play_add')}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+            <input type="hidden" name="id" value="{$res.id ?? 0}">
+            <input type="hidden" name="match_id" id="match_id" value="{$res.match_id ?? 0}">
+            <input type="hidden" name="home_id" id="home_id" value="{$res.teams[0]['id'] ?? 0}">
+            <input type="hidden" name="guest_id" id="guest_id" value="{$res.teams[1]['id'] ?? 0}">
+
+            <div class="form-group">
+                <label class="col-md-3 control-label">队伍：</label>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <input type="text" class="form-control" value="{$res.teams[0]['name'] ?? ''}" name="home_name" id="home_name" readonly onclick="selectTeam('home')">
+                        <span class="input-group-addon"> VS </span>
+                        <input type="text" class="form-control" value="{$res.teams[1]['name'] ?? ''}" name="guest_name" id="guest_name" readonly onclick="selectTeam('guest')">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">所属赛事：</label>
+                <div class="col-md-5"><input type="text" value="{$res.match.name ?? ''}" class="form-control" name="match_name" id="match_name" onclick="selectMatch()"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">赛事开始时间：</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="play_time" id="play_time" value='{$res.play_time ?? ''}' data-timepicker="true" data-toggle="datetime">
+                </div>
+            </div>
+            <div class="form-group dialog-handle">
+                <label class="col-md-3 control-label">&nbsp;</label>
+                <div class="col-md-8">
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<script>
+    var teamTarget = '';
+    $(function () {
+        $("#play_time").datetime();
+    });
+    function selectTeam(target) {
+        teamTarget = target;
+        new jDialog({
+            'content': 'url:{:url('Misc/select_team')}?type=radio&item_id='+{$item_id},
+            'title': '选择队伍'
+        });
+    }
+    function selectMatch() {
+        new jDialog({
+            'content': 'url:{:url('Misc/select_match')}?type=radio&item_id='+{$item_id},
+            'title': '选择赛事'
+        });
+    }
+    function miscSelectTeamRet(teamData) {
+        if(teamData){
+            teamData = teamData[0];
+            $("#"+teamTarget+"_id").val(teamData['id']);
+            $("#"+teamTarget+"_name").val(teamData['name']);
+        }
+    }
+    function miscSelectMatchRet(matchData) {
+        if(matchData){
+            matchData = matchData[0];
+            $("#match_id").val(matchData['id']);
+            $("#match_name").val(matchData['name']);
+        }
+    }
+</script>
+
+
+

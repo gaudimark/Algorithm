@@ -1,0 +1,86 @@
+<div class="panel">
+    <div class="panel-body">
+        {include file="agent/recharge/side_menu" /}
+        <div class="mb10">
+            <form class="form-inline" method="get">
+                <a class="btn btn-danger btn-sm ajax" href="{:url($controller."/weights")}">刷新权重</a>
+                {if checkPermit($controller,'add')}
+                <a class="btn btn-success btn-sm j-dialog-handle mr10" href="{:url($controller."/add")}"><i class="fa fa-plus"></i> 创建代理帐号</a>
+                {/if}
+                <div class="input-group ml10">
+                    <span class="input-group-addon input-group-addon-select">
+                        <select name="user_type" class="form-control">
+                            <option value="1" {if $user_type eq 1}selected{/if}>代理用户名</option>
+                            <option value="2" {if $user_type eq 2}selected{/if}>代理昵称</option>
+                        </select>
+                    </span>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="" value="{$username ?? ""}">
+                </div>
+                <button class="btn btn-primary btn-sm">搜索</button>
+            </form>
+        </div>
+        <div class="table-responsive clear">
+            <table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th width="100">ID</th>
+                    <th>用户名</th>
+                    <th>昵称</th>
+                    <th>账户余额</th>
+                    <th>累计充值金额</th>
+                    <th>累计兑换金额</th><!--
+                    <th>是否充值</th>
+                    <th>是否兑换</th>
+                    <th>满</th>-->
+                    <th>支付宝兑换权重</th>
+                    <th>银行卡兑换权重</th>
+                    <th>状态</th>
+                    <th width="200">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach $lists as $vo}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.username}</td>
+                    <td>{$vo.nickname}</td>
+                    <td class="number">{:numberFormat($vo.gold,2,true)}</td>
+                    <td class="number">{:numberFormat($vo.gold_total,2,true)}</td>
+                    <td class="number">{:numberFormat($vo.withdrawal_total,2,true)}</td>
+                    <!--<td>{if $vo.has_recharge eq STATUS_YES}是{else}否{/if}</td>
+                    <td>{if $vo.has_withdrawal eq STATUS_YES}是{else}否{/if}</td>
+                    <td>
+                        <a href="{:url('agent.recharge/up',['opt' => 'man','id' => $vo.id])}" class="btn {if $vo.has_man eq STATUS_YES}btn-success{else}btn-default{/if} btn-xs ajax">{if $vo.has_man eq STATUS_YES}是{else}否{/if}</a>
+                    </td>-->
+                    <td>{$vo.withdrawal_weights} ({$vo.weights}%)</td>
+                    <td>{$vo.bank_withdrawal_weights} ({$vo.bank_weights}%)</td>
+                    <td>{if $vo.status eq STATUS_ENABLED}正常{else}禁用{/if}</td>
+                    <td>
+                        {if checkPermit($controller,'pay')}
+                        <a class="btn btn-xs btn-warning j-dialog-handle" href="{:url($controller.'/pay',['id' => $vo.id])}" title="充值">充值</a>
+                        {/if}
+                        {if checkPermit($controller,'debit')}
+                        <a class="btn btn-xs btn-danger j-dialog-handle" href="{:url($controller.'/debit',['id' => $vo.id])}" title="扣款">扣款</a>
+                        {/if}
+                        {if checkPermit($controller,'add')}
+                        <a class="btn btn-xs btn-primary j-dialog-handle" href="{:url($controller.'/add',['id' => $vo.id])}" title="修改">修改</a>
+                        {/if}
+                        {if checkPermit($controller,'del')}
+                        <a class="ajax-delete btn btn-xs btn-danger" href="{:url($controller.'/del',['id' => $vo.id])}">删除</a>
+                        {/if}
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+            <center>{$lists->render()}</center>
+        </div>
+    </div>
+    <div class="help-block bg-warning page-note mb10" style="margin-top: 30px;">
+       说明
+        <div class="well-body"><br/>
+            兑换权重的值越大，提现自动分配几率越大<Br/>
+            修改了兑换权重值需要“刷新权重”才能生效
+        </div>
+    </div>
+</div>

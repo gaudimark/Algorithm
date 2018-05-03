@@ -1,0 +1,63 @@
+
+{if $page eq 1}
+		<style type="text/css">
+			*{margin:0;padding:0;list-style-type:none;}
+			body{width:100%;height:100%;position:relative;font-family:"Microsoft YaHei";padding:0 3px;box-sizing:border-box;}
+			a{text-decoration:none;}
+			.main{width:100%;height:auto;overflow:hidden;}
+			.header{width:100%;height:40px;background:#f0f0f0;}
+			.header h1{font-size:22px;text-align:center;font-weight:normal;line-height:40px;}
+			.top{width:100%;height:180px;position:relative;}
+			.top img{width:100%;height:180px;}
+			.top p{width:100%;height:36px;color:#fff; background:rgba(0,0,0,0.5);position:absolute;bottom:0;line-height:36px;padding:0 5px;box-sizing:border-box;}
+			.list{width:100%;height:auto;overflow:hidden;}
+			.list li{width:100%;height:100px;border-bottom:1px solid #ddd;overflow:hidden;position:relative;}
+			.list li a{width:100%;height:100px;padding-left:10px;padding-right:10px;box-sizing:border-box;overflow:hidden;display: block;}
+			.list li h2{color:#333;font-size:16px;line-height:24px;font-weight:normal;margin-top:14px;height:45px;width:100%;overflow:hidden;}
+			.list li p{color:#666;width:100%;height:25px;margin-top:5px;overflow:hidden;line-height:25px;font-size:14px;}
+			.list li img{width:60px;height:60px;position:absolute;left:10px;top: 21px;}
+		</style>
+		<div class="main">
+			<div class="header">
+				<h1>{if $type eq 1}足球新闻{elseif $type eq 2}王者荣耀新闻{else}首页{/if}</h1>
+			</div>
+			<div class="top">
+				<a href="javascript:;" onclick="view({$list[0]['id']})">
+					{if $type eq 2}
+					<img src="http://www.51bet.com//assets/common/images/wangzhedefault.png">
+					{elseif $type eq 1}
+					<img src="http://www.51bet.com//assets/common/images/footballdefault.jpg">
+					{/if}
+					<p>{$list[0]["title"]}</p>
+				</a>
+			</div>
+			<div class="list">
+				<ul>
+					{for start="1" end="count($list)"}
+					<li>
+						<a href="javascript:;" onclick="view({$list[$i]['id']})">
+							<h2>{$list[$i]["title"]}</h2>
+							<p>{$list[$i]["detail"]}………</p>
+						</a>
+					</li>
+					{/for}
+				</ul>
+				
+			</div>
+		</div>	
+			{else}
+			<div class="list">
+				<ul>
+					{for start="0" end="count($list)"}
+					<li>
+						<a href="javascript:;" onclick="view({$list[$i]['id']})">
+							<h2>{$list[$i]["title"]}</h2>
+							<p>{$list[$i]["detail"]}………</p>
+						</a>
+					</li>
+					{/for}
+				</ul>
+				
+			</div>
+			{/if}
+		

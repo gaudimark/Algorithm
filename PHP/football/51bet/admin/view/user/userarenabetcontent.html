@@ -1,0 +1,44 @@
+<table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th rowspan="2" width="80">投注ID</th>
+                    <th rowspan="2">项目</th>
+                    <th colspan="3">投注内容</th>
+                    <th rowspan="2">投注 (投注内容，赔率)</th>
+                    <th rowspan="2">投注金额</th>
+                    <th rowspan="2">可能收益</th>
+                    <th rowspan="2">查看价格</th>
+                    <th rowspan="2" width="100">投注房间ID</th>
+                    <th rowspan="2" width="100">状态</th>
+                    <th rowspan="2" width="200">投注时间</th>
+                </tr>
+                <tr>
+                    <th width="120">赛事</th>
+                    <th width="120">主场/队1/选项</th>
+                    <th width="120">客场/队2/选项</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+
+                    {switch name="$vo.game_type"}
+                    {case value="$Think.const.GAME_TYPE_FOOTBALL"}{include file="user/userarenabet_side/football"}{/case}
+                    {/switch}
+                {/volist}
+                </tbody>
+</table>
+
+<center id="bet_log" >{$list->render()}</center>
+<script>
+    $(function () {
+        $("#bet_log a").click(function () {
+            var self = $(this);
+            var target = $("#bet_log");
+            var url = self.attr("href");
+            Ajax.get(url,{'is_ajax':1},function (ret) {
+                target.html(ret.data);
+            });
+            return false;
+        });
+    });
+</script>

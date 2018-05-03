@@ -1,0 +1,25 @@
+[33m94f76490[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: pull origin master: Fast-forward
+[33m81dca5f9[m HEAD@{1}: reset: moving to HEAD
+[33m81dca5f9[m HEAD@{2}: commit: 采集设置不用代理
+[33m60ecdddc[m HEAD@{3}: pull: Fast-forward
+[33m00ed30b1[m HEAD@{4}: commit: 新增文件
+[33m57cff037[m HEAD@{5}: commit: addloginout
+[33m8231174d[m HEAD@{6}: commit: 新增金币充值接口
+[33mf2d081ee[m HEAD@{7}: pull: Fast-forward
+[33mf754a9b4[m HEAD@{8}: pull: Fast-forward
+[33m05c66d1f[m HEAD@{9}: reset: moving to HEAD
+[33m05c66d1f[m HEAD@{10}: pull: Fast-forward
+[33md9c45921[m HEAD@{11}: commit: 新增功能
+[33m68ea1001[m HEAD@{12}: pull: Merge made by the 'recursive' strategy.
+[33mc7b95d2d[m HEAD@{13}: reset: moving to HEAD
+[33mc7b95d2d[m HEAD@{14}: reset: moving to HEAD
+[33mc7b95d2d[m HEAD@{15}: reset: moving to HEAD
+[33mc7b95d2d[m HEAD@{16}: reset: moving to HEAD
+[33mc7b95d2d[m HEAD@{17}: commit: 新增跑马灯接口
+[33m21a3514d[m HEAD@{18}: pull: Fast-forward
+[33mdd107925[m HEAD@{19}: pull: Fast-forward
+[33m7dd8886b[m HEAD@{20}: commit: 修改游戏币请求到游戏接口
+[33me342a8e0[m HEAD@{21}: commit: 新增拿币成功接口
+[33m1f43ef66[m HEAD@{22}: commit: 新增测试接口
+[33m0dfcbbb1[m HEAD@{23}: commit: 新增测试接口
+[33mbb16405e[m HEAD@{24}: clone: from https://pd.jiagames.com:32521/reus/Football.git

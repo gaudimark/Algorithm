@@ -1,0 +1,9 @@
+<ul class="nav nav-tabs my-nav-tabs mb10">
+    <li role="presentation"{if $type eq 1 || !$type} class="active"{/if}><a href="{:url($controller.'/play',['type' => 1])}" >全部比赛</a></li>
+    <li role="presentation"{if $type eq 2} class="active"{/if}><a href="{:url(''.$controller.'/play',['type' => 2])}">已有房间比赛</a></li>
+    <li role="presentation"{if $type eq 3} class="active"{/if}><a href="{:url(''.$controller.'/play',['type' => 3])}">热门比赛</a></li>
+    <li role="presentation"{if $type eq 5} class="active"{/if}><a href="{:url(''.$controller.'/play',['type' => 5])}">重要赛事</a></li>
+    {if checkPermit($controller,'statement')}
+    <li role="presentation"{if $type eq 4} class="active"{/if}><a href="{:url(''.$controller.'/statement')}">可结算的比赛</a></li>
+    {/if}
+</ul>

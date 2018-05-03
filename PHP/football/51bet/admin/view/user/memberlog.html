@@ -1,0 +1,110 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="mb10">
+            <form class="form-inline" method="get" id="__formId__">
+                <input type="hidden" name="toxls" id="toxls" value="0">
+                <div class="input-group">
+                	<span class="input-group-addon" {if $choose=='today'}style="background-color:#BCE2BC"{/if}><a href="{:url('/user/memberLog',['choose'=>'today'])}">今天</a></span>
+                	<span class="input-group-addon" {if $choose=='yestoday'}style="background-color:#BCE2BC"{/if}><a href="{:url('/user/memberLog',['choose'=>'yestoday'])}">昨天</a></span>
+                	<span class="input-group-addon" {if $choose=='month'}style="background-color:#BCE2BC"{/if}><a href="{:url('/user/memberLog',['choose'=>'month'])}">当月</a></span>
+                    <span class="input-group-addon input-group-addon-select"><select class="form-control" name="user_type">
+                    	<option value="2" {if $user_type eq 2}selected{/if}>用户ID</option>
+                        <option value="3" {if $user_type eq 3}selected{/if}>用户昵称</option>
+                        <option value="1" {if $user_type eq 1}selected{/if}>用户编号</option>
+                    </select></span>
+                    <input type="text" class="form-control" name="username" value="{$username ?? ''}">
+                    <span class="input-group-addon">类型</span>
+                    <select class="form-control" name="type">
+                        <option value="0">全部</option>
+                        <option value="1" {if $type == 1}selected{/if}>收入</option>
+                        <option value="2" {if $type == 2}selected{/if}>支出</option>
+                    </select>
+                    <span class="input-group-addon">资金动向</span>
+                    <select class="form-control" name="classify">
+                        <option value="0">全部</option>
+                        <option value="{$Think.const.FUNDS_CLASSIFY_DEP}" {if $classify == FUNDS_CLASSIFY_DEP}selected{/if}>投注</option>
+                        <option value="{$Think.const.FUNDS_CLASSIFY_ARE}" {if $classify == FUNDS_CLASSIFY_ARE}selected{/if}>开房</option>
+                        <option value="{$Think.const.FUNDS_CLASSIFY_SYS_REC}" {if $classify == FUNDS_CLASSIFY_SYS_REC}selected{/if}>系统赠送</option>
+                        <option value="{$Think.const.FUNDS_CLASSIFY_SYS_DED}" {if $classify == FUNDS_CLASSIFY_SYS_DED}selected{/if}>系统扣款</option>
+                        <option value="{$Think.const.FUNDS_CLASSIFY_GIFT_GOLD}" {if $classify == FUNDS_CLASSIFY_GIFT_GOLD}selected{/if}>赠送金币</option>
+                    </select>
+                    <span class="input-group-addon">开始时间</span>
+                    <input type="text" class="form-control" readonly name="start_time" value="{$start_time ?? ''}" data-timepicker="true" data-toggle="datetime">
+                    <span class="input-group-addon">结束时间</span>
+                    <input type="text" class="form-control" readonly name="end_time" value="{$end_time ?? ''}" data-timepicker="true" data-toggle="datetime">
+                </div>
+                <button class="btn btn-primary btn-sm">搜索</button>
+                <button class="btn btn-info btn-sm btn-to-xls" type="button">导出报表</button>
+                <span>总计：{if $total == 0}0{else}{$total}{/if}</span>
+            </form>
+        </div>
+        <div class="table-responsive clear">
+        	<table class="table table-hover table-bordered table-condensed table-head">
+                <thead>
+                <tr>
+                    <th width="80">用户ID</th>
+                    <th width="100">用户编号</th>
+                    <th width="150">消费者</th>
+                    <th width="80">收入/支出</th>
+                    <th width="150">操作前金额</th>
+                    <th width="150">金额</th>
+                    <th width="150">操作后金额</th>
+                    <th width="200">原因</th>
+                    <th width="150">时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                    <tr>
+                        <td>{$vo.user_id}</td>
+                        <td>{:getUser($vo.user_id,'cpid')}</td>
+                        <td style="text-align: left">
+                            {if checkPermit('User','info')}
+                            <a href="{:url('user/info',['id'=>$vo.user_id])}" class="j-dialog-handle btn btn-default btn-xs text-primary" title="用户详情">{:getUser($vo.user_id,'nickname')}</a>
+                            {else}
+                            {:getUser($vo.user_id,'nickname')}
+                            {/if}
+                        </td>
+                        <td>{if $vo.number > 0}收入{else}支出{/if}</td>
+                        <td style="text-align: left" class="number text-primary">{:number_format($vo.before_num,2)}</td>
+                        <td style="text-align: left"class="number">
+                            <span class="{if $vo.number > 0}text-success{else}text-danger{/if}">{:number_format($vo.number,2)}</span>
+                        </td>
+                        <td style="text-align: left" class="number text-primary">{:number_format($vo.after_num,2)}</td>
+                        <td style="text-align: left" style="text-align: left">{$vo.explain}</td>
+                        <td>
+                        	{if $vo.classify eq FUNDS_CLASSIFY_PLAY_GAME}
+                        	{if isset($gamelist[$vo.explain]['GameID'])}
+                        	<a href="{:url('stat.game/record')}?user_type=3&btime={:date('Y-m-d H:i:s',$vo.create_time)}&game_id={$gamelist[$vo.explain]['GameID']}&timeexact=1" target="_blank" class="btn btn-default btn-xs text-primary">{$vo.create_time|date="Y-m-d H:i",###}</a>
+                        	{else}
+                        	<a href="{:url('stat.game/record')}?user_type=3&btime={:date('Y-m-d H:i:s',$vo.create_time)}&timeexact=1" target="_blank" class="btn btn-default btn-xs text-primary">{$vo.create_time|date="Y-m-d H:i",###}</a>
+                        	{/if}
+                        	{elseif $vo.classify eq FUNDS_CLASSIFY_DEP || $vo.classify eq FUNDS_CLASSIFY_WIN_DEP}
+                        	{if $vo.game_type eq GAME_TYPE_FOOTBALL}
+                        	<a href="{:url('items.football/betting_list')}?nickname={$vo.nickname}&btime={:date('Y-m-d',$vo.create_time)} 00:00:00&etime={:date('Y-m-d',$vo.create_time)} 23:59:59" target="_blank" class="btn btn-default btn-xs text-primary">{$vo.create_time|date="Y-m-d H:i",###}</a>
+                        	{else}
+                        	<a href="{:url('user/memberlog')}?toxls=0&user_type=2&username={$vo.user_id}&start_time={:date('Y-m-d',$vo.create_time)} 00:00:00&end_time={:date('Y-m-d',$vo.create_time)} 23:59:59" target="_blank" class="btn btn-default btn-xs text-primary">{$vo.create_time|date="Y-m-d H:i",###}</a>
+                        	{/if}
+                        	{else}
+                        	<a href="{:url('user/memberlog')}?toxls=0&user_type=2&username={$vo.user_id}&start_time={:date('Y-m-d',$vo.create_time)} 00:00:00&end_time={:date('Y-m-d',$vo.create_time)} 23:59:59" target="_blank" class="btn btn-default btn-xs text-primary">{$vo.create_time|date="Y-m-d H:i",###}</a>
+                        	{/if}
+
+                        </td>
+                    </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <center>{$list->render()}</center>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        $(".btn-to-xls").click(function () {
+            $("#toxls").val(1);
+            $("#__formId__").submit();
+            $("#toxls").val(0);
+        });
+    });
+</script>

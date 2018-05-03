@@ -1,0 +1,50 @@
+<div class="panel">
+    <div class="panel-body">
+        {if checkPermit('layout','add')}
+        <div class="mb10">
+            <a href="{:url('layout/add')}" class="btn btn-success btn-sm j-dialog-handle" ><i class="fa fa-plus"></i> 添加模块</a>
+        </div>
+        {/if}
+        <div class="table-responsive clear">
+            <table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th width="80">id</th>
+                    <th>模块名称</th>
+                    <th width="100">首页位置</th>
+                    <th width="150">开始时间</th>
+                    <th width="150">结束时间</th>
+                    <th width="150">状态</th>
+                    <th width="150">更新时间</th>
+                    <th width="200">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.title}</td>
+                    <td>{$vo.position}</td>
+                    <td>{if($vo.btime)}{:date("Y-m-d H:i:s",$vo.btime)}{else}-{/if}</td>
+                    <td>{if($vo.etime)}{:date("Y-m-d H:i:s",$vo.etime)}{else}-{/if}</td>
+                    <td>{if $vo.status eq STATUS_ENABLED}正常{else}禁用{/if}</td>
+                    <td>{:date("Y-m-d H:i:s",$vo.update_time)}</td>
+                    <td class="dr_option" >
+                        {if checkPermit('layout','add')}
+                        <a class="btn btn-xs btn-primary j-dialog-handle" href="{:url('layout/add',['id' => $vo.id])}" title="修改">修改</a>
+                        {/if}
+                        {if checkPermit('layout','detail')}
+                        <a class="btn btn-xs btn-info j-dialog-handle" href="{:url('layout/detail',['id' => $vo.id])}" title="模块内容">模块内容</a>
+                        {/if}
+                        {if checkPermit('layout','delete')}
+                        <a class="ajax-delete btn btn-xs btn-danger" href="{:url('layout/delete',['id' => $vo.id])}">删除</a>
+                        {/if}
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <center>{$list->render()}</center>
+        </div>
+    </div>
+</div>

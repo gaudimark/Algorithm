@@ -1,0 +1,7 @@
+/51bet/library/conf/database.php
+/api/library/conf/database.php
+/library/conf/config.php
+/runtime/*
+/.idea/*
+
+/nbproject/private/

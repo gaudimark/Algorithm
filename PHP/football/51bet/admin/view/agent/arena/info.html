@@ -1,0 +1,54 @@
+{__NOLAYOUT__}
+<div class="panel">
+    <div class="panel-body" style="width: 550px">
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url("agent.arena/info")}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+            <input type="hidden" name="id" value="{$user.id}">
+            <div class="form-group">
+                <label class="col-md-3 control-label">代理帐号</label>
+                <div class="col-md-8 pdt7">
+                    {$user.username}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">重置密码</label>
+                <div class="col-md-8 pdt7">
+                    <span id="pwd-info">******</span>
+                    {if checkPermit('agent','modifypassword')}
+                    &nbsp;<button type="button" class="btn btn-primary btn-xs" id="resetPassword">重置密码</button>
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">提成比例</label>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="rate" value="{$user.rate}">
+                        <span class="input-group-addon">%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group dialog-handle">
+                <label class="col-md-3 control-label">&nbsp;</label>
+                <div class="col-md-8">
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#resetPassword").click(function () {
+            Tips.warn('你确定要重置该帐户登录密码吗？<br/>重置后及时生成！','',function () {
+                Ajax.post('{:url('agent.arena/modifypassword')}',{'id':{$user.id}},function (ret) {
+                    if(ret.code == 1){
+                        $("#pwd-info").addClass("text-danger").text("新密码："+ret.data.pwd);
+                    }else{
+                        Tips.error(ret.msg);
+                    }
+                });
+            },true);
+            return false;
+        });
+    });
+</script>

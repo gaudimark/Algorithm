@@ -1,0 +1,102 @@
+
+<div class="panel">
+    <div class="panel-body">
+        <div class="mb10">
+            <form class="form-inline" method="get">
+                <div class="input-group">
+                    <span class="input-group-addon">房间ID/标识</span>
+                    <input type="text" class="form-control" name="mark" value="{$mark ?? ""}">
+                    <span class="input-group-addon">房主</span>
+                    <input type="text" class="form-control" name="nickname" value="{$nickname ?? ""}">
+                </div>
+                <button class="btn btn-primary btn-sm">搜索</button>
+            </form>
+        </div>
+        <div class="table-responsive clear">
+
+            <table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th  width="80">房间ID</th>
+                    <th  width="100">房主</th>
+                    <th  width="120">玩法</th>
+                    <th  width="120">比赛</th>
+                    <th  width="120">主场</th>
+                    <th  width="120">客场</th>
+                    <th  width="80">保证金</th>
+                    <th  width="80">
+                        <a href="?{$param}order={$iOrder ?? "asc"}&order_field=bet_money">投注总额
+                        <i class="fa fa-sort"></i></a>
+                    </th>
+                    <th  width="80">
+                        <a href="?{$param}order={$iOrder ?? "asc"}&order_field=bet_number">投注数
+                        <i class="fa fa-sort"></i></a></th>
+                    <th  width="100">
+                        <a href="?{$param}order={$iOrder ?? "asc"}&order_field=risk">房间收益
+                        <i class="fa fa-sort"></i></a></th>
+                    <th  width="100">开始时间</th>
+                    <th  width="100">截止时间</th>
+                    <th  width="80">状态</th>
+                    <th  width="80">隐私设置</th>
+                    <th  width="80">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                <tr>
+                    <td><span class="number">{$vo.id}</span></td>
+                    <td style="text-align: left">
+                        {if $vo.has_default}
+                        <i class="fa fa-star text-danger" title="默认"></i>
+                        {/if}
+                        {if $vo.has_recommend}
+                        <i class="fa fa-tint text-primary" title="推荐"></i>
+                        {/if}
+                        {if $vo.has_sys}
+                        <label class="label label-danger">系统</label>
+                        {else}
+	                        {if $vo.has_robot}
+	                        <i class="fa fa-android text-danger"></i>
+	                        {/if}
+                        	{$vo.user_nickname}
+                        {/if}</td>
+                    <td style="text-align: left">{:getRuleData($vo.game_type,$vo.rules_id,'name')}</td>
+                    <td style="text-align: left">{$vo.match_name}</td>
+                    <td style="text-align: left">{$vo.team_home_name}</td>
+                    <td style="text-align: left">{$vo.team_guest_name}</td>
+                    <td><span class="text-primary number">{$vo.deposit|number_format=2}</span></td>
+                    <td><spa class="text-primary number">{$vo.bet_money|number_format=2}</spa></td>
+                    <td><spa class="text-primary number">{$vo.bet_number|number_format}</spa></td>
+                    <td>
+                        {if $vo.status eq ARENA_STATEMENT_END}
+                        {if $vo.win < 0}
+                        <span class="text-danger number">{$vo.win|number_format=2}</span>
+                        {else}
+                        <span class="text-success number">+{$vo.win|number_format=2}</span>
+                        {/if}
+                        {else}
+                        {if $vo.risk < 0}
+                        <span class="text-danger number">{$vo.risk|number_format=2}</span>
+                        {else}
+                        <span class="text-success number">+{$vo.risk|number_format=2}</span>
+                        {/if}
+                        {/if}
+                    </td>
+                    <td>{:date("m-d H:i",$vo.create_time)}</td>
+                    <td>{:date("m-d H:i",$vo.play_time)}</td>
+                    <!--<td>{:getArenaStatus($vo.status)}</td>-->
+                    <td>{:arenaStatusToWord($vo.status,true,$vo.play_time,$vo.play_status)}</td>
+                    <td>{:arenaDisplayToWord($vo.private,true)}</td>
+                    <td>
+                        {if checkPermit('agent','bet')}
+                        <a href="{:url('agent.arena/bet',['id'=>$id,'aid'=>$vo.id])}" class="text-info">投注用户列表</a>
+                        {/if}
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

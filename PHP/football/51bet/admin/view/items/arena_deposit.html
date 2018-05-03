@@ -1,0 +1,33 @@
+<div class="panel">
+    <div class="help-block bg-warning page-note" style="margin-top: -15px;">
+        扣除方式：<Br/>
+        选择房主则直接扣除房主帐号<Br/>
+        选择系统则表示系统参与房间收益与亏损（合伙），收支计算为系统
+    </div>
+    <div class="panel-body" style="width: 400px;">
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url($controller."/arena_deposit")}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+        <input type="hidden" name="id" value="{$id ?? 0}">
+        <div class="form-group">
+            <label class="col-md-4 control-label">扣除方式</label>
+            <div class="col-md-5">
+                <select name="target" class="form-control">
+                    <option value="{$Think.const.MEMBER}">房主</option>
+                    <option value="{$Think.const.SYSTEM}">系统</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">追加保证金</label>
+            <div class="col-md-7">
+                <input type="text" class="form-control" name="deposit" id="deposit" value="" data-parsley-pattern="^\d+$" data-parsley-required="true">
+            </div>
+        </div>
+        <div class="form-group dialog-handle">
+            <label class="col-md-3 control-label">&nbsp;</label>
+            <div class="col-md-8">
+                <button type="submit" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>

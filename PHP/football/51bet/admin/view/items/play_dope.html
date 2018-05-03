@@ -1,0 +1,24 @@
+<div class="panel">
+    <div class="panel-body" style="width: 900px;height: 400px;">
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url($controller."/play_dope")}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+        <input type="hidden" name="id" value="{$dope.id ?? 0}">
+        <input type="hidden" name="play_id" value="{$play_id ?? 0}">
+        <div class="form-group">
+            <div class="col-md-12" >
+                {:widget('Editor/single',[
+                    'name' => 'content',
+                    'height' => 400,
+                    'value' => isset($dope['content']) ? $dope['content'] : '',
+                    'toolbars' => ['insertimage']
+                ])}
+            </div>
+        </div>
+        <div class="form-group dialog-handle">
+            <label class="col-md-3 control-label">&nbsp;</label>
+            <div class="col-md-8">
+                <button type="submit" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>

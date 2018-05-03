@@ -1,0 +1,42 @@
+<tr>
+    <td rowspan="{:count($p.child)}">{:getSport($item_id)}</td>
+    {if count($p.child)}
+    <td>
+        <label class="checkbox-inline">
+            <input type="checkbox" class="checkall" data-toggle=".lib_{$kp}_{$item_id}_0"> {$p.child[0]['name']}
+        </label>
+    </td>
+    <td style="text-align: left">
+        {if isset($p.child[0]['content'])}
+        {foreach $p.child[0]['content'] as $v}
+        <label class="checkbox-inline">
+            <input type="checkbox" class="lib_{$kp}_{$item_id}_0" {if (isset($res['limit'][$ic]) && in_array($v.action,$res['limit'][$ic]))}checked{/if} name="lib[{$ic}][{$v.action}]" value="1">
+            {$v.name}
+        </label>
+        {/foreach}
+        {/if}
+    </td>
+    {/if}
+</tr>
+{foreach $p.child as $k => $v}
+{if $k > 0}
+<tr>
+    <td>
+        <label class="checkbox-inline">
+            <input type="checkbox" class="checkall"  data-toggle=".lib_{$kp}_{$k}_{$item_id}">
+            {$v.name}
+        </label>
+    </td>
+    <td style="text-align: left">
+        {if isset($v['content'])}
+        {foreach $v['content'] as $vv}
+        <label class="checkbox-inline">
+            <input type="checkbox" class="lib_{$kp}_{$k}_{$item_id}" {if (isset($res['limit'][$ic]) && in_array($vv.action,$res['limit'][$ic]))}checked{/if} name="lib[{$ic}][{$vv.action}]" value="1">
+            {$vv.name}
+        </label>
+        {/foreach}
+        {/if}
+    </td>
+</tr>
+{/if}
+{/foreach}

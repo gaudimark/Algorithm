@@ -1,0 +1,393 @@
+[
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "key_btn",
+      "texture": "1f255b570",
+      "rect": [
+        916,
+        837,
+        120,
+        64
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        120,
+        64
+      ],
+      "rotated": 1
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "highlight",
+      "texture": "1f255b570",
+      "rect": [
+        570,
+        962,
+        440,
+        45
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        440,
+        45
+      ]
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "delete",
+      "texture": "1f255b570",
+      "rect": [
+        750,
+        790,
+        50,
+        23
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        50,
+        23
+      ]
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "select_item",
+      "texture": "1f255b570",
+      "rect": [
+        750,
+        2,
+        340,
+        38
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        340,
+        38
+      ],
+      "rotated": 1
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "select_normal",
+      "texture": "1f255b570",
+      "rect": [
+        750,
+        346,
+        340,
+        38
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        340,
+        38
+      ],
+      "rotated": 1
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "delete_btn",
+      "texture": "1f255b570",
+      "rect": [
+        792,
+        62,
+        120,
+        60
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        120,
+        60
+      ]
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "btnbg",
+      "texture": "1f255b570",
+      "rect": [
+        2,
+        962,
+        180,
+        60
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        180,
+        60
+      ]
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "enter_btn",
+      "texture": "1f255b570",
+      "rect": [
+        916,
+        62,
+        120,
+        60
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        120,
+        60
+      ],
+      "rotated": 1
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "close_btn",
+      "texture": "1f255b570",
+      "rect": [
+        792,
+        126,
+        50,
+        50
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        50,
+        50
+      ]
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "enter",
+      "texture": "1f255b570",
+      "rect": [
+        984,
+        837,
+        44,
+        37
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        44,
+        37
+      ],
+      "rotated": 1
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "empty_view",
+      "texture": "1f255b570",
+      "rect": [
+        2,
+        2,
+        744,
+        956
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        744,
+        956
+      ]
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "key_btn2",
+      "texture": "1f255b570",
+      "rect": [
+        792,
+        2,
+        186,
+        56
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        186,
+        56
+      ]
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "fengexian",
+      "texture": "1f255b570",
+      "rect": [
+        1014,
+        2,
+        831,
+        2
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        831,
+        2
+      ],
+      "rotated": 1
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "anjiandianji",
+      "texture": "1f255b570",
+      "rect": [
+        916,
+        186,
+        110,
+        60
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        110,
+        60
+      ],
+      "rotated": 1
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "search_pressed",
+      "texture": "1f255b570",
+      "rect": [
+        750,
+        690,
+        162,
+        96
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        162,
+        96
+      ]
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "input_bg",
+      "texture": "1f255b570",
+      "rect": [
+        186,
+        962,
+        380,
+        60
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        380,
+        60
+      ],
+      "capInsets": [
+        20,
+        20,
+        20,
+        20
+      ]
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "fuhao",
+      "texture": "1f255b570",
+      "rect": [
+        982,
+        2,
+        25,
+        34
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        25,
+        34
+      ]
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "search_normal",
+      "texture": "1f255b570",
+      "rect": [
+        750,
+        837,
+        162,
+        96
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        162,
+        96
+      ]
+    }
+  }
+]

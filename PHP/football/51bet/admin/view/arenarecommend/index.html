@@ -1,0 +1,51 @@
+<div class="panel">
+    <div class="panel-body">
+        {if checkPermit('Arenarecommend','addArena')}
+        <div class="mb10 clearfix">
+            <div class="pull-left">
+                <a href="{:url('Arenarecommend/addArena')}" class="btn btn-success btn-sm j-dialog-handle" title="新增"><i class="icon-plus"></i> 新增</a>
+            </div>
+        </div>
+        {/if}
+        <div class="table-responsive clear">
+        	<table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th rowspan="2" width="350">id</th>
+                    <th rowspan="2">房间id</th>
+                    <th rowspan="2">顺序</th>
+                    <th rowspan="2" width="150">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                	{foreach $list as $vo}
+                	<tr>
+                        <td>{$vo.id}</td>
+                        <td>{$vo.arena_id}</td>
+                        <td>{$vo.sort}</td>
+                        <td class="dr_option" >
+                            {if checkPermit('Arenarecommend','addArena')}
+                        	<a class="btn btn-xs btn-primary j-dialog-handle" href="{:url('Arenarecommend/addArena',['id'=>$vo.id])}" title="编辑">编辑</a>
+                        	{/if}
+                            {if checkPermit('Arenarecommend','deleteArena')}
+                            <a class="btn btn-xs btn-primary" href="javascript:deleteArena({$vo.id});" title="删除">删除</a>
+                            {/if}
+                        </td>
+                    </tr>
+                	{/foreach}
+                </tbody>
+            </table>
+            <center>{$list->render()}</center>
+        </div>
+    </div>
+</div>
+<script>
+	function deleteArena(id){
+		window.top.msgBox.confirm("确定执行该操作？",function () {
+            Ajax.post('{:url("Arenarecommend/deleteArena")}',{'id':id},function (ret) {
+                window.top.msgBox.success("操作成功");
+                reloadIframe('');
+            });
+        },true);
+	}
+</script>

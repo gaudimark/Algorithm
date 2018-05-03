@@ -1,0 +1,83 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="help-block bg-warning page-note mb10" style="margin-top: -20px;">
+            修改系统设置后，需要更新“系统配置”缓存，前台方能生效
+        </div>
+        <form class="form-horizontal parsley-form mt10" id="__formId__" name="__formId__" action="{:url('config/basic')}" method="post" data-parsley-validate="">
+            <div class="form-group">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1 control-label">站点名称</label>
+                <div class="col-xs-7 col-sm-5 col-md-4 col-lg-3">
+                    <input type="text" class="form-control" name="setting[site_name]" id="site_name" value="{$setting.site_name ?? ''}" placeholder="站点名称" data-required="true">
+                </div>
+            </div>
+            <!--<div class="form-group">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1 control-label">站点主域名</label>
+                <div class="col-xs-7 col-sm-5 col-md-4 col-lg-3">
+                    <input type="text" class="form-control" name="setting[site_domain]" id="site_domain" value="{$setting.site_domain ?? ''}" placeholder="站点域名">
+                    <div class="help-block">站点主域名，比：abc.com</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1 control-label">资源文件域名</label>
+                <div class="col-xs-7 col-sm-5 col-md-4 col-lg-3">
+                    <input type="text" class="form-control" name="setting[site_source_domain]" id="site_source_domain" value="{$setting.site_source_domain ?? ''}" placeholder="资源文件域名">
+                    <div class="help-block">资源文件访问域名，比：http://res.abc.com</div>
+                </div>
+            </div>-->
+            <div class="form-group">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1 control-label">网站标题</label>
+                <div class="col-xs-7 col-sm-5 col-md-4 col-lg-3">
+                    <input type="text" class="form-control" name="setting[title]" id="title" value="{$setting.title ?? ''}" placeholder="网站标题">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1 control-label">站点关键字</label>
+                <div class="col-xs-7 col-sm-5 col-md-4 col-lg-3">
+                    <input type="text" class="form-control" name="setting[keywords]" id="keywords" value="{$setting.keywords ?? ''}" placeholder="站点通用关键字">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1 control-label">站点描述</label>
+                <div class="col-xs-7 col-sm-5 col-md-5 col-lg-4">
+                    <textarea class="form-control" placeholder="站点描述" name="setting[description]" id="description" rows="4">{$setting.description ?? ''}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1 control-label">页脚内容</label>
+                <div class="col-xs-9 col-sm-7 col-md-6 col-lg-5">
+                    {:widget('Editor/single',['name' => 'footer','value'=>(isset($setting['footer']) ? $setting['footer'] : '' )]);}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1 control-label">第三方统计</label>
+                <div class="col-xs-7 col-sm-5 col-md-5 col-lg-4">
+                    <textarea class="form-control" name="setting[stat]" id="stat">{$setting.stat ?? ''}</textarea>
+                </div>
+            </div>
+
+            <div class="form-group" data-handle="btn-handle">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1 control-label">&nbsp;</label>
+                <div class="col-xs-7 col-sm-5 col-md-5 col-lg-4">
+                    <button type="submit" class="btn btn-success" ><i class="icon-save"></i> 保 存 </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(function(){
+        $("#__formId__").submitForm(null,function (ret) {
+            if(ret.code != 1){
+                Tips.error(ret.msg);
+                var tab = ret.data.tab;
+                var form_field = ret.data.form_field;
+                $('.my-nav-tabs a[href="#'+tab+'"]').tab('show');
+                $("#"+form_field).focus().parents(".form-group").addClass("has-error");
+            }else{
+                Tips.success(ret.msg,function () {
+                    location.reload();
+                });
+            }
+        });
+    });
+</script>

@@ -1,0 +1,74 @@
+<div class="panel">
+    <div class="mb10 clearfix">
+        <div class="alert alert-warning pull-left" style="margin-bottom: 15px;width: 100%;">
+            <div class="play_home pull-left">
+                <p class="text-danger">主场</p>
+                <h4 style="text-align: right">{$play.team_home_name}</h4>
+            </div>
+            <div class="play_home pull-left" style="margin: 0 60px;">
+                <p class="text-danger">{:date("Y-m-d H:i",$play.play_time)}</p>
+                <h4 style="text-align: center">{$match.name}</h4>
+            </div>
+            <div class="play_home pull-left">
+                <p class="text-danger">&nbsp;</p>
+                <h4 style="text-align: right">{$play.team_guest_name}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body" style="width:500px;" id="odds-panel-body">
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url($controller."/play_conf")}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+        <input type="hidden" name="play_id" value="{$play_id ?? 0}">
+        <input type="hidden" name="type" value="{$type ?? 1}">
+        <div class="form-group">
+            <label class="col-md-3 col-sm-6 control-label">半场比分</label>
+            <div class="col-md-7 col-sm-6">
+                <label class="control-label">
+                    {$play.team_home_half_score ?? "0"} : {$play.team_guest_half_score ?? "0"}
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 col-sm-6 control-label">全场比分</label>
+            <div class="col-md-7 col-sm-6">
+                <label class="control-label">
+                    {$play.team_home_score ?? "0"} : {$play.team_guest_score ?? "0"}
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 col-sm-6 control-label">黄牌数</label>
+            <div class="col-md-7 col-sm-6">
+                <label class="control-label">
+                    {$play.home_yellow ?? "0"} : {$play.guest_yellow ?? "0"}
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 col-sm-6 control-label">红牌数</label>
+            <div class="col-md-7 col-sm-6">
+                <label class="control-label">
+                    {$play.home_red ?? "0"} : {$play.guest_red ?? "0"}
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 col-sm-6 control-label">最先进行球</label>
+            <div class="col-md-5 col-sm-6">
+                <label class="control-label">
+                    {if HOME eq $play.first_goals}主队
+                    {elseif GUEST eq $play.first_goals}客队
+                    {else}没有入球
+                    {/if}
+                </label>
+            </div>
+        </div>
+        <input type="hidden" name="status" value="{$play.status}">
+        <div class="form-group">
+            <label class="col-md-3 col-sm-6 control-label">备注</label>
+            <div class="col-md-7 col-sm-6">
+                <label class="control-label">{$play.remark ?? ''}</label>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>

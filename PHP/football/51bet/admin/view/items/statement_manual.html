@@ -1,0 +1,91 @@
+<div class="panel">
+    <form class="form-horizontal parsley-form" action="{:url($controller."/play_conf")}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+    <input type="hidden" name="play_id" value="{$play_id ?? 0}">
+    <input type="hidden" name="status" value="{$play.status ?? 0}">
+    <input type="hidden" name="game_type" value="{$play.game_type ?? 1}">
+    <input type="hidden" name="type" value="{$type ?? 1}">
+    <div id="panel-body-item-conf">
+        {switch name="$play.game_type"}
+        {case value="$Think.const.GAME_TYPE_FOOTBALL"}{include file="items/football/play_conf"}{/case}
+        {/switch}
+    </div>
+    <div class="panel-body" id="panel-body-statement" style="display: none;width: 270px;left:50%;margin-left: -135px;padding:0 15px;max-height: 200px;background: #fff;position: absolute;top:40%;z-index:10;box-shadow: 0 0 5px 5px rgba(0,0,0,0.1);border-radius: 5px;">
+        <div class="help-block bg-warning page-note" style="margin-top: 0px;border-radius: 5px;margin-bottom: 0;">
+            结算过程中，请勿刷新或关闭此窗口！
+            <p class="text-center" style="margin-top: 15px;margin-left: -20px;">
+                <i class="fa fa-spin fa-spinner text-danger fa-3x"></i>
+            </p>
+        </div>
+        <!--<ul class="list-group">
+            <li class="list-group-item">
+                <span class="badge" id="arena-total" style="background:#f5f5f5;color:#999">
+                    <em class="text-danger">0</em>
+                    /
+                    <em>{//$arenaTotal}</em>
+                </span>
+                房间数
+            </li>
+            <li class="list-group-item">
+                <span class="badge" id="arena-detail-total" style="background:#f5f5f5;color:#999">
+                    <em class="text-danger">0</em>
+                    /
+                    <em>{//$numberTotal}</em>
+                </span>
+                投注用户数
+            </li>
+        </ul>-->
+    </div>
+    <div style="display: none;background: rgba(0,0,0,0.1);width: 100%;height: 0%;position: absolute;top:33px;left:0;z-index:8" id="statement-mark"></div>
+    <div class="form-group dialog-handle text-right">
+        <button type="button" class="btn btn-danger btn-statement">确定结算</button>
+    </div>
+    </form>
+</div>
+<script>
+    $(function () {
+        $(".btn-statement").click(function () {
+            $(this).attr("disabled","disabled").addClass("disabled");
+            $("#__formId__").submit();
+        });
+        $("#statement-mark").height($("#panel-body-item-conf").outerHeight(true) + 22);
+        $("#__formId__").submitForm(null,function (ret) {
+            if(ret.code == 1){
+                $("#panel-body-statement").show();
+                $("#statement-mark").show();
+                $(".btn-statement").closest(".j-dialog-footer").hide();
+                jDialog.data[jDialog.currentID].hideClose();
+                go();
+            }else{
+                Tips.error(ret.msg);
+            }
+        })
+    });
+
+
+    function go() {
+        var arenaTotal = $("#arena-total");
+        var arenaDetailTotal = $("#arena-detail-total");
+        window.top.Ajax.post('{:url($controller."/statement_manual")}',{'play_id':'{$play_id}'},function (ret) {
+            if(ret.code == 1){
+                if(ret.data.next){
+                    arenaDetailTotal.find("em").eq(0).text(parseInt(arenaDetailTotal.find("em").eq(0).text())+parseInt(ret.data.total));
+                    arenaTotal.find("em").eq(0).text(parseInt(arenaTotal.find("em").eq(0).text())+1);
+                    go();
+                }else{
+                    try{
+                        jDialog.data[jDialog.currentID].close();
+                    }catch(e) {
+                    }
+                    $("#panel-body-statement").hide();
+                    $("#statement-mark").hide();
+                    window.top.Tips.success('结算完成',function () {
+                        location.reload();
+                    });
+                }
+            }else{
+                window.top.Tips.error(ret.msg);
+                $(".btn-statement").removeAttr('disabled').removeClass("disabled");
+            }
+        });
+    }
+</script>

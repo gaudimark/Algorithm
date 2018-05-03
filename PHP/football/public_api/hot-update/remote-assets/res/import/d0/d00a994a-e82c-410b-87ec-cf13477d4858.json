@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "touzhu_bg",
+    "texture": "69vfvqYlVLK70CExjw8lB2",
+    "rect": [
+      0,
+      0,
+      835,
+      1200
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      835,
+      1200
+    ]
+  }
+}

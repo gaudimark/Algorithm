@@ -1,0 +1,292 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="mb10 clearfix">
+            {include file="items/play_side_menu" /}
+        </div>
+        <div class="mb10">
+            <form class="form-inline" method="get">
+                <input type="hidden" name="opt_value" id="opt_value" value="0" >
+                <div class="col-sm-8 mb10" style="padding-left: 0">
+                    <div class="col-sm-12 mb10" style="padding-left: 0">
+                        <div class="input-group">
+                            <span class="input-group-addon">赛事名称</span>
+                            <input type="text" class="form-control" name="match" value="{$match ?? ""}">
+                            <span class="input-group-addon">队伍名称</span>
+                            <input type="text" class="form-control" name="item" value="{$item ?? ""}">
+                            <span class="input-group-addon">赔率</span>
+                            <select name="has_odds" class="form-control">
+                                <option value="">全部</option>
+                                <option value="1" {if $has_odds eq 1}selected{/if}>有赔率</option>
+                                <option value="2" {if $has_odds eq 2}selected{/if}>无赔率</option>
+                            </select>
+                            <span class="input-group-addon">比赛状态</span>
+                            <select name="status" class="form-control" style="width: 120px;">
+                                <option value="">全部</option>
+                                <option value="{$Think.const.PLAT_STATUS_NOT_START}" {if $status eq PLAT_STATUS_NOT_START}selected{/if}>未开始</option>
+                                <option value="{$Think.const.PLAT_STATUS_START}" {if $status eq PLAT_STATUS_START}selected{/if}>进行中</option>
+                                <option value="{$Think.const.PLAT_STATUS_END}" {if $status eq PLAT_STATUS_END}selected{/if}>结束</option>
+                                <option value="{$Think.const.PLAT_STATUS_EXC}" {if $status eq PLAT_STATUS_EXC}selected{/if}>延期</option>
+                                <option value="{$Think.const.PLAT_STATUS_SUSP}" {if $status eq PLAT_STATUS_SUSP}selected{/if}>停赛</option>
+                                <option value="{$Think.const.PLAT_STATUS_WAIT}" {if $status eq PLAT_STATUS_WAIT}selected{/if}>待定</option>
+                                <option value="{$Think.const.PLAT_STATUS_STATEMENT}" {if $status eq PLAT_STATUS_STATEMENT}selected{/if}>已结算</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="padding-left: 0">
+                        <div style="display: inline-block">
+                            <button class="btn btn-default btn-sm fast-opt-btn {if $opt_value eq 'today'}btn-primary{/if}" data-value="today"> 今天 </button>
+                            <button class="btn btn-default btn-sm fast-opt-btn {if $opt_value eq 'tomorrow'}btn-primary{/if}" data-value="tomorrow"> 明天 </button>
+                            <button class="btn btn-default btn-sm fast-opt-btn {if $opt_value eq 'month'}btn-primary{/if}" data-value="month"> 本月 </button>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">比赛时间</span>
+                            <input type="text" class="form-control" readonly data-toggle="datetime" data-timepicker="true" name="btime" value="{$btime ?? ""}">
+                            <span class="input-group-addon">至</span>
+                            <input type="text" class="form-control" readonly data-toggle="datetime" data-timepicker="true" name="etime" value="{$etime ?? ""}">
+                        </div>
+                        <button class="btn btn-primary btn-sm">搜索</button>
+                        {if checkPermit($controller,'play_add')}
+                        <a class="btn btn-danger btn-sm j-dialog-handle" href="{:url($controller."/play_add")}"><i class="fa fa-plus"></i> 添加比赛</a>
+                        {/if}
+                        <button name="export" class="btn btn-primary btn-sm" value="导出Excel">导出Excel</button>
+                        {if checkPermit($controller,'batch_play_live')}{if in_array($type,[2])}
+                        <a class="j-dialog-handle btn btn-primary" href="{:url($controller.'/batch_play_live')}" title="填写直播地址" ids="" id="addLive">添加直播地址</a>
+                        {/if}{/if}
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="table-responsive clear">
+        <table class="table table-hover table-bordered table-head">
+            <thead>
+            <tr>
+                <th width="80">ID</th>
+                <th width="180">赛事名称</th>
+                <th width="180">主场</th>
+                <th width="180">客场</th>
+                <th width="80">全场比分</th>
+                <th width="80">半场比分</th>
+                <th width="150">比赛时间</th>
+                <th width="100">热度</th>
+                <th width="100">状态</th>
+                <th width="100">比赛时长</th>
+                <th width="250">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr>
+                <td>{if checkPermit($controller,'batch_play_live')}{if in_array($type,[2])}<input type="checkbox" id="gid" name="gid" value="{$vo.id}">{/if}{/if}{$vo.id}</td>
+                <td style="text-align: left">
+                    {if $vo.is_recommend eq 1 && $type neq 3}<span class="btn btn-xs btn-danger">推荐</span>&nbsp;{/if}
+                    {if $vo.arena_total > 0}<span class="btn btn-xs btn-danger">擂</span>{/if}
+                    {if $vo.has_manual > 0}<i class="fa fa-male text-danger" title="手动添加"></i>{/if}
+                    {$vo.match_name}{if $vo.bo >0}（BO{$vo.bo}）{/if}
+                </td>
+                <td>{$vo.team_home_name}</td>
+                <td>{$vo.team_guest_name}</td>
+                <td>{if $vo.status eq PLAT_STATUS_NOT_START}--：--{else}{$vo.team_home_score}：{$vo.team_guest_score}{/if}</td>
+                <td>{if $vo.status eq PLAT_STATUS_NOT_START}--：--{else}{$vo.team_home_half_score}：{$vo.team_guest_half_score}{/if}</td>
+                <td>{:date("Y-m-d H:i:s",$vo.play_time)}</td>
+                <td>
+                    <span class="st-select" data-value="{$vo.hot}" data-action="{:url($controller.'/play_hot',['play_id' => $vo.id])}" data-enum="{$Think.const.PLAY_HOT_LM}:冷门,{$Think.const.PLAY_HOT_PT}:普通,{$Think.const.PLAY_HOT_RM}:热门">
+                        {switch name="$vo.hot"}
+                            {case value="$Think.const.PLAY_HOT_LM"}冷门{/case}
+                            {case value="$Think.const.PLAY_HOT_PT"}普通{/case}
+                            {case value="$Think.const.PLAY_HOT_RM"}热门{/case}
+                        {/switch}
+                    </span>
+                </td>
+
+                <td>
+                    {if $type eq 4}
+                    {if $vo.has_statement}
+                    已结算
+                    {else}
+                    未结算
+                    {/if}
+                    {else}
+                    {if $vo.status eq PLAT_STATUS_START}进行中
+                    {elseif  $vo.status eq PLAT_STATUS_INTERMISSION}<span style="color:green">中场休息</span>
+                    {else}{:getPlayStatus($vo.status)}{/if}
+                    {/if}
+                </td>
+                <td>
+                    <span style="color:green">{$vo.match_time}</span>
+                </td>
+                <td style="text-align: left">
+                    {if in_array($type,[1])}
+                        {if ($vo.status eq PLAT_STATUS_END || $vo.status eq PLAT_STATUS_STATEMENT)  }
+                            {if $vo.arena_total > 0}
+                                {if checkPermit($controller,'arena_list')}
+                                <a class="btn btn-xs btn-primary" href="{:url($controller.'/arena_list',['play_id' => $vo.id])}" title="房间">房间({$vo.arena_total})</a>
+                                {/if}
+                                {if checkPermit($controller,'play_result')}
+                                <a class="btn btn-xs btn-primary j-dialog-handle" href="{:url($controller.'/play_result',['play_id' => $vo.id])}" title="查看">查看</a>
+                                {/if}
+                            {/if}
+                        {else}
+                            {if $vo.status neq PLAT_STATUS_START && $vo.status neq PLAT_STATUS_INTERMISSION}
+                                {if checkPermit($controller,'odds')}
+                                <a class="btn btn-xs btn-danger" href="{:url($controller.'/odds',['play_id' => $vo.id])}" title="赔率">赔率/开房</a>
+                                {/if}
+                                {if checkPermit($controller,'recommend')}
+                                    {if $vo.is_recommend eq 1 }
+                                    <a class="btn btn-xs btn-primary" href="javascript:;" onclick="recommend({$vo.id},0)" title="取消推荐">取消推荐</a>
+                                    {else}
+                                    <a class="btn btn-xs btn-primary" href="javascript:;" onclick="recommend({$vo.id},1)" title="推荐">推荐</a>
+                                    {/if}
+                                {/if}
+                                {if checkPermit($controller,'play_del') && $vo.has_manual eq STATUS_YES}
+                                <a class="btn btn-xs btn-danger ajax-delete" href="{:url($controller."/play_del",['id' => $vo.id])}">删除</a>
+                                {/if}
+                            {/if}
+                        {/if}
+                    {/if}
+
+                    {if in_array($type,[2,5])}
+                        {if checkPermit($controller,'arena_list')}
+                        <a class="btn btn-xs btn-primary" href="{:url($controller.'/arena_list',['play_id' => $vo.id])}" title="房间">房间({$vo.arena_total})</a>
+                        {/if}
+                        {if checkPermit($controller,'betting_list')}
+                        <a class="btn btn-xs btn-primary" href="{:url($controller.'/betting_list',['play_id' => $vo.id])}" title="投注">投注</a>
+                        {/if}
+                        {if $vo.status eq PLAT_STATUS_NOT_START || $vo.status eq PLAT_STATUS_WAIT}
+                            {if checkPermit($controller,'play_rule')}
+                            <a class="btn btn-xs btn-primary" href="{:url($controller.'/play_rule',['play_id' => $vo.id])}" title="投注">玩法</a>
+                            {/if}
+                            {if checkPermit($controller,'odds')}
+                            <a class="btn btn-xs btn-danger" href="{:url($controller.'/odds',['play_id' => $vo.id])}" title="赔率">赔率/开房</a>
+                            {/if}
+                        {elseif $vo.status eq PLAT_STATUS_STATEMENT}
+                            {if checkPermit($controller,'play_result')}
+                            <span class="btn btn-xs btn-default j-dialog-handle" href="{:url($controller.'/play_result',['play_id' => $vo.id])}" title="比赛结果">查看</span>
+                            {/if}
+                        {/if}
+                        {if !in_array($vo.status,[PLAT_STATUS_STATEMENT_BEGIN,PLAT_STATUS_STATEMENT])}
+                            {if checkPermit($controller,'play_conf')}
+                            <a class="btn btn-xs btn-primary btn-danger j-dialog-handle" href="{:url($controller.'/play_conf',['play_id' => $vo.id])}" title="填写赛果">填写赛果</a>
+                            {/if}
+                        {/if}
+                        {if !in_array($vo.status,[PLAT_STATUS_STATEMENT_BEGIN,PLAT_STATUS_STATEMENT])}
+                            {if checkPermit($controller,'play_dope')}
+                            <a class="btn btn-xs btn-primary btn-danger j-dialog-handle" href="{:url($controller.'/play_dope',['play_id' => $vo.id])}" title="比赛预测">比赛预测</a>
+                            {/if}
+                        {/if}
+                        {if !in_array($vo.status,[PLAT_STATUS_SUSP,PLAT_STATUS_WAIT,PLAT_STATUS_CUT,PLAT_STATUS_STATEMENT_BEGIN,PLAT_STATUS_STATEMENT])}
+                            {if checkPermit($controller,['play_live','sealArena','arena_disabled'])}
+                                <div class="dropdown dropdown-box-dropdown" style="display: inline-block">
+                                    <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        操作
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-left" style="left: -115px;margin-top: -65px;">
+                                        {if checkPermit($controller,'play_live')}
+                                        <li><a class="j-dialog-handle" href="{:url($controller.'/play_live',['play_id' => $vo.id])}" title="填写直播地址">直播地址</a></li>
+                                        <li class="divider"></li>
+                                        {/if}
+                                        {if checkPermit($controller,'sealArena')}
+                                        <li><a href="javascript:sealArenaByPlay({$vo.id});">封擂</a></li>
+                                        {/if}
+                                        {if checkPermit($controller,'arena_disabled')}
+                                        <li><a href="javascript:disabledByPlay({$vo.id});" class="text-danger" title="取消房间">取消</a></li>
+                                        {/if}
+                                    </ul>
+                                </div>
+                            {/if}
+                        {/if}
+                    {/if}
+
+                    {if $type eq 3}
+                        {if checkPermit($controller,'recommend')}
+                            {if $vo.is_recommend eq 1}
+                                <a class="btn btn-xs btn-primary" href="javascript:;" onclick="recommend({$vo.id},0)" title="取消推荐">取消推荐</a>
+                            {else}
+                                <a class="btn btn-xs btn-primary" href="javascript:;" onclick="recommend({$vo.id},1)" title="推荐">推荐</a>
+                            {/if}
+                        {/if}
+                    {/if}
+
+                    {if $type eq 4}
+                        {if checkPermit($controller,'arena_list')}
+                        <a class="btn btn-xs btn-primary" href="{:url($controller.'/arena_list',['play_id' => $vo.id])}" title="房间">房间({$vo.arena_total})</a>
+                        {/if}
+                        {if checkPermit($controller,'betting_list')}
+                        <a class="btn btn-xs btn-primary" href="{:url($controller.'/betting_list',['play_id' => $vo.id])}" title="投注">投注</a>
+                        {/if}
+                        {if $vo.status eq PLAT_STATUS_STATEMENT}
+                            {if checkPermit($controller,'play_result')}
+                                <a class="btn btn-xs btn-primary j-dialog-handle" href="{:url($controller.'/play_result',['play_id' => $vo.id])}" title="查看">查看</a>
+                            {/if}
+                        {else}
+                            {if checkPermit($controller,'statement_manual')}
+                                <a class="btn btn-xs btn-primary btn-danger j-dialog-handle" href="{:url($controller.'/statement_manual',['play_id' => $vo.id])}" title="结算">结算</a>
+                            {/if}
+                        {/if}
+                    {/if}
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+        </div>
+        <center>{$list->render()}</center>
+    </div>
+</div>
+<script>
+    $(function () {
+       $(".fast-opt-btn").click(function () {
+           var value = $(this).attr("data-value");
+           $(this).addClass("btn-primary").siblings().removeClass("btn-primary");
+           $("#opt_value").val(value);
+       }) ;
+       
+       $("input[name='gid']").click(function () {
+    	   var ids="";
+    	   $("input[name='gid']:checked").each(function(){
+    		   ids += $(this).val()+",";
+    	   });
+    	   var href= "{:url($controller.'/batch_play_live')}";
+    	   $("#addLive").attr("href",href+"&id="+ids);
+       }) ;
+    });
+    function recommend(id,is_recommend){
+        Tips.warn("确定执行该操作？",'',function () {
+            Ajax.post('{:url($controller."/recommend")}',{'play_id':id,'is_recommend':is_recommend},function (ret) {
+                if(ret.code == 1){
+                    Tips.success("操作成功",function () {
+                        location.reload()
+                    });
+
+                }else{
+                    Tips.error(ret.msg);
+                }
+
+            });
+        },true);
+    }
+    
+    function sealArenaByPlay(playId) {
+        Tips.warn("确定要将该比赛下的所有房间封擂吗？<br/><em>封擂后用户将不能再投注！</em>",function () {
+            Ajax.post('{:url($controller."/sealArena")}',{'play_id':playId},function (ret) {
+                if(ret.code){
+                    Tips.success("操作成功",function () {location.reload() });
+                }else{
+                    Tips.error(ret.msg);
+                }
+            });
+        },true);
+    }
+    function disabledByPlay(playId) {
+        Tips.warn("确定要取消该比赛下的所有房间吗？<br/><em class='org'>取消后：保证金返还给房主；投注返还给用户。</em>",function () {
+            Ajax.post('{:url($controller."/arena_disabled")}',{'play_id':playId},function (ret) {
+                if(ret.code){
+                    Tips.success("操作成功",function () {location.reload() });
+                }else{
+                    Tips.error(ret.msg);
+                }
+            });
+        },true);
+    }
+</script>

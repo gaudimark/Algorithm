@@ -1,0 +1,42 @@
+<tr>
+    <td rowspan="{:count($p.child)}">{$p.name}</td>
+    {if count($p.child)}
+    <td>
+        <label class="checkbox-inline">
+            <input type="checkbox" class="checkall" data-toggle=".lib_{$kp}_0"> {$p.child[0]['name']}
+        </label>
+    </td>
+    <td style="text-align: left">
+        {if isset($p.child[0]['content'])}
+        {foreach $p.child[0]['content'] as $v}
+        <label class="checkbox-inline">
+            <input type="checkbox" class="lib_{$kp}_0" {if (isset($res['limit'][$v.controller]) && in_array($v.action,$res['limit'][$v.controller]))}checked{/if} name="lib[{$v.controller}][{$v.action}]" value="1">
+            {$v.name}
+        </label>
+        {/foreach}
+        {/if}
+    </td>
+    {/if}
+</tr>
+{foreach $p.child as $k => $v}
+{if $k > 0}
+<tr>
+    <td>
+        <label class="checkbox-inline">
+            <input type="checkbox" class="checkall"  data-toggle=".lib_{$kp}_{$k}">
+            {$v.name}
+        </label>
+    </td>
+    <td style="text-align: left">
+        {if isset($v['content'])}
+        {foreach $v['content'] as $vv}
+        <label class="checkbox-inline">
+            <input type="checkbox" class="lib_{$kp}_{$k}" {if (isset($res['limit'][$vv.controller]) && in_array($vv.action,$res['limit'][$vv.controller]))}checked{/if} name="lib[{$vv.controller}][{$vv.action}]" value="1">
+            {$vv.name}
+        </label>
+        {/foreach}
+        {/if}
+    </td>
+</tr>
+{/if}
+{/foreach}

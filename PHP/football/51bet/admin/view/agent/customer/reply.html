@@ -1,0 +1,62 @@
+<div class="panel" style="width: 700px;">
+    <div class="panel-body" id="reply-list-body">
+        <div id="reply-list" style="margin-right: 20px;">
+            {foreach $lists as $vo}
+            {include file="customer/reply_list"}
+            {/foreach}
+        </div>
+    </div>
+    <div class="panel-footer" style="margin: 0 -15px -10px">
+        <div class="input-group">
+            <input type="text" class="form-control" name="content" id="reply-content" value="">
+            <span class="input-group-addon input-group-addon-btn" style="cursor: pointer">
+                <button class="btn btn-xs btn-primary" id="kf-reply-btn">回复</button>
+            </span>
+        </div>
+    </div>
+</div>
+<script>
+    var template = ''
+    $(function () {
+        $("#kf-reply-btn").click(function () {
+            var content = $("#reply-content").val();
+            if(!content){
+                Tips.error("回复内容不能为空");
+                return false;
+            }
+            Ajax.post('{:url('agent.customer/reply')}',{
+                'content' : content,
+                'id' : {$id},
+                'user_id' : {$user.id}
+            },function (ret) {
+                if(ret.code == 1){
+                    $(ret.data.content).appendTo($("#reply-list"));
+                    $("#reply-content").val('');
+                    $("#reply-list-body").scrollTop($("#reply-list").outerHeight(true));
+                }else{
+                    Tips.error(ret.msg);
+                }
+            });
+        });
+
+        $(".delete-reply").click(function () {
+            var self = $(this);
+            Ajax.post(self.attr("href"),{},function(ret){
+                if(ret.code){
+                    self.closest('.kf-reply').fadeOut(200,function () {
+                        $(this).remove();
+                    })
+                }else{
+                    Tips.error(ret.msg);
+                }
+            })
+            return false;
+        });
+        //
+        setTimeout(function () {
+            var height = $("#reply-list-body")[0].scrollHeight;
+            $("#reply-list-body").scrollTop(height);
+        },100)
+
+    });
+</script>
