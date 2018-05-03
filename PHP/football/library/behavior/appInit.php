@@ -29,6 +29,9 @@ class AppInit{
 
         $confs = Config::get();
         $sys = Cache::get('system');
+        if(!$sys && is_string($sys)){
+            $sys = json_decode($sys, true);
+        }
         if(!$sys){
             $sys = $this->upCache();
         }
