@@ -40,3 +40,7 @@ THUOCL：清华大学开放中文词库		http://thuocl.thunlp.org/
 
 
 爬取网易客户端内容的小爬虫		https://github.com/leyle
+
+
+
+wiki文档					https://github.com/bingbo/blog
