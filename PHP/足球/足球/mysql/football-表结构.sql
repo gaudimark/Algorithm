@@ -34,7 +34,7 @@ CREATE TABLE `lt_agent_arena` (
   UNIQUE KEY `agent_user_id_arena_id` (`agent_user_id`,`arena_id`) USING BTREE,
   KEY `agent_user_id` (`agent_user_id`) USING BTREE,
   KEY `arena_id` (`arena_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='代理所属擂台（针对单个擂台）';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='代理所属擂台（针对单个擂台）';
 
 -- ----------------------------
 -- Table structure for lt_agent_user
@@ -65,7 +65,7 @@ CREATE TABLE `lt_agent_user` (
   KEY `user_id` (`user_id`) USING BTREE,
   KEY `username` (`username`) USING BTREE,
   KEY `arena_type` (`arena_type`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='代理帐号';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='代理帐号';
 
 -- ----------------------------
 -- Table structure for lt_agent_user_funds_log
@@ -84,7 +84,7 @@ CREATE TABLE `lt_agent_user_funds_log` (
   `create_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `fk_user_funds_log_user1_idx` (`user_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户资金详情表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='用户资金详情表';
 
 -- ----------------------------
 -- Table structure for lt_agent_user_log
@@ -98,7 +98,7 @@ CREATE TABLE `lt_agent_user_log` (
   `create_time` int(11) DEFAULT NULL,
   `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='代理用户日志';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='代理用户日志';
 
 -- ----------------------------
 -- Table structure for lt_arena
@@ -149,7 +149,7 @@ CREATE TABLE `lt_arena` (
   `update_time` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `mark` (`mark`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=466 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='擂台列表';
+) ENGINE=InnoDB AUTO_INCREMENT=466 DEFAULT CHARSET=utf8  COMMENT='擂台列表';
 
 -- ----------------------------
 -- Table structure for lt_arena_android
@@ -165,7 +165,7 @@ CREATE TABLE `lt_arena_android` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `arena_id` (`arena_id`) USING BTREE,
   KEY `next_time` (`next_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=465 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='房间机器人';
+) ENGINE=InnoDB AUTO_INCREMENT=465 DEFAULT CHARSET=utf8  COMMENT='房间机器人';
 
 -- ----------------------------
 -- Table structure for lt_arena_bet_detail
@@ -201,7 +201,7 @@ CREATE TABLE `lt_arena_bet_detail` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `user_id` (`user_id`) USING BTREE,
   KEY `arena_id` (`arena_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=198 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='擂台投注详情表';
+) ENGINE=InnoDB AUTO_INCREMENT=198 DEFAULT CHARSET=utf8  COMMENT='擂台投注详情表';
 
 -- ----------------------------
 -- Table structure for lt_arena_bet_view
@@ -215,7 +215,7 @@ CREATE TABLE `lt_arena_bet_view` (
   `create_time` int(11) DEFAULT NULL,
   `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='投注单查看购买';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='投注单查看购买';
 
 -- ----------------------------
 -- Table structure for lt_arena_credit
@@ -239,7 +239,7 @@ CREATE TABLE `lt_arena_credit` (
   KEY `user_id` (`user_id`) USING BTREE,
   KEY `arena_id` (`arena_id`) USING BTREE,
   KEY `mark` (`mark`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='擂台征信用户列表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='擂台征信用户列表';
 
 -- ----------------------------
 -- Table structure for lt_arena_deposit_detail
@@ -256,7 +256,7 @@ CREATE TABLE `lt_arena_deposit_detail` (
   KEY `type` (`has_sys`) USING BTREE,
   KEY `user_id` (`user_id`) USING BTREE,
   KEY `arena_id` (`arena_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=465 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='擂台押金详情表';
+) ENGINE=InnoDB AUTO_INCREMENT=465 DEFAULT CHARSET=utf8  COMMENT='擂台押金详情表';
 
 -- ----------------------------
 -- Table structure for lt_arena_log
@@ -273,7 +273,7 @@ CREATE TABLE `lt_arena_log` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `arena_id` (`arena_id`) USING BTREE,
   KEY `type` (`type`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1558 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='擂台日志';
+) ENGINE=InnoDB AUTO_INCREMENT=1558 DEFAULT CHARSET=utf8  COMMENT='擂台日志';
 
 -- ----------------------------
 -- Table structure for lt_arena_odds
@@ -288,7 +288,7 @@ CREATE TABLE `lt_arena_odds` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `arena_id` (`arena_id`) USING BTREE,
   KEY `mark` (`mark`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=945 DEFAULT CHARSET=utf8 RROW_FORMAT=FIXED COMMENT='擂台赔率变更列表';
+) ENGINE=InnoDB AUTO_INCREMENT=945 DEFAULT CHARSET=utf8  COMMENT='擂台赔率变更列表';
 
 -- ----------------------------
 -- Table structure for lt_arena_recommend
@@ -300,7 +300,7 @@ CREATE TABLE `lt_arena_recommend` (
   `sort` int(11) NOT NULL,
   `create_time` int(10) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='后台擂台推荐';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='后台擂台推荐';
 
 -- ----------------------------
 -- Table structure for lt_arena_target
@@ -321,7 +321,7 @@ CREATE TABLE `lt_arena_target` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `arena_id` (`arena_id`) USING BTREE,
   KEY `rules_type` (`rules_type`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1954 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='擂台投注项列表';
+) ENGINE=InnoDB AUTO_INCREMENT=1954 DEFAULT CHARSET=utf8  COMMENT='擂台投注项列表';
 
 -- ----------------------------
 -- Table structure for lt_common_menu
@@ -334,7 +334,7 @@ CREATE TABLE `lt_common_menu` (
   `create_time` int(11) NOT NULL,
   `update_time` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 -- ----------------------------
 -- Table structure for lt_config
@@ -346,7 +346,7 @@ CREATE TABLE `lt_config` (
   `value` text COMMENT '字段值',
   `group_id` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='系统配置表';
+) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8  COMMENT='系统配置表';
 
 -- ----------------------------
 -- Table structure for lt_country
@@ -363,7 +363,7 @@ CREATE TABLE `lt_country` (
   `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `parent_id` (`parent_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='国家';
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8  COMMENT='国家';
 
 -- ----------------------------
 -- Table structure for lt_crontab_log
@@ -376,7 +376,7 @@ CREATE TABLE `lt_crontab_log` (
   `is_read` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` int(10) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 -- ----------------------------
 -- Table structure for lt_curse_log
@@ -393,7 +393,7 @@ CREATE TABLE `lt_curse_log` (
   KEY `user_id` (`user_id`) USING BTREE,
   KEY `admin_id` (`admin_id`) USING BTREE,
   KEY `type` (`type`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 ;
 
 -- ----------------------------
 -- Table structure for lt_gold_change_log
@@ -407,7 +407,7 @@ CREATE TABLE `lt_gold_change_log` (
   `explain` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '操作说明',
   `operation_time` int(11) NOT NULL DEFAULT '0' COMMENT '操作时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
 
 -- ----------------------------
 -- Table structure for lt_help
@@ -424,7 +424,7 @@ CREATE TABLE `lt_help` (
   `type_id` int(11) DEFAULT '0' COMMENT '帮助信息/分类id',
   `anchor` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
 
 -- ----------------------------
 -- Table structure for lt_help_type
@@ -434,7 +434,7 @@ CREATE TABLE `lt_help_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
 
 -- ----------------------------
 -- Table structure for lt_layout
@@ -456,7 +456,7 @@ CREATE TABLE `lt_layout` (
   KEY `type` (`type`) USING BTREE,
   KEY `btime` (`btime`) USING BTREE,
   KEY `etime` (`etime`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='首页模块';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8  COMMENT='首页模块';
 
 -- ----------------------------
 -- Table structure for lt_layout_sports
@@ -477,7 +477,7 @@ CREATE TABLE `lt_layout_sports` (
   KEY `type` (`type`) USING BTREE,
   KEY `status` (`status`) USING BTREE,
   KEY `item_id` (`item_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='竞技模块';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8  COMMENT='竞技模块';
 
 -- ----------------------------
 -- Table structure for lt_manager
@@ -498,7 +498,7 @@ CREATE TABLE `lt_manager` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `username` (`username`) USING BTREE,
   KEY `role_id` (`role_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='管理员表';
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8  COMMENT='管理员表';
 
 -- ----------------------------
 -- Table structure for lt_manager_log
@@ -510,7 +510,7 @@ CREATE TABLE `lt_manager_log` (
   `create_time` int(10) unsigned NOT NULL DEFAULT '0',
   `ip` varchar(20) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1948 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='管理员登录日志';
+) ENGINE=InnoDB AUTO_INCREMENT=1948 DEFAULT CHARSET=utf8  COMMENT='管理员登录日志';
 
 -- ----------------------------
 -- Table structure for lt_match
@@ -540,7 +540,7 @@ CREATE TABLE `lt_match` (
   KEY `index3` (`game_type`) USING BTREE,
   KEY `fk_matchs_country_idx` (`country_id`) USING BTREE,
   KEY `game_id` (`game_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7963 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='赛事列表';
+) ENGINE=InnoDB AUTO_INCREMENT=7963 DEFAULT CHARSET=utf8  COMMENT='赛事列表';
 
 -- ----------------------------
 -- Table structure for lt_match_recommend
@@ -552,7 +552,7 @@ CREATE TABLE `lt_match_recommend` (
   `create_time` int(11) DEFAULT NULL,
   `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 -- ----------------------------
 -- Table structure for lt_monitor_gold_win_lose_absolute
@@ -573,7 +573,7 @@ CREATE TABLE `lt_monitor_gold_win_lose_absolute` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `KindID` (`KindID`) USING BTREE,
   KEY `ServerID` (`ServerID`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='玩家输赢绝对值报警设置(房间金币报警)';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='玩家输赢绝对值报警设置(房间金币报警)';
 
 -- ----------------------------
 -- Table structure for lt_monitor_stock
@@ -593,7 +593,7 @@ CREATE TABLE `lt_monitor_stock` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `KindID` (`KindID`) USING BTREE,
   KEY `ServerID` (`ServerID`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='游戏库存报警设置';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='游戏库存报警设置';
 
 -- ----------------------------
 -- Table structure for lt_monitor_user_early
@@ -610,7 +610,7 @@ CREATE TABLE `lt_monitor_user_early` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `KindID` (`KindID`) USING BTREE,
   KEY `ServerID` (`ServerID`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='观察者预警设置';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='观察者预警设置';
 
 -- ----------------------------
 -- Table structure for lt_notice
@@ -622,7 +622,7 @@ CREATE TABLE `lt_notice` (
   `create_time` int(11) NOT NULL DEFAULT '0',
   `update_time` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='消息列表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8  COMMENT='消息列表';
 
 -- ----------------------------
 -- Table structure for lt_odds
@@ -648,7 +648,7 @@ CREATE TABLE `lt_odds` (
   KEY `play_id` (`play_id`) USING BTREE,
   KEY `odds_company_id` (`odds_company_id`) USING BTREE,
   KEY `md5` (`md5`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=841983 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='赔率表';
+) ENGINE=InnoDB AUTO_INCREMENT=841983 DEFAULT CHARSET=utf8  COMMENT='赔率表';
 
 -- ----------------------------
 -- Table structure for lt_odds_company
@@ -661,7 +661,7 @@ CREATE TABLE `lt_odds_company` (
   `has_europe` tinyint(1) DEFAULT '0' COMMENT '是否开欧赔',
   `zc_id` int(10) DEFAULT NULL COMMENT '足彩网对应博彩公司id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='博彩公司';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='博彩公司';
 
 -- ----------------------------
 -- Table structure for lt_odds_company_game
@@ -674,7 +674,7 @@ CREATE TABLE `lt_odds_company_game` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `odds_company_id` (`odds_company_id`) USING BTREE,
   KEY `play_game_id` (`game_type`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='博彩公司关联赛事类型';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='博彩公司关联赛事类型';
 
 -- ----------------------------
 -- Table structure for lt_odds_detail
@@ -688,7 +688,7 @@ CREATE TABLE `lt_odds_detail` (
   `update_time` int(11) DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `fk_odds_list_detail_odds_list1_idx` (`odds_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=15958882 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='赔率走势表';
+) ENGINE=InnoDB AUTO_INCREMENT=15958882 DEFAULT CHARSET=utf8  COMMENT='赔率走势表';
 
 -- ----------------------------
 -- Table structure for lt_permit
@@ -704,7 +704,7 @@ CREATE TABLE `lt_permit` (
   `update_time` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `parent_id` (`parent_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='后台权限点';
+) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8  COMMENT='后台权限点';
 
 -- ----------------------------
 -- Table structure for lt_play
@@ -758,7 +758,7 @@ CREATE TABLE `lt_play` (
   `hot` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1-冷门，2-普通，3-热门',
   `remark` varchar(500) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=91999 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='比赛列表';
+) ENGINE=InnoDB AUTO_INCREMENT=91999 DEFAULT CHARSET=utf8  COMMENT='比赛列表';
 
 -- ----------------------------
 -- Table structure for lt_play_dope
@@ -772,7 +772,7 @@ CREATE TABLE `lt_play_dope` (
   `create_time` int(10) NOT NULL,
   `update_time` int(10) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='比赛预测';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='比赛预测';
 
 -- ----------------------------
 -- Table structure for lt_play_fenxi
@@ -783,7 +783,7 @@ CREATE TABLE `lt_play_fenxi` (
   `play_id` int(11) NOT NULL COMMENT '比赛',
   `content` text NOT NULL COMMENT '分析内容',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='比赛分析表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='比赛分析表';
 
 -- ----------------------------
 -- Table structure for lt_play_history
@@ -810,7 +810,7 @@ CREATE TABLE `lt_play_history` (
   KEY `fk_match_game_matchs1_idx` (`match_id`) USING BTREE,
   KEY `fk_match_game_teams1_idx` (`team_home_id`) USING BTREE,
   KEY `fk_match_game_teams2_idx` (`team_guest_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='比赛列表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='比赛列表';
 
 -- ----------------------------
 -- Table structure for lt_play_result
@@ -822,7 +822,7 @@ CREATE TABLE `lt_play_result` (
   `result` text NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `play_id` (`play_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=404 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='比赛结果';
+) ENGINE=InnoDB AUTO_INCREMENT=404 DEFAULT CHARSET=utf8  COMMENT='比赛结果';
 
 -- ----------------------------
 -- Table structure for lt_play_rules
@@ -839,7 +839,7 @@ CREATE TABLE `lt_play_rules` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `play_id_rules_id` (`play_id`,`rules_id`) USING BTREE,
   KEY `sort` (`sort`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='比赛与玩法对应';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8  COMMENT='比赛与玩法对应';
 
 -- ----------------------------
 -- Table structure for lt_play_rules_detail
@@ -858,7 +858,7 @@ CREATE TABLE `lt_play_rules_detail` (
   `update_time` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `md5` (`md5`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=40663 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=InnoDB AUTO_INCREMENT=40663 DEFAULT CHARSET=utf8 ;
 
 -- ----------------------------
 -- Table structure for lt_play_team
@@ -878,7 +878,7 @@ CREATE TABLE `lt_play_team` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `play_id` (`play_id`) USING BTREE,
   KEY `has_home` (`has_home`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=184071 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='比赛队伍列表';
+) ENGINE=InnoDB AUTO_INCREMENT=184071 DEFAULT CHARSET=utf8  COMMENT='比赛队伍列表';
 
 -- ----------------------------
 -- Table structure for lt_queue
@@ -899,7 +899,7 @@ CREATE TABLE `lt_queue` (
   KEY `status` (`status`) USING BTREE,
   KEY `create_time` (`create_time`) USING BTREE,
   KEY `mark` (`mark`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='任务队列';
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8  COMMENT='任务队列';
 
 -- ----------------------------
 -- Table structure for lt_role
@@ -914,7 +914,7 @@ CREATE TABLE `lt_role` (
   `create_time` int(11) NOT NULL COMMENT '创建时间',
   `update_time` int(11) DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 ;
 
 -- ----------------------------
 -- Table structure for lt_rules
@@ -946,7 +946,7 @@ CREATE TABLE `lt_rules` (
   KEY `is_default` (`is_default`) USING BTREE,
   KEY `type` (`type`) USING BTREE,
   KEY `game_id` (`game_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='比赛项目玩法';
+) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=utf8  COMMENT='比赛项目玩法';
 
 -- ----------------------------
 -- Table structure for lt_rules_item
@@ -960,7 +960,7 @@ CREATE TABLE `lt_rules_item` (
   `max` smallint(6) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `lt_rules_id` (`rules_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='比赛项目玩法选项';
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8  COMMENT='比赛项目玩法选项';
 
 -- ----------------------------
 -- Table structure for lt_stat_arena_gold
@@ -972,7 +972,7 @@ CREATE TABLE `lt_stat_arena_gold` (
   `get_num` double(20,2) NOT NULL DEFAULT '0.00' COMMENT '金币产出量',
   `total_user_num` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '消耗用户数',
   UNIQUE KEY `s_date` (`s_date`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='擂台输赢统计';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='擂台输赢统计';
 
 -- ----------------------------
 -- Table structure for lt_stat_online_detail
@@ -987,7 +987,7 @@ CREATE TABLE `lt_stat_online_detail` (
   `game_total` int(10) unsigned NOT NULL COMMENT '游戏在线用户数',
   PRIMARY KEY (`detail_id`) USING BTREE,
   UNIQUE KEY `s_date_game_id_room_id` (`s_date`,`game_id`,`room_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=851964 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='用户在线状态详情';
+) ENGINE=InnoDB AUTO_INCREMENT=851964 DEFAULT CHARSET=utf8  COMMENT='用户在线状态详情';
 
 -- ----------------------------
 -- Table structure for lt_stat_online_time
@@ -999,7 +999,7 @@ CREATE TABLE `lt_stat_online_time` (
   `total_online_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '总在线时长(单位:秒)',
   `total_user_num` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '登陆账户数',
   UNIQUE KEY `s_date` (`s_date`,`game_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='用户主题 - 在线时长';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='用户主题 - 在线时长';
 
 -- ----------------------------
 -- Table structure for lt_stat_online_user
@@ -1014,7 +1014,7 @@ CREATE TABLE `lt_stat_online_user` (
   `game_max_online_num` int(10) unsigned DEFAULT NULL COMMENT '游戏最高在线人数',
   `game_min_online_num` int(10) unsigned DEFAULT NULL COMMENT '游戏最低在线人数',
   UNIQUE KEY `s_date` (`s_date`,`game_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='用户主题 - 在线用户数';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='用户主题 - 在线用户数';
 
 -- ----------------------------
 -- Table structure for lt_stat_online_user_detail
@@ -1028,7 +1028,7 @@ CREATE TABLE `lt_stat_online_user_detail` (
   KEY `user_id` (`user_id`) USING BTREE,
   KEY `game_id` (`game_id`) USING BTREE,
   KEY `server_id` (`server_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='在线用户详情';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='在线用户详情';
 
 -- ----------------------------
 -- Table structure for lt_stat_user_arena
@@ -1050,7 +1050,7 @@ CREATE TABLE `lt_stat_user_arena` (
   UNIQUE KEY `s_date_item_id` (`s_date`,`item_id`) USING BTREE,
   KEY `item_id` (`item_id`) USING BTREE,
   KEY `s_date` (`s_date`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='擂台输赢统计';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='擂台输赢统计';
 
 -- ----------------------------
 -- Table structure for lt_system_income
@@ -1065,7 +1065,7 @@ CREATE TABLE `lt_system_income` (
   `data` text COMMENT '数据',
   `create_time` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=862 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='系统收益';
+) ENGINE=InnoDB AUTO_INCREMENT=862 DEFAULT CHARSET=utf8  COMMENT='系统收益';
 
 -- ----------------------------
 -- Table structure for lt_system_log
@@ -1086,7 +1086,7 @@ CREATE TABLE `lt_system_log` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `controller` (`controller`) USING BTREE,
   KEY `action` (`action`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=64194 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统资金详情表';
+) ENGINE=InnoDB AUTO_INCREMENT=64194 DEFAULT CHARSET=utf8  COMMENT='系统资金详情表';
 
 -- ----------------------------
 -- Table structure for lt_system_notice
@@ -1105,7 +1105,7 @@ CREATE TABLE `lt_system_notice` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `type` (`classify`) USING BTREE,
   KEY `ditch_classify` (`ditch_classify`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='系统公告';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8  COMMENT='系统公告';
 
 -- ----------------------------
 -- Table structure for lt_sys_message
@@ -1124,7 +1124,7 @@ CREATE TABLE `lt_sys_message` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `is_out` (`is_out`) USING BTREE,
   KEY `type` (`type`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=22267 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=InnoDB AUTO_INCREMENT=22267 DEFAULT CHARSET=utf8 ;
 
 -- ----------------------------
 -- Table structure for lt_sys_message_detail
@@ -1141,7 +1141,7 @@ CREATE TABLE `lt_sys_message_detail` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `message_id_user_id` (`message_id`,`user_id`) USING BTREE,
   KEY `user_id` (`user_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=56207 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=InnoDB AUTO_INCREMENT=56207 DEFAULT CHARSET=utf8 ;
 
 -- ----------------------------
 -- Table structure for lt_sys_message_queue
@@ -1160,7 +1160,7 @@ CREATE TABLE `lt_sys_message_queue` (
   KEY `type` (`type`) USING BTREE,
   KEY `status` (`status`) USING BTREE,
   KEY `opt` (`opt`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=67642 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='系统消息队列';
+) ENGINE=InnoDB AUTO_INCREMENT=67642 DEFAULT CHARSET=utf8  COMMENT='系统消息队列';
 
 -- ----------------------------
 -- Table structure for lt_team
@@ -1185,7 +1185,7 @@ CREATE TABLE `lt_team` (
   KEY `fk_teams_country1_idx` (`country_id`) USING BTREE,
   KEY `index3` (`name`) USING BTREE,
   KEY `index4` (`first`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=31298 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='队伍列表';
+) ENGINE=InnoDB AUTO_INCREMENT=31298 DEFAULT CHARSET=utf8  COMMENT='队伍列表';
 
 -- ----------------------------
 -- Table structure for lt_team_detail
@@ -1201,7 +1201,7 @@ CREATE TABLE `lt_team_detail` (
   `create_time` int(11) NOT NULL,
   `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8 ;
 
 -- ----------------------------
 -- Table structure for lt_team_rank
@@ -1226,7 +1226,7 @@ CREATE TABLE `lt_team_rank` (
   PRIMARY KEY (`id`,`team_id`) USING BTREE,
   UNIQUE KEY `team_id` (`team_id`) USING BTREE,
   KEY `match_id` (`match_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9915 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='队伍排名';
+) ENGINE=InnoDB AUTO_INCREMENT=9915 DEFAULT CHARSET=utf8  COMMENT='队伍排名';
 
 -- ----------------------------
 -- Table structure for lt_top_bonus
@@ -1242,7 +1242,7 @@ CREATE TABLE `lt_top_bonus` (
   `create_time` int(11) DEFAULT NULL,
   `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5933 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='TOP奖金榜';
+) ENGINE=InnoDB AUTO_INCREMENT=5933 DEFAULT CHARSET=utf8  COMMENT='TOP奖金榜';
 
 -- ----------------------------
 -- Table structure for lt_top_hit
@@ -1275,7 +1275,7 @@ CREATE TABLE `lt_top_leitai_win` (
   `create_time` int(11) DEFAULT NULL,
   `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=533 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='TOP擂台大神榜';
+) ENGINE=InnoDB AUTO_INCREMENT=533 DEFAULT CHARSET=utf8  COMMENT='TOP擂台大神榜';
 
 -- ----------------------------
 -- Table structure for lt_user
@@ -1328,7 +1328,7 @@ CREATE TABLE `lt_user` (
   KEY `last_login_time` (`last_login_time`) USING BTREE,
   KEY `cpid` (`cpid`) USING BTREE,
   KEY `imei` (`imei`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8  COMMENT='用户表';
 
 -- ----------------------------
 -- Table structure for lt_user_follow
@@ -1342,7 +1342,7 @@ CREATE TABLE `lt_user_follow` (
   `status` tinyint(4) DEFAULT '0' COMMENT '状态，0-未审核，1-正常',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `fk_user_friend_user1_idx` (`user_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户关注表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='用户关注表';
 
 -- ----------------------------
 -- Table structure for lt_user_friend
@@ -1356,7 +1356,7 @@ CREATE TABLE `lt_user_friend` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `fk_user_friend_user1_idx` (`user_id`) USING BTREE,
   KEY `user_friend_id` (`user_friend_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 -- ----------------------------
 -- Table structure for lt_user_funds_log
@@ -1377,7 +1377,7 @@ CREATE TABLE `lt_user_funds_log` (
   KEY `fk_user_funds_log_user1_idx` (`user_id`) USING BTREE,
   KEY `classify` (`classify`) USING BTREE,
   KEY `type` (`type`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=136871 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户资金详情表';
+) ENGINE=InnoDB AUTO_INCREMENT=136871 DEFAULT CHARSET=utf8  COMMENT='用户资金详情表';
 
 -- ----------------------------
 -- Table structure for lt_user_level
@@ -1390,7 +1390,7 @@ CREATE TABLE `lt_user_level` (
   `max` int(11) NOT NULL DEFAULT '0' COMMENT '上限',
   `lookbet` int(11) DEFAULT '0' COMMENT '查看价格',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='用户等级';
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8  COMMENT='用户等级';
 
 -- ----------------------------
 -- Table structure for lt_user_log
@@ -1409,7 +1409,7 @@ CREATE TABLE `lt_user_log` (
   KEY `user_id` (`user_id`) USING BTREE,
   KEY `classify` (`classify`) USING BTREE,
   KEY `ditch_number` (`ditch_number`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9870 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='用户日志';
+) ENGINE=InnoDB AUTO_INCREMENT=9870 DEFAULT CHARSET=utf8  COMMENT='用户日志';
 
 -- ----------------------------
 -- Table structure for lt_user_lost
@@ -1426,4 +1426,4 @@ CREATE TABLE `lt_user_lost` (
   UNIQUE KEY `guid_type` (`guid`,`type`) USING BTREE,
   UNIQUE KEY `ditch_guid_type` (`ditch`,`guid`,`type`) USING BTREE,
   KEY `guid` (`guid`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户使用流失列表(APP有效)';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='用户使用流失列表(APP有效)';
