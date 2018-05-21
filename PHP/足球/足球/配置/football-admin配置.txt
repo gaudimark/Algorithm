@@ -16,13 +16,14 @@
 		'hostport'    => '3306',
 		
 	# DEBUG 设置
-	打开 /footballadmin/index.php	文件
+	打开 /footballadmin/public/index.php	文件
 	define("APP_DEBUG", true);
 		true				开
 		false				关
 		
 		
 	# cache设置
+	打开 /footballadmin/library/conf/config.php	文件
 	'cache' => [
         'type'      => 'redis',
         'host'       => '127.0.0.1',
@@ -35,7 +36,7 @@
 	
 	
 	# HTTPS隧道代理配置
-	打开 /footballadmin/application/library/conf/extra/proxy.php	文件
+	打开 /footballadmin/library/conf/extra/proxy.php	文件
 	'proxy' => [
         'ip' => 'http-pro.abuyun.com',
         'port' => '9010',

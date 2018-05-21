@@ -1,0 +1,28 @@
+#足球比赛及赔率采集,每10分钟一次 php croncut0888.php oddszgzcw/index
+10 * * * * flock -xn /var/run/oddszgzcw_index.lock -c "cd (***替换为当前后台地址*** /opt/wwwroot/footballadmin/public/);/usr/local/php/bin/php croncut0888.php oddszgzcw/index >> /var/log/51bet/oddszgzcw_index.log 2>&1"
+
+#足彩网足球赔率采集,每10分钟一次 php croncut0888.php odds/odds_today
+*/10 * * * * flock -xn /var/run/odds_odds_today.lock -c "cd (***替换为当前后台地址*** /opt/wwwroot/footballadmin/public/);/usr/local/php/bin/php croncut0888.php odds/odds_today >> /var/log/51bet/odds_odds_today.log 2>&1"
+
+#足球自动结算,每10分钟一次 php croncut0888.php Statement/football
+*/10 * * * * flock -xn /var/run/statement_football.lock -c "cd (***替换为当前后台地址*** /opt/wwwroot/footballadmin/public/);/usr/local/php/bin/php croncut0888.php statement/football >> /var/log/51bet/statement_football.log 2>&1"
+
+#擂台数据汇总,每天一次 php croncut0888.php misc/arena
+05 01 * * * flock -xn /var/run/misc_arena.lock -c "cd (***替换为当前后台地址*** /opt/wwwroot/footballadmin/public/);/usr/local/php/bin/php croncut0888.php misc/arena >> /var/log/51bet/misc_arena.log 2>&1"
+
+#心跳接口5分钟执行一次
+*/5 * * * * /usr/bin/curl (***替换为前接口域名地址*** http://foot.tmttg.com)/listen/heartbeat
+
+#2分钟推送一次跑马灯
+*/2 * * * * /usr/bin/curl (***替换为当前接口域名地址*** http://foot.tmttg.com)/listen/slide/msg
+
+#下注接口
+* * * * * sleep 30  /usr/bin/curl (***替换为当前接口域名地址*** http://foot.tmttg.com)/again/bets
+
+#结算接口
+*/2 * * * * /usr/bin/curl (***替换为当前接口域名地址*** http://foot.tmttg.com)/again/settlement
+
+
+###   说明
+
+	（）括号内是需要替换
