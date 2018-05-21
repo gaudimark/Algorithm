@@ -1,0 +1,89 @@
+<div class="panel">
+    <div class="panel-body" style="width: 700px">
+        <form class="form-horizontal parsley-form" action="{:url("layout/add")}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+        <input type="hidden" name="id" value="{$id ?? 0}">
+        <div class="mt10">
+            <div class="form-group">
+                <label class="col-md-3 control-label">模块名称：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" name="title" id="title" value="{$res.title ?? ''}"  data-parsley-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">显示周期：</label>
+                <div class="col-md-7">
+                    <div class="input-group">
+                        <input type="text" class="form-control" readonly data-toggle="datetime" data-end-date="#etime" data-timepicker="true" id="btime" name="btime" value="{$res.btime ?? ""}">
+                        <span class="input-group-addon">至</span>
+                        <input type="text" class="form-control" readonly data-toggle="datetime" data-start-date="#btime" data-timepicker="true" id="etime" name="etime" value="{$res.etime ?? ""}">
+                    </div>
+                </div>
+            </div><!--
+            <div class="form-group">
+                <label class="col-md-3 control-label">模块倒影：</label>
+                <div class="col-md-8">
+                    {:widget('Upload/single',[
+                    'name' => 'inv_img',
+                    'value' => isset($res) && $res['inv_img'] ? $res['inv_img'] : '' ,
+                    'text' => '上传倒影',
+                    //'required' => true,
+                    ])}
+                </div>
+            </div>-->
+            <div class="form-group">
+                <label class="col-md-3 control-label">首页位置：</label>
+                <div class="col-md-5">
+                    <input type="text" class="form-control" name="position" id="position" value="{$res.position ?? '3'}"  data-parsley-required="true">
+                    <div class="help-block">首页位置必须从位置3开始</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">布局样式：</label>
+                <div class="col-md-8">
+                    <ul class="layout-style">
+                        <!--<li class="one"><label><span><input type="radio" name="type" value="{$Think.const.LAYOUT_TYPE_ONE}" {if !isset($res) || (isset($res) && $res.type eq LAYOUT_TYPE_ONE)} checked{/if}> 单项</span></label></li>-->
+                        <li class="two"><label><span><input type="radio" name="type" value="{$Think.const.LAYOUT_TYPE_TWO}" {if !isset($res) || (isset($res) && $res.type eq LAYOUT_TYPE_TWO)} checked{/if}> 双项</span></label></li>
+                        <li class="three"><label><span><input type="radio" name="type" value="{$Think.const.LAYOUT_TYPE_THREE}" {if (isset($res) && $res.type eq LAYOUT_TYPE_THREE)} checked{/if}> 三项</span></label></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">状态</label>
+                <div class="col-md-4">
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="{$Think.const.STATUS_ENABLED}" {if !isset($res) || (isset($res) && $res.status eq STATUS_ENABLED)} checked{/if} />
+                        正常
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="{$Think.const.STATUS_DISABLED}" {if (isset($res) && $res.status eq STATUS_DISABLED)} checked{/if} />
+                        禁用
+                    </label>
+                </div>
+            </div>
+            <div class="form-group dialog-handle">
+                <label class="col-md-3 control-label">&nbsp;</label>
+                <div class="col-md-8">
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(function(){
+       $("#__formId__").submitForm(null,function (ret) {
+            if(ret.code == 1){
+                var dialog = $("#__formId__").closest(".j-dialog");
+                if(dialog.length > 0){
+                    dialogIndex = dialog.attr("id");
+                    jDialog.data[dialogIndex].reloadContent('{:url('layout/detail')}?id='+ret.data.id,'模块内容');
+                }else{
+                    location.reload();
+                }
+            }else{
+                Tips.error(ret.msg);
+            }
+       }) ;
+    });
+</script>

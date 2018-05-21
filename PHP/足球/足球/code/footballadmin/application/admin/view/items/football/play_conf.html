@@ -1,0 +1,108 @@
+<div class="panel">
+    <div class="help-block bg-warning page-note ">
+        半场比分、全场比分、黄牌数、红牌数、最先进行球数据请正确填写，否则会影响最终房间结算结果！
+    </div>
+    <div class="mb10 clearfix">
+        <div class="alert alert-warning pull-left" style="margin-bottom: 15px;width: 100%;">
+            <div class="play_home pull-left">
+                <p class="text-danger">主场</p>
+                <h4 style="text-align: right">{$play.team_home_name}</h4>
+            </div>
+            <div class="play_home pull-left" style="margin: 0 60px;">
+                <p class="text-danger">{:date("Y-m-d H:i",$play.play_time)}</p>
+                <h4 style="text-align: center">{$match.name}</h4>
+            </div>
+            <div class="play_home pull-left">
+                <p class="text-danger">&nbsp;</p>
+                <h4 style="text-align: right">{$play.team_guest_name}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body" style="width:500px;" id="odds-panel-body">
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url($controller."/play_conf")}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+        <input type="hidden" name="play_id" value="{$play_id ?? 0}">
+        <input type="hidden" name="type" value="{$type ?? 1}">
+        <div class="form-group">
+            <label class="col-md-3 control-label">半场比分</label>
+            <div class="col-md-7">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="team_home_half_score" {if $play.status eq PLAT_STATUS_STATEMENT}disabled{/if} data-parsley-pattern="^\d+$" value="{$play.team_home_half_score ?? "0"}">
+                    <span class="input-group-addon">：</span>
+                    <input type="text" class="form-control" name="team_guest_half_score" {if $play.status eq PLAT_STATUS_STATEMENT}disabled{/if} data-parsley-pattern="^\d+$" value="{$play.team_guest_half_score ?? "0"}">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">全场比分</label>
+            <div class="col-md-7">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="team_home_score" {if $play.status eq PLAT_STATUS_STATEMENT}disabled{/if} data-parsley-pattern="^\d+$" value="{$play.team_home_score ?? "0"}">
+                    <span class="input-group-addon">：</span>
+                    <input type="text" class="form-control" name="team_guest_score" {if $play.status eq PLAT_STATUS_STATEMENT}disabled{/if} data-parsley-pattern="^\d+$" value="{$play.team_guest_score ?? "0"}">
+                </div>
+            </div>
+        </div>
+       <!-- <div class="form-group">
+            <label class="col-md-3 control-label">黄牌数</label>
+            <div class="col-md-7">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="home_yellow" {if $play.status eq PLAT_STATUS_STATEMENT}disabled{/if} data-parsley-pattern="^\d+$" value="{$play.home_yellow ?? '0'}">
+                    <span class="input-group-addon">：</span>
+                    <input type="text" class="form-control" name="guest_yellow" {if $play.status eq PLAT_STATUS_STATEMENT}disabled{/if} data-parsley-pattern="^\d+$" value="{$play.guest_yellow ?? '0'}">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">红牌数</label>
+            <div class="col-md-7">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="home_red" {if $play.status eq PLAT_STATUS_STATEMENT}disabled{/if} data-parsley-pattern="^\d+$" value="{$play.home_red ?? '0'}">
+                    <span class="input-group-addon">：</span>
+                    <input type="text" class="form-control" name="guest_red" {if $play.status eq PLAT_STATUS_STATEMENT}disabled{/if} data-parsley-pattern="^\d+$" value="{$play.guest_red ?? '0'}">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">最先进行球</label>
+            <div class="col-md-5">
+                <select name="first_goals" class="form-control" {if $play.status eq PLAT_STATUS_STATEMENT}disabled{/if}>
+                    <option value="0">==最先进球队伍==</option>
+                    <option value="{$Think.const.HOME}" {if HOME eq $play.first_goals}selected{/if}>主队</option>
+                    <option value="{$Think.const.GUEST}" {if GUEST eq $play.first_goals}selected{/if}>客队</option>
+                    <option value="99" {if $play.first_goals eq 99}selected{/if}>没有入球</option>
+                </select>
+            </div>
+        </div>-->
+
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">比赛状态</label>
+            <div class="col-md-5">
+                <select class="form-control" name="status" {if $play.status eq PLAT_STATUS_STATEMENT}disabled{/if}>
+                <option value="{$Think.const.PLAT_STATUS_NOT_START}" {if $play.status eq PLAT_STATUS_NOT_START}selected{/if}>未开始</option>
+                <option value="{$Think.const.PLAT_STATUS_START}" {if $play.status eq PLAT_STATUS_START}selected{/if}>进行中</option>
+                <option value="{$Think.const.PLAT_STATUS_INTERMISSION}" {if $play.status eq PLAT_STATUS_INTERMISSION}selected{/if}>中场休息</option>
+                <option value="{$Think.const.PLAT_STATUS_END}" {if $play.status eq PLAT_STATUS_END || $play.status eq PLAT_STATUS_STATEMENT}selected{/if}>结束</option>
+                <option value="{$Think.const.PLAT_STATUS_EXC}" {if $play.status eq PLAT_STATUS_EXC}selected{/if}>延期</option>
+                <option value="{$Think.const.PLAT_STATUS_SUSP}" {if $play.status eq PLAT_STATUS_SUSP}selected{/if}>停赛</option>
+                </select>
+            </div>
+        </div>
+        <!--<input type="hidden" name="status" value="{$play.status}">-->
+        <div class="form-group">
+            <label class="col-md-3 control-label">备注</label>
+            <div class="col-md-7">
+                <textarea class="form-control" name="remark" id="remark">{$play.remark ?? ''}</textarea>
+            </div>
+        </div>
+        {if !isset($has_statement) || !$has_statement}
+        <div class="form-group dialog-handle">
+            <label class="col-md-3 control-label">&nbsp;</label>
+            <div class="col-md-8">
+                <button type="submit" class="btn btn-primary" id="btn">确定</button>
+            </div>
+        </div>
+        {/if}
+        </form>
+    </div>
+</div>

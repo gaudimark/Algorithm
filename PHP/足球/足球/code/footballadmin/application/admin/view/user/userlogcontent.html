@@ -1,0 +1,66 @@
+<div id="thelist">
+    <div class="mb10 clearfix">
+        <ul class="nav nav-tabs my-nav-tabs mb10">
+            <li role="presentation"{if $type eq "funds"} class="active"{/if}><a href="{:url('/user/userlog',['type' => 'funds','id'=>$id])}">资金</a></li>
+            <li role="presentation"{if $type eq "login"} class="active"{/if}><a href="{:url('/user/userlog',['type' => 'login','id'=>$id])}">登录</a></li>
+        </ul>
+    </div>
+    {if $type eq "funds"}
+    <table class="table table-hover table-bordered table-head">
+        <thead>
+        <tr>
+            <th rowspan="2" width="80">ID</th>
+            <th rowspan="2" width="350">金额</th>
+            <th rowspan="2" width="200">金币/金钱</th>
+            <th rowspan="2" width="150">原因</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr>
+            <td>{$vo.id}</td>
+            <td>{$vo.number}</td>
+            <td>{if $vo.type == 1}金币{else}金币{/if}</td>
+            <td>{$vo.explain}</td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    {elseif $type eq "login"}
+    <table class="table table-hover table-bordered table-head">
+        <thead>
+        <tr>
+            <th rowspan="2" width="80">ID</th>
+            <th rowspan="2" width="350">原因</th>
+            <th rowspan="2" width="150">时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr>
+            <td>{$vo.id}</td>
+            <td>{$vo.explain}</td>
+            <td>{$vo.create_time|date='Y-m-d H:i:s',###}</td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    {/if}
+    <center id="user_log" >{$list->render()}</center>
+</div>
+
+<script>
+    $(function () {
+        $(document).on('click',"#user_log a",function () {
+            var self = $(this);
+            var target = $("#user_log");
+            var url = self.attr("href");
+            Ajax.get(url,{},function (ret) {
+                var container = extractContainer(ret,'#thelist');
+                target.html(container.html());
+            });
+            return false;
+        });
+    });
+    
+</script>

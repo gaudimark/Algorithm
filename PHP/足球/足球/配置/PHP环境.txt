@@ -1,0 +1,16 @@
+
+# PHP 环境
+
+### PHP
+	# 版本		7.0
+	# 扩展
+		增加redis扩展
+	
+### Nginx
+
+### MySQL
+	# 版本		5.7
+	# my.cnf设置配置
+		设置sql-mode		sql-mode = "STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+		
+### Redis

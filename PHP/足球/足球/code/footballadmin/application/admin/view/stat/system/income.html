@@ -1,0 +1,113 @@
+
+<div class="panel">
+    <div class="panel-body">
+        <div class="mb10">
+            <form class="form-inline" method="get" id="__formId__">
+                <input type="hidden" name="toxls" id="toxls" value="0">
+                <div class="col-sm-12 mb10" style="padding-left: 0">
+                    <button type="button" id="btn-today" class="btn btn-success btn-sm btn-search-date {if $dataType =='today'}active{/if}" data-value="today">今天</button>
+                    <button type="button" id="btn-yesterday"class="btn btn-success btn-sm btn-search-date {if $dataType =='yesterday'}active{/if}" data-value="yesterday">昨天</button>
+                    <button type="button" id="btn-month" class="btn btn-success btn-sm btn-search-date {if $dataType =='month'}active{/if}" data-value="month">本月</button>
+                    <div class="input-group">
+                        <span class="input-group-addon">收支</span>
+                        <select class="form-control" name="type">
+                            <option value="0">全部</option>
+                            <option value="1" {if $type eq 1}selected{/if}>收入</option>
+                            <option value="2" {if $type eq 2}selected{/if}>支出</option>
+                        </select>
+                        <span class="input-group-addon">类型</span>
+                        <select class="form-control" name="way">
+                            <option value="">全部</option>
+                            <option value="{$Think.const.FUNDS_TYPE_GOLD}" {if $way eq FUNDS_TYPE_GOLD}selected{/if}>金币</option>
+                            <option value="{$Think.const.FUNDS_TYPE_MONEY}" {if $way eq FUNDS_TYPE_MONEY}selected{/if}>金钱</option>
+                        </select>
+                        <span class="input-group-addon">开始时间</span>
+                        <input type="text" class="form-control" readonly data-toggle="datetime" data-timepicker="true" name="btime" id="btime" data-end-date="#etime" value="{$btime ?? ""}">
+                        <span class="input-group-addon">结束时间</span>
+                        <input type="text" class="form-control" readonly data-toggle="datetime" data-timepicker="true" name="etime" id="etime" data-start-date="#btime" value="{$etime ?? ""}">
+                    </div>
+                    <button class="btn btn-primary btn-sm">搜索</button>
+                    <button class="btn btn-info btn-sm btn-to-xls" type="button">导出报表</button>
+                </div>
+            </form>
+        </div>
+        <div class="mb10">
+            <span>金币总收入：<em class="number text-danger">{:numberFormat($total.gold_income,2,true)}</em></span>
+            <span style="padding-left: 15px">金币总支出：<em class="number text-danger">{:numberFormat(abs($total.gold_outlay),2,true)}</em></span>
+            <span style="padding-left: 15px">金额总收入：<em class="number text-danger">{:numberFormat($total.money_income,2,true)}</em></span>
+            <span style="padding-left: 15px">金额总支出：<em class="number text-danger">{:numberFormat(abs($total.money_outlay),2,true)}</em></span>
+        </div>
+        <div class="table-responsive clear">
+            <table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th width="150">时间</th>
+                    <th width="150">收入/支出</th>
+                    <th width="150">类型</th>
+                    <th style="text-align: left">原因</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach $lists as $vo}
+                    <tr>
+                        <td>{:date("Y-m-d H:i:s",$vo['create_time'])}</td>
+                        <td class="number">
+
+                            {if $vo.number > 0}
+                            <span class="text-success">{if $vo.type eq FUNDS_TYPE_MONEY}￥{/if}
+                                + {:numberFormat($vo.number,2,true)}
+                            </span>
+                            {else}
+                            <span class="text-danger">{if $vo.type eq FUNDS_TYPE_MONEY}￥{/if}
+                                {:numberFormat($vo.number,2,true)}
+                            </span>
+                            {/if}
+                        </td>
+                        <td>
+                            {if $vo.type eq FUNDS_TYPE_GOLD}
+                            金币
+                            {else}
+                            金钱
+                            {/if}
+                        </td>
+                        <td style="text-align: left">{$vo.explain}</td>
+                    </tr>
+                {/foreach}
+                </tbody>
+            </table>
+            <center>{$lists->render()}</center>
+        </div>
+    </div>
+</div>
+<script>
+    var todayBegin = '{:date("Y-m-d H:i:s",mktime(0,0,0))}'
+    var todayEnd = '{:date("Y-m-d H:i:s",mktime(23,59,59))}'
+    var yesterdayBegin = '{:date("Y-m-d H:i:s",mktime(0,0,0,date("m"),date("d")-1,date("y")))}'
+    var yesterdayEnd = '{:date("Y-m-d H:i:s",mktime(23,59,59,date("m"),date("d")-1,date("y")))}'
+    var monthBegin = '{:date("Y-m-d H:i:s",mktime(0,0,0,date("m"),1,date("y")))}'
+    var monthEnd = '{:date("Y-m-d H:i:s",mktime(0,0,-1,date("m")+1,1,date("y")))}'
+    $(function () {
+        $("#btn-today").click(function () {
+            $("#btime").val(todayBegin);
+            $("#etime").val(todayEnd);
+            $("#__formId__").submit();
+        });
+        $("#btn-yesterday").click(function () {
+            $("#btime").val(yesterdayBegin);
+            $("#etime").val(yesterdayEnd);
+            $("#__formId__").submit();
+        });
+        $("#btn-month").click(function () {
+            $("#btime").val(monthBegin);
+            $("#etime").val(monthEnd);
+            $("#__formId__").submit();
+        });
+
+        $(".btn-to-xls").click(function () {
+            $("#toxls").val(1);
+            $("#__formId__").submit();
+            $("#toxls").val(0);
+        });
+
+    });
+</script>

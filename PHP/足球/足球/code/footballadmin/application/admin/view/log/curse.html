@@ -1,0 +1,56 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="mb10">
+            <form class="form-inline" method="get">
+                <div class="input-group">
+                    <span class="input-group-addon">标注说明</span>
+                    <select name="type" class="form-control">
+                        <option value="">全部</option>
+                        <option value="{$Think.const.STATUS_ENABLED}" {if $type eq STATUS_ENABLED}selected{/if}>标注</option>
+                        <option value="{$Think.const.STATUS_DISABLED}" {if $type eq STATUS_DISABLED}selected{/if}>取消</option>
+                    </select>
+                    <span class="input-group-addon input-group-addon-select">
+                        <select class="form-control" name="user_type">
+                            <option value="2" {if $user_type eq 2}selected{/if}>用户ID</option>
+                            <option value="3" {if $user_type eq 3}selected{/if}>用户昵称</option>
+                            <option value="4" {if $user_type eq 4}selected{/if}>GUID</option>
+                            <option value="1" {if $user_type eq 1}selected{/if}>用户编号</option>
+                        </select>
+                    </span>
+                    <input type="text" class="form-control" name="nickname" value="{$nickname ?? ""}">
+                    <span class="input-group-addon">日志时间</span>
+                    <input type="text" class="form-control" readonly data-toggle="datetime" data-timepicker="true" name="btime" id="btime" data-end-date="#ebtime" value="{$btime ?? ''}">
+                    <span class="input-group-addon">至</span>
+                    <input type="text" class="form-control" readonly data-toggle="datetime" data-timepicker="true" name="etime" id="etime" data-start-date="#btime"  value="{$etime ?? ''}">
+                </div>
+                <button class="btn btn-primary btn-sm">搜索</button>
+                <button name="export" class="btn btn-primary btn-sm" value="导出Excel">导出Excel</button>
+            </form>
+        </div>
+        <div class="table-responsive clear">
+            <table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th width="150">标注日期</th>
+                    <th width="150">标注用户</th>
+                    <th width="150">标注用户编号</th>
+                    <th width="150">标注管理员</th>
+                    <th>标注说明</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach $list as $vo}
+                <tr>
+                    <td>{:date("Y-m-d H:i:s",$vo.create_time)}</td>
+                    <td>{$vo.nickname}</td>
+                    <td>{$vo.user_number}</td>
+                    <td>{if isset($admin_user_list[$vo.admin_id])}{$admin_user_list[$vo['admin_id']]}({$vo.admin_id}){else}-({$vo.admin_id}){/if}</td>
+                    <td style="text-align: left">{if $vo.type eq STATUS_ENABLED}标注用户为骂人玩家{else}取消标注{/if}</td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+            <center>{$list->render()}</center>
+        </div>
+    </div>
+</div>

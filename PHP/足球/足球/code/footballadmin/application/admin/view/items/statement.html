@@ -1,0 +1,110 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="mb10 clearfix">
+            {include file="items/play_side_menu" /}
+        </div>
+        <div class="mb10">
+            <form class="form-inline" method="get">
+                <div class="input-group">
+                    <span class="input-group-addon">赛事名称</span>
+                    <input type="text" class="form-control" name="match" value="{$match ?? ""}">
+                    <span class="input-group-addon">球队名称</span>
+                    <input type="text" class="form-control" name="item" value="{$item ?? ""}">
+                    <span class="input-group-addon">比赛时间</span>
+                    <input type="text" class="form-control" readonly data-toggle="datetime" data-timepicker="true" name="play_time" value="{$play_time ?? ""}">
+                    <span class="input-group-addon">赔率</span>
+                    <select name="has_odds" class="form-control">
+                        <option value="">全部</option>
+                        <option value="1" {if $has_odds eq 1}selected{/if}>有赔率</option>
+                        <option value="2" {if $has_odds eq 2}selected{/if}>无赔率</option>
+                    </select>
+                    <span class="input-group-addon">比赛状态</span>
+                    <select name="status" class="form-control">
+                        <option value="">全部</option>
+                        <option value="1" {if $status eq 1}selected{/if}>未开始</option>
+                        <option value="2" {if $status eq 2}selected{/if}>进行中</option>
+                        <option value="4" {if $status eq 4}selected{/if}>结束</option>
+                        <option value="5" {if $status eq 5}selected{/if}>延期</option>
+                        <option value="6" {if $status eq 6}selected{/if}>停赛</option>
+                        <option value="7" {if $status eq 7}selected{/if}>待定</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary btn-sm">搜索</button>
+            </form>
+        </div>
+
+        <div class="table-responsive clear">
+        <table class="table table-hover table-bordered table-head">
+            <thead>
+            <tr>
+                <th width="80">ID</th>
+                <th width="200">赛事名称</th>
+                <th width="200">主场</th>
+                <th width="200">客场</th>
+                <th width="80">全场比分</th>
+                <th width="80">半场比分</th>
+                <th width="150">比赛时间</th>
+                <th width="100">状态</th>
+                <th width="250">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr>
+                <td>{$vo.id}</td>
+                <td>
+                    {if $vo.is_recommend eq 1 && $type neq 3}<span class="btn btn-xs btn-danger">推荐</span>{/if}&nbsp;
+                    {if $vo.arena_total > 0}<span class="btn btn-xs btn-danger">擂</span>{/if}&nbsp;
+                    {$vo.match_name}
+                </td>
+                <td>{$vo.team_home_name}</td>
+                <td>{$vo.team_guest_name}</td>
+                <td>{if $vo.status eq PLAT_STATUS_NOT_START}--：--{else}{$vo.team_home_score}：{$vo.team_guest_score}{/if}</td>
+                <td>{if $vo.status eq PLAT_STATUS_NOT_START}--：--{else}{$vo.team_home_half_score}：{$vo.team_guest_half_score}{/if}</td>
+                <td>{:date("Y-m-d H:i:s",$vo.play_time)}</td>
+                <td>
+                    {if $vo.has_statement}
+                    已结算
+                    {elseif $vo.status eq PLAT_STATUS_START}<span style="color:green">{$vo.match_time}'</span>
+                    {elseif  $vo.status eq PLAT_STATUS_INTERMISSION}<span style="color:green">中场休息</span>
+                    {else}{:getPlayStatus($vo.status)}
+                    {/if}
+                </td>
+                <td>
+                    {if checkPermit($controller,'arena_list')}
+                    <a class="btn btn-xs btn-primary" href="{:url($controller.'/arena_list',['play_id' => $vo.id])}" title="房间">房间({$vo.arena_total})</a>
+                    {/if}
+                    {if checkPermit($controller,'betting_list')}
+                    <a class="btn btn-xs btn-primary" href="{:url($controller.'/betting_list',['play_id' => $vo.id])}" title="投注">投注</a>
+                    {/if}
+                    {if $vo.status eq PLAT_STATUS_STATEMENT}
+                        {if checkPermit($controller,'play_result')}
+                            {if $vo.statement_status eq STATEMENT_STATUS_ERROR}
+                            <a class="btn btn-xs btn-primary btn-danger j-dialog-handle" title="{$vo.statement_status_text}" data-toggle="tooltip" data-placement="left" href="{:url($controller.'/play_result',['play_id' => $vo.id])}">查看
+                                <i class="fa fa-info-circle"></i>
+                            </a>
+                            {else}
+                            <a class="btn btn-xs btn-primary j-dialog-handle" href="{:url($controller.'/play_result',['play_id' => $vo.id,'type'=>$type])}" title="查看">查看</a>
+                            {/if}
+                        {/if}
+                    {elseif $vo.status eq PLAT_STATUS_STATEMENT_BEGIN}
+                    <label class="btn btn-xs btn-success">结算中</label>
+                    {elseif $vo.status eq PLAT_STATUS_END && $auto_time && time() - $vo.end_time >= $auto_time}
+                    {else}
+                    {if checkPermit($controller,'statement_manual')}
+                        {if $vo.statement_status eq STATEMENT_STATUS_ERROR}
+                        <a class="btn btn-xs btn-primary btn-danger j-dialog-handle" title="上次结算出错：{$vo.statement_status_text}" data-toggle="tooltip" data-placement="left"  href="{:url($controller.'/statement_manual',['play_id' => $vo.id])}">结算 <i class="fa fa-info-circle"></i></a>
+                        {else}
+                        <a class="btn btn-xs btn-primary btn-danger j-dialog-handle" title="结算" href="{:url($controller.'/statement_manual',['play_id' => $vo.id])}">结算</a>
+                        {/if}
+                    {/if}
+                    {/if}
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+        </div>
+        <center>{$list->render()}</center>
+    </div>
+</div>

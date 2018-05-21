@@ -1,0 +1,25 @@
+<div class="panel">
+    <div class="panel-body" style="width: 700px;">
+        <div class="table-responsive clear">
+        <table class="table table-hover table-bordered table-head">
+            <thead>
+            <tr>
+                <th width="200">路径</th>
+                <th>错误原因</th>
+                <th width="150">时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="lists" id="vo"}
+            <tr>
+                <td style="text-align: left">{$vo.url}</td>
+                <td class="text-danger number">{$vo.content}</td>
+                <td>{:date("Y-m-d H:i")}</td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+        </div>
+        <center>{$lists->render()}</center>
+    </div>
+</div>

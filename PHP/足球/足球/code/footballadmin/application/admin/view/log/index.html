@@ -1,0 +1,108 @@
+<script type="application/javascript" src="/assets/common/js/jquery.json.js"></script>
+<div class="panel">
+    <div class="panel-body">
+        <div class="mb10 clearfix">
+            <ul class="nav nav-tabs my-nav-tabs mb10">
+                <li role="presentation" {if $classify eq SYSTEM_LOG_METHOD} class="active"{/if}><a href="{:url('log/index',['classify' => SYSTEM_LOG_METHOD])}" >访问日志</a></li>
+                <li role="presentation" {if $classify eq SYSTEM_LOG_OPERATION} class="active"{/if}><a href="{:url('log/index',['classify' => SYSTEM_LOG_OPERATION])}">操作日志</a></li>
+                <li role="presentation" {if $classify eq SYSTEM_LOG_FUNDS} class="active"{/if}><a href="{:url('log/index',['classify' => SYSTEM_LOG_FUNDS])}">系统资金日志</a></li>
+            </ul>
+        </div>
+        <div class="mb10">
+            <form class="form-inline" method="get">
+                <div class="input-group">
+                    {if $classify eq SYSTEM_LOG_METHOD}
+                    <span class="input-group-addon">请求类型</span>
+                    <select name="method" class="form-control">
+                        <option value="">全部</option>
+                        <option value="get" {if $method eq 'get'}selected{/if}>GET</option>
+                        <option value="post" {if $method eq 'post'}selected{/if}>POST</option>
+                        <option value="other" {if $method eq 'other'}selected{/if}>其它</option>
+                    </select>
+                    {/if}
+                    <span class="input-group-addon">日志时间</span>
+                    <input type="text" class="form-control" readonly data-toggle="datetime" data-timepicker="true" name="btime" id="btime" data-end-date="#ebtime" value="{$btime ?? ''}">
+                    <span class="input-group-addon">至</span>
+                    <input type="text" class="form-control" readonly data-toggle="datetime" data-timepicker="true" name="etime" id="etime" data-start-date="#btime"  value="{$etime ?? ''}">
+
+                </div>
+                <button class="btn btn-primary btn-sm">搜索</button>
+            </form>
+        </div>
+
+        <div class="table-responsive clear">
+    <table class="table table-hover table-bordered table-head">
+        <thead>
+        <tr>
+            <th width="80">ID</th>
+            <th width="150">管理员</th>
+            {if $classify eq SYSTEM_LOG_FUNDS}
+            <th width=150">金额</th>
+            {/if}
+            {if $classify eq SYSTEM_LOG_METHOD}
+            <th width=80">请求类型</th>
+            <th width="80">请求数据</th>
+            <th>请求说明</th>
+            {else}
+            <th width="80">关联数据</th>
+            <th>操作说明</th>
+            {/if}
+            <th width="150">访问时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach $list as $vo}
+            <tr>
+                <td>{$vo.id}</td>
+                <td>{if $vo.admin_id}
+                    {if isset($adminList[$vo.admin_id])}
+                    {$adminList[$vo.admin_id]['username']}
+                    ({$adminList[$vo.admin_id]['nickname']})
+                    {else}
+                    <span class="text-muted">被删除</span>
+                    {/if}
+                {else}
+
+                    ({$vo.admin_id})
+                {/if}
+                </td>
+                {if $classify eq SYSTEM_LOG_METHOD}
+                <td>{if $vo.method == 'POST'}<span class="text-danger">{$vo.method}</span>{else}{$vo.method}{/if}</td>
+                {/if}
+                {if $classify eq SYSTEM_LOG_FUNDS}
+                <td>{$vo.number}</td>
+                {/if}
+                <td>
+                    <button class="btn btn-info btn-xs log-data-btn {if !trim($vo.data) || trim($vo.data) == 'null' }disabled{/if}" data-id="{$vo.id}"><i class="fa fa-database"></i></button>
+                    <textarea style="display: none" class="log-data-{$vo.id}">
+                        {:htmlspecialchars($vo.data)}
+                    </textarea>
+                </td>
+                <td style="text-align: left">{$vo.explain}</td>
+                <td>{:date("Y-m-d H:i:s",$vo.create_time)}</td>
+            </tr>
+        {/foreach}
+        </tbody>
+    </table>
+            </div>
+        <center>{$list->render()}</center>
+</div>
+</div>
+<script>
+    $(function () {
+        $(".log-data-btn").click(function () {
+            var id = $(this).attr("data-id");
+            var text = $(".log-data-"+id).val();
+            if($(this).hasClass("disabled")){return false;}
+            //text = jsonlint.parse(text);
+            ///text = JSON.stringify(text)
+            var dialog = window.top.jDialog({
+                'content': '<div class="json-string">'+new JSONFormat(text,4).toString()+'</div>',
+                'title': '请求数据',
+                'complete' : function (s) {
+                    s.position();
+                }
+            });
+        });
+    });
+</script>

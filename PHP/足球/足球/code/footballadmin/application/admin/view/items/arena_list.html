@@ -1,0 +1,351 @@
+ <div class="panel">
+    <div class="panel-body">
+        {if isset($play) && $play}
+        <div class="mb10 clearfix">
+            <div class="alert alert-warning pull-left" style="margin-bottom: 0">
+                <div class="play_home pull-left">
+                    <p class="text-danger">主场</p>
+                    <h4 style="text-align: right">{$play.team_home_name}</h4>
+                </div>
+                <div class="play_home pull-left" style="margin: 0 60px;">
+                    <p class="text-danger">{:date("Y-m-d H:i",$play.play_time)}</p>
+                    <h4 style="text-align: center">{$play.match.name}</h4>
+                </div>
+                <div class="play_home pull-left">
+                    <p class="text-danger">&nbsp;</p>
+                    <h4 style="text-align: right">{$play.team_guest_name}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="mb10 clearfix">
+            <ul class="nav nav-tabs my-nav-tabs mb10">
+                <li role="presentation"{if !$rules_id} class="active"{/if}>
+                <a href="{:url($controller.'/arena_list',['play_id' => $play_id])}" >全部</a>
+                </li>
+                {foreach $rulesList as $key => $r}
+                <li role="presentation"{if $rules_id == $key} class="active"{/if}><a href="{:url($controller.'/arena_list',['play_id' => $play_id,'rules' => $key])}" >{$r}</a></li>
+                {/foreach}
+            </ul>
+        </div>
+        {/if}
+        <div class="mb10">
+            <form class="form-inline" method="get">
+                <input type="hidden" name="play_id" value="{$play_id ?? ''}">
+                <div class="col-sm-8 mb10" style="padding-left: 0">
+                    <div class="col-sm-11 mb10" style="padding-left: 0">
+                        <div class="input-group">
+                            {if $games}
+                            <span class="input-group-addon">游戏</span>
+                            <select class="form-control" name="game_id">
+                                <option value="0">全部</option>
+                                {foreach $games as $key => $val}
+                                <option value="{$val.id}" {if $game_id eq $val.id}selected{/if}>{$val.name}</option>
+                                {/foreach}
+                            </select>
+                            {/if}
+                            <span class="input-group-addon">玩法</span>
+                            <select class="form-control" name="rules_type" style="width: 100px;">
+                                <option value="0">全部</option>
+                                {foreach $rulesList as $key => $val}
+                                <option value="{$key}" {if $rules_type eq $key}selected{/if}>{$val}</option>
+                                {/foreach}
+                            </select>
+                            <span class="input-group-addon">赛事名称</span>
+                            <input type="text" class="form-control" name="match_name" value="{$match_name ?? ""}">
+                            <span class="input-group-addon">球队名称</span>
+                            <input type="text" class="form-control" name="team_name" value="{$team_name ?? ""}">
+                            <span class="input-group-addon">比赛时间</span>
+                            <input type="text" class="form-control" readonly data-toggle="datetime" data-timepicker="true" name="play_time" value="{$play_time ?? ""}">
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="padding-left: 0">
+                        <div class="input-group">
+                            <span class="input-group-addon">状态</span>
+                            <select class="form-control" name="status">
+                                <option value="0">全部</option>
+                                <option value="{$Think.const.ARENA_START}" {if $status eq ARENA_START}selected{/if}>投注中</option>
+                                <option value="{$Think.const.ARENA_SEAL}" {if $status eq ARENA_SEAL}selected{/if}>已封擂</option>
+                                <option value="{$Think.const.ARENA_PLAY}" {if $status eq ARENA_PLAY}selected{/if}>比赛进行中</option>
+                                <option value="{$Think.const.ARENA_END}" {if $status eq ARENA_END}selected{/if}>比赛已结束</option>
+                                <option value="{$Think.const.ARENA_DIS}" {if $status eq ARENA_DIS}selected{/if}>已取消</option>
+                                <option value="{$Think.const.ARENA_STATEMENT_END}" {if $status eq ARENA_STATEMENT_END}selected{/if}>结算完成</option>
+                                <option value="{$Think.const.ARENA_STATEMENT_ERROR}" {if $status eq ARENA_STATEMENT_ERROR}selected{/if}>结算失败</option>
+                                <option value="{$Think.const.ARENA_DEL}" {if $status eq ARENA_DEL}selected{/if}>已删除</option>
+                            </select>
+                            <span class="input-group-addon">房间ID/标识</span>
+                            <input type="text" class="form-control" name="mark" value="{$mark ?? ""}">
+                            <span class="input-group-addon">房主</span>
+                            <input type="text" class="form-control" name="nickname" value="{$nickname ?? ""}">
+                        </div>
+
+                        <button class="btn btn-primary btn-sm">搜索</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <form method="post" action="{:url($controller.'/batch_opt')}" class="auto-submit-form" id="__formId__">
+            <input type="hidden" name="batch_opt_type" id="batch_opt_type" value="" />
+            {if checkPermit($controller,['arena_disabled','arena_del'])}
+            <div class="mb10 clear">
+                {if checkPermit($controller,'arena_disabled')}
+                <button type="button" name="cancel_arena" date-value="cancel_arena" class="btn btn-primary btn-xs checkbox-linkage btn_batch_opt" disabled>取消房间</button>
+                {/if}
+                {if checkPermit($controller,'arena_del')}
+                <button type="button" name="del_arena" date-value="del_arena" class="btn btn-primary btn-xs checkbox-linkage btn_batch_opt" disabled>删除房间</button>
+                {/if}
+            </div>
+            {/if}
+        <div class="table-responsive clear">
+        <table class="table table-hover table-bordered table-head">
+            <thead>
+            <tr>
+                <th width="30"><input type="checkbox" class="checkbox checkall" data-toggle=".libs"></th>
+                <th width="80">房间ID</th>
+                <th width="100">房主</th>
+                <th width="120">玩法</th>
+                <th width="120">比赛</th>
+                <th width="120">主场</th>
+                <th width="120">客场</th>
+                <th width="80">保证金</th>
+                <th width="80">
+                    <a href="?{$param}order={$iOrder ?? "asc"}&order_field=bet_money">投注总额
+                    <i class="fa fa-sort"></i></a>
+                </th>
+                <th  width="80">
+                    <a href="?{$param}order={$iOrder ?? "asc"}&order_field=bet_number">投注数
+                    <i class="fa fa-sort"></i></a></th>
+                <th  width="100">
+                    <a href="?{$param}order={$iOrder ?? "asc"}&order_field=risk">房间收益
+                    <i class="fa fa-sort"></i></a></th>
+                <th  width="100">开始时间</th>
+                <th  width="100">截止时间</th>
+                <th  width="80">状态</th>
+                <th  width="80">隐私设置</th>
+                <th  width="80">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr>
+                <td>
+                    {if !in_array($vo.status,[ARENA_DEL,ARENA_STATEMENT_BEGIN,ARENA_STATEMENT_END,ARENA_DIS,ARENA_DEL])}
+                    <input type="checkbox" class="libs checkbox-linkage-lists" name="libs[]" value="{$vo.id}">
+                    {else}
+                    -
+                    {/if}
+                </td>
+                <td class="number">
+                    <a href="{:url($controller.'/arena_info',['id' => $vo.id])}" class="btn btn-default btn-xs text-primary" target="_blank">{$vo.id}</a>
+                </td>
+                <td style="text-align: left">
+                    {if $vo.has_default}
+                    <i class="fa fa-star text-danger" title="默认"></i>
+                    {/if}
+                    {if $vo.has_recommend}
+                    <i class="fa fa-tint text-primary" title="推荐"></i>
+                    {/if}
+                    {if $vo.has_sys}
+                    <label class="label label-danger">系统</label>
+                    {/if}
+                    {if $vo.has_robot}
+                    <i class="fa fa-android text-danger" title="机器人"></i>
+                    {/if}
+                    {if $vo.has_hide}
+                    <i class="fa fa-eye-slash text-danger" title="隐藏"></i>
+                    {/if}
+                    {if $vo.auto_update_odds && $vo.odds_id}
+                    <i class="fa fa-circle-o-notch fa-spin text-danger" title="赔率监控-自动更新赔率"></i>
+                    {/if}
+                    {if $vo.classify eq ARENA_CLASSIFY_CREDIT}
+                    <i class="fa fa-credit-card text-danger" title="征信局"></i>
+                    {/if}
+
+                    {if checkPermit('User','info')}
+                        <a href="{:url('user/info',['id'=>$vo.user_id])}" class="j-dialog-handle btn btn-default btn-xs text-primary" title="用户详情">{:getUser($vo.user_id,'nickname')}</a>
+                    {else}
+                        {:getUser($vo.user_id,'nickname')}
+                    {/if}
+                    </td>
+                <td style="text-align: left">{:getRuleData($vo.game_type,$vo.rules_id,'name')}</td>
+                <td style="text-align: left">{$vo.match_name}</td>
+                <td style="text-align: left">{$vo.team_home_name}</td>
+                <td style="text-align: left">{$vo.team_guest_name}</td>
+                <td>{if $vo.classify eq ARENA_CLASSIFY_CREDIT}
+                    -
+                    {else}
+                    <span class="text-primary number">{$vo.deposit|number_format=2}</span>
+                    {/if}
+                </td>
+                <td><spa class="text-primary number">{$vo.bet_money|number_format=2}</spa></td>
+                <td><spa class="text-primary number">{$vo.bet_number|number_format}</spa></td>
+                <td class="{:getArenaRiskStyle($vo.deposit,$vo.risk)}">
+                    {if $vo.status eq ARENA_STATEMENT_END}
+                        {if $vo.win < 0}
+                        <span class="text-danger number">{$vo.win|number_format=2}</span>
+                        {else}
+                        <span class="text-success number">+{$vo.win|number_format=2}</span>
+                        {/if}
+                    {else}
+                    {if $vo.risk < 0}
+                        <span>{$vo.risk|number_format=2}</span>
+                    {else}
+                    <span class="text-success number">+{$vo.risk|number_format=2}</span>
+                    {/if}
+                    {/if}
+                </td>
+                <td>{:date("m-d H:i",$vo.create_time)}</td>
+                <td>{:date("m-d H:i",$vo.play_time)}</td>
+                <!--<td>{:getArenaStatus($vo.status)}</td>-->
+                <td>{:arenaStatusToWord($vo.status,true,$vo.play_time,$vo.play_status)}</td>
+                <td>{:arenaDisplayToWord($vo.private,true)}</td>
+                <td><div class="dropdown btn-opt dropdown-box-dropdown">
+                    <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                        管理
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu  dropdown-menu-right">
+                        {if !in_array($vo.status,[ARENA_DEL,ARENA_STATEMENT_BEGIN,ARENA_STATEMENT_END,ARENA_DIS,ARENA_STATEMENT_ERROR])}
+                            {if $vo.classify neq ARENA_CLASSIFY_CREDIT}
+                                {if checkPermit($controller,'arena_deposit')}
+                                    <li><a href="{:url($controller.'/arena_deposit',['id'=>$vo.id])}" class="j-dialog-handle" title="追加保证金">追加保证金</a></li>
+                                {/if}
+                            {/if}
+                            {if checkPermit($controller,'arena_conf')}
+                                <li><a href="{:url($controller.'/arena_conf',['id'=>$vo.id])}" class="j-dialog-handle" title="房间设置">房间设置</a></li>
+                            {/if}
+                            {if checkPermit($controller,'sealArena')}
+                                {if $vo.status eq ARENA_SEAL}
+                                <li><a href="javascript:unsealArena({$vo.id});">解封</a></li>
+                                {else}
+                                <li><a href="javascript:sealArena({$vo.id});">封擂</a></li>
+                                {/if}
+                            {/if}
+                            {if checkPermit($controller,'odds_monitor')}
+                                <li><a href="{:url($controller.'/odds_monitor',['play_id'=>$vo.play_id,'rules_type' => $vo.rules_type])}" class="j-dialog-handle" title="赔率监控">赔率监控</a></li>
+                            {/if}
+                        <!--
+                                    <li><a href="{:url('Arena/modifyTime',['id'=>$vo.id])}" class="j-dialog-handle" title="修改时间">修改时间</a></li>-->
+                            {if $vo.private eq ARENA_DISPLAY_ALL && !in_array($vo.status,[ARENA_DEL,ARENA_STATEMENT_BEGIN,ARENA_STATEMENT_END,ARENA_DIS,ARENA_DEL])}
+                                <li class="divider"></li>
+                                {if checkPermit($controller,'rdef')}
+                                <li><a href="{:url($controller.'/rdef',['id'=>$vo.id])}" class="ajax-confirm" title="将房间(#{$vo.id})设置成默认房间吗？">设为默认房间</a></li>
+                                {/if}
+                                {if $vo.has_recommend}
+                                    {if checkPermit($controller,'un_arena_recommend')}
+                                        <li><a href="{:url($controller.'/un_arena_recommend',['id'=>$vo.id])}" class="ajax-confirm" title="取消房间(#{$vo.id})推荐吗？">取消热门房间</a></li>
+                                    {/if}
+                                {else}
+                                    {if checkPermit($controller,'arena_recommend')}
+                                    <li><a href="{:url($controller.'/arena_recommend',['id'=>$vo.id])}" class="ajax-confirm" title="将房间(#{$vo.id})设置成推荐房间吗？">设为热门房间</a></li>
+                                    {/if}
+                                {/if}
+                            {/if}
+                            <li class="divider"></li>
+                        {/if}
+
+                        <li><a href="{:url($controller.'/arena_info',['id' => $vo.id])}" target="_blank">房间详情</a></li>
+                        {if checkPermit($controller,'arena_bet_stat')}
+                        <li><a href="{:url($controller.'/arena_bet_stat',['id'=>$vo.id])}" class="j-dialog-handle" title="投注统计">投注统计</a></li>
+                        {/if}
+                        {if checkPermit($controller,'arena_bet_user')}
+                        <li><a href="{:url($controller.'/arena_bet_user',['id'=>$vo.id])}" class="j-dialog-handle" title="投注用户列表">投注用户列表</a></li>
+                        {/if}
+                        {if !in_array($vo.status,[ARENA_DEL,ARENA_STATEMENT_BEGIN,ARENA_STATEMENT_END,ARENA_DIS,ARENA_DEL])}
+                            {if checkPermit($controller,['arena_disabled','arena_del'])}
+                                <li class="divider"></li>
+                                {if checkPermit($controller,'arena_disabled')}
+                                    <li><a href="javascript:disabledArena({$vo.id});" class="text-danger" title="取消房间">取消</a></li>
+                                {/if}
+                                {if $vo.bet_number < 1}
+                                    {if checkPermit($controller,'arena_del')}
+                                    <li><a href="javascript:delArena({$vo.id});" class="text-danger" title="删除房间">删除</a></li>
+                                    {/if}
+                                {/if}
+                            {/if}
+                        {/if}
+                    </ul>
+                </div></td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+        </div>
+            {if checkPermit($controller,['arena_disabled','arena_del'])}
+            <div class="mb10 clear">
+                {if checkPermit($controller,'arena_disabled')}
+                <button type="button" name="cancel_arena" date-value="cancel_arena" class="btn btn-primary btn-xs checkbox-linkage btn_batch_opt" disabled>取消房间</button>
+                {/if}
+                {if checkPermit($controller,'arena_del')}
+                <button type="button" name="del_arena" date-value="del_arena" class="btn btn-primary btn-xs checkbox-linkage btn_batch_opt" disabled>删除房间</button>
+                {/if}
+            </div>
+            {/if}
+        </form>
+        <center>{$list->render()}</center>
+        <script>
+            $(function () {
+                $('.btn_batch_opt').click(function () {
+                    var self = $(this);
+                    var message = '确定要批量取消选中的房间吗？<br/><em class="org">取消后：保证金返还给房主；投注返还给用户。</em>';
+                    if(self.attr("date-value") == 'del_arena'){
+                        message = '确定要批量删除选中的房间吗？';
+                    }
+
+                    Tips.warn(message,'你确定？',function () {
+                        $("#batch_opt_type").val(self.attr('date-value'));
+                        $('#__formId__').submit();
+                    });
+                    return false;
+                    //$("#batch_opt_type").val($(this).attr('date-value'));
+                    //$('#__formId__').submit();
+                });
+            });
+            function disabledArena(id) {
+                Tips.warn("确定要取消此房间吗？<br/><em class='org'>取消后：保证金返还给房主；投注返还给用户。</em>",function () {
+                    Ajax.post('{:url($controller."/arena_disabled")}',{'id':id},function (ret) {
+                        if(ret.code){
+                            Tips.success("操作成功",function () {location.reload() });
+                        }else{
+                            Tips.error(ret.msg);
+                        }
+                    });
+                },true);
+            }
+            function delArena(id) {
+                Tips.warn("确定要删除此房间吗？",function () {
+                    Ajax.post('{:url($controller."/arena_del")}',{'id':id},function (ret) {
+                        if(ret.code){
+                            Tips.success("操作成功",function () {location.reload() });
+                        }else{
+                            Tips.error(ret.msg);
+                        }
+                    });
+                },true);
+            }
+
+
+            function sealArena(id,status) {
+                Tips.warn("确定要封擂吗？<br/><em>封擂后用户将不能再投注！</em>",function () {
+                    Ajax.post('{:url($controller."/sealArena")}',{'id':id},function (ret) {
+                        if(ret.code){
+                            Tips.success("操作成功",function () {location.reload() });
+                        }else{
+                            Tips.error(ret.msg);
+                        }
+                    });
+                },true);
+            }
+            function unsealArena(id,status) {
+                Tips.warn("确定要解封此房间吗？<br/><em>解封后用户可以继续投注！</em>",'',function () {
+                    Ajax.post('{:url($controller."/unsealArena")}',{'id':id},function (ret) {
+                        if(ret.code){
+                            Tips.success("操作成功",function () {location.reload() });
+                        }else{
+                            Tips.error(ret.msg);
+                        }
+                    });
+                },true);
+            }
+        </script>
+    </div>
+</div>

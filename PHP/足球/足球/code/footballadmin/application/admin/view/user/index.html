@@ -1,0 +1,130 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="mb10">
+            <form class="form-inline" method="get">
+                <div class="col-sm-12 mb10" style="padding-left: 0">
+                    <div class="input-group">
+                        <select name="online" class="form-control">
+                            <option value="1">全部</option>
+                            <option value="2" {if $online eq 2}selected{/if}>在线</option>
+                        </select>
+                        <span class="input-group-addon input-group-addon-select"><select class="form-control" name="user_type">
+                        	<option value="2" {if $user_type eq 2}selected{/if}>用户ID</option>
+                            <option value="3" {if $user_type eq 3}selected{/if}>用户昵称</option>
+                            <option value="4" {if $user_type eq 4}selected{/if}>GUID</option>
+                            <option value="5" {if $user_type eq 5}selected{/if}>手机号</option>
+                            <option value="6" {if $user_type eq 6}selected{/if}>注册IP</option>
+                            <option value="7" {if $user_type eq 7}selected{/if}>登录IP</option>
+                            <option value="1" {if $user_type eq 1}selected{/if}>用户编号</option>
+                        </select></span>
+                        <input type="text" class="form-control" name="username" value="{$username ?? ''}">
+                        <span class="input-group-addon">帐号状态</span>
+                        <select name="status" class="form-control">
+                            <option value="0">全部</option>
+                            <option value="{$Think.const.STATUS_DISABLED}" {if $status eq STATUS_DISABLED}selected{/if}>禁用</option>
+                            <option value="{$Think.const.STATUS_ENABLED}" {if $status eq STATUS_ENABLED}selected{/if}>正常</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12 mb10" style="padding-left: 0">
+                    <div class="input-group">
+                        <span class="input-group-addon">注册时间</span>
+                        <input type="text" class="form-control" name="btime" value="{$btime ?? ''}" readonly data-toggle="datetime">
+                        <span class="input-group-addon">-</span>
+                        <input type="text" class="form-control" name="etime" value="{$etime ?? ''}" readonly data-toggle="datetime">
+                        <span class="input-group-addon">登录时间</span>
+                        <input type="text" class="form-control" name="lbtime" value="{$lbtime ?? ''}" readonly data-toggle="datetime">
+                        <span class="input-group-addon">-</span>
+                        <input type="text" class="form-control" name="letime" value="{$letime ?? ''}" readonly data-toggle="datetime">
+                    </div>
+                    <button class="btn btn-primary btn-sm">搜索</button>
+                </div>
+            </form>
+        </div>
+        <div class="table-responsive clear">
+        	<table class="table table-hover table-bordered table-condensed table-head" style="min-width: 1450px;">
+                <thead>
+                <tr>
+                	<th rowspan="2" width="100">操作</th>
+                    <th rowspan="2" width="50">ID</th>
+                    <th rowspan="2" width="150">昵称</th>
+                    <th rowspan="2" width="100">{:dataSort('金币余额','gold',url('user/index'),input())}</th>
+                    <th rowspan="2" width="100">累计输赢</th>
+                    <th rowspan="2" width="150">账号状态</th>
+                    <th rowspan="2" width="120">手机</th>
+                    <th rowspan="2" width="150">GUID<Br/>(APP有效)</th>
+                    <th rowspan="2" width="100">登录/注册IP</th>
+                    <th rowspan="2" width="100">登录时间</th>
+                    <th rowspan="2" width="100">注册时间</th>
+                    
+                </tr>
+                </thead>
+                <tbody>
+                {foreach list as $vo}
+                    <tr>
+                        <input type="hidden" class="user_ids" name="user_ids" value="{$vo.id}" />
+                    	<td class="dr_option" >
+                        	<div class="dropdown btn-opt dropdown-box-dropdown">
+	                            <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+	                               		 管理
+	                                <span class="caret"></span>
+	                            </button>
+	                            <ul class="dropdown-menu dropdown-menu-right">
+                                    {if $vo.status == 1}
+                                        {if checkPermit('User','sealUser')}
+                                        <li><a id="seal-user-status-opt-{$vo.id}" href="javascript:sealUser({$vo.id},{$vo.status},false);">封禁</a></li>
+                                        {/if}
+                                    {else}
+                                        {if checkPermit('User','sealUser')}
+                                        <li><a id="seal-user-status-opt-{$vo.id}" href="javascript:sealUser({$vo.id},{$vo.status},false);">解封</a></li>
+                                        {/if}
+                                    {/if}
+                                    {if checkPermit('User','changePass')}
+                                    <li><a href="javascript:changePass({$vo.id});">重置登录密码</a></li>
+                                    {/if}
+                                    {if checkPermit('User','changeBankPass')}
+                                    <li><a href="javascript:changeBankPass({$vo.id});">重置金库密码</a></li>
+                                    {/if}
+                                    {if checkPermit('User','bind')}
+                                    <li><a href="{:url('user/bind',['id'=>$vo.id])}" class="j-dialog-handle" title="账户绑定管理">账户绑定管理</a></li>
+                                    {/if}
+                                    <li class="divider"></li>
+                                    {if checkPermit('User','userArenaBet')}
+	                                <li><a href="{:url('user/userArenaBet',['id'=>$vo.id])}" class="j-dialog-handle" title="投注记录">投注记录</a></li>
+                                    {/if}
+                                    <li><a href="{:url('user/memberLog')}?username={$vo.id}&user_type=2" title="资金流水记录">资金流水记录</a></li>
+	                            </ul>
+	                        </div>
+                        </td>
+                        <td>{$vo.id}</td>
+                        <td style="text-align: left">
+                            {if $vo.has_online}
+                            <i class="fa fa-circle text-success" title="在线"></i>
+                            {/if}
+                            {if checkPermit('User','info')}
+                            <a href="{:url('user/info',['id'=>$vo.id])}" class="j-dialog-handle btn btn-default btn-xs text-primary" title="用户详情">{$vo.nickname ?? $vo.cpid}</a>
+                            {else}
+                            {$vo.nickname ?? $vo.cpid}
+                            {/if}
+                            <p id="position_{$vo.id}" data-online="{$vo.has_online}"></p>
+                        </td>
+                        <td class="number text-danger">{:numberFormat($vo.gold,2,2)}</td>
+                        <td>{:numberFormat($vo.win_money,2)}</td>
+                        <td id="seal-user-status-{$vo.id}">{if $vo.status == STATUS_ENABLED}正常{else}<span class="text-danger">封禁</span>{/if}</td>
+                        <td>{$vo.mobile ?? '-'}</td>
+                        <td>{$vo.imei ?? '----'}</td>
+                        <td class="number" title="{:getLocationByIp($vo.last_login_ip)}">
+                            {$vo.last_login_ip}<br/>
+                            <span class="text-muted">{$vo.reg_ip}</span>
+                        </td>
+                        <td class="number">{if $vo.last_login_time}{:date('Y-m-d H:i',$vo.last_login_time)}{else}-{/if}</td>
+                        <td>{$vo.reg_time|date="Y-m-d",###}</td>
+                    </tr>
+                {/foreach}
+                </tbody>
+            </table>
+            <center>{$list->render()}</center>
+        </div>
+    </div>
+</div>
+

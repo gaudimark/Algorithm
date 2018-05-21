@@ -1,0 +1,83 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="table-responsive clear">
+            <table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th>名称</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach $menuList as $menu}
+                {foreach $menu as $vo}
+                <tr>
+                    <td style="text-align: left">{$vo.name}</td>
+                    <td style="text-align: left"></td>
+                </tr>
+                {if isset($vo['list'])}
+                    {foreach $vo['list'] as $m1}
+                        <tr>
+                        	{if isset($m1.ename)}
+                            <td style="text-align: left;padding-left:2em"><input type="checkbox" name="choose" id="choose" value="{$m1.ename}" {if isset($m1.is_choose) && $m1.is_choose} checked{/if}>├─ {$m1.name}</td>
+                           	{/if}
+							<td style="text-align: left">
+                            	{if isset($m1.ename)}
+                            	{if isset($m1.is_choose) && $m1.is_choose}
+                            	<a href="javascript:;" onclick="choose('{$m1.ename}',0)" class="btn btn-warning">取消常用</a>
+                            	{else}
+                            	<a href="javascript:;" onclick="choose('{$m1.ename}',1)" class="btn btn-default">设为常用</a>
+                            	{/if}
+                            	{/if}
+                            </td>
+                        </tr>
+                    {/foreach}
+                {/if}
+                {/foreach}
+                {/foreach}
+                </tbody>
+            </table>
+            <div class="form-group dialog-handle">
+	            <label class="col-md-3 control-label"><button type="button" class="btn btn-primary" onclick="submitForm()">提交</button></label>
+	            <div class="col-md-8">
+	                
+	            </div>
+	        </div>
+        </div>
+        
+    </div>
+</div>
+<script>
+	function choose(ename,type){
+			Ajax.post('{:url('index/chooseMenu')}',{'ename':ename,'type':type},function (ret) {
+                if(ret.code){
+                    Tips.success("操作成功",function () {
+                        location.reload();
+                    });
+                }else{
+                    Tips.error(ret.msg);
+                }
+            });
+		
+	}
+	
+	function submitForm(){
+		var data = "";
+		$("input[name=choose]:checked").each(function(){
+			if(data == ""){
+				data += $(this).val();
+			}else{
+				data += ","+$(this).val();
+			}
+		});
+		Ajax.post('{:url('index/chooseMenu')}',{'ename':data,'type':1,"is_all":1},function (ret) {
+            if(ret.code){
+                Tips.success("操作成功",function () {
+                    location.reload();
+                });
+            }else{
+                Tips.error(ret.msg);
+            }
+        });
+	}
+</script>

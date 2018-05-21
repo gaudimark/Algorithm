@@ -1,0 +1,84 @@
+<div class="panel" id="odds-monitor-dialog">
+    <div class="panel-body" style="width: 1000px">
+        <div class="table-responsive clear">
+        {switch name="$item_id"}
+            {case value="$Think.const.GAME_TYPE_FOOTBALL"}{include file="items/football/odds"}{/case}
+        {/switch}
+        </div>
+        <center>{$list->render()}</center>
+    </div>
+</div>
+<script>
+    var interTime = 5000;//10 * 60 * 1000;
+    var dialogId = null;
+    $(function () {
+        intervalTimer = setInterval(function () {
+            getOdds();
+        },interTime);
+
+        $(".btn-odds-change").click(function () {
+            var oddsId = $(this).attr("data-value");
+            try{oddsChange(oddsId);}catch (e){}
+            var dialog = $("#odds-monitor-dialog").closest(".j-dialog");
+            if(dialog.length > 0){
+                var index = dialog.attr("id");
+                jDialog.data[index].close();
+            }
+            return false;
+        });
+        var dialog = $("#odds-monitor-dialog").closest(".j-dialog");
+        if(dialog.length > 0){
+            dialogId = dialog.attr("id");
+        }
+    });
+
+    function  getOdds() {
+        Ajax.get("{:url('misc/odds')}",{'play_id' : '{$play_id}','rules_type' : '{$rules}'
+        },function (ret) {
+            if(ret.code == 0){
+                var data = ret.data;
+                for(var k in data){
+                    var odds = data[k];
+                    var oddsId = odds['id'];
+                    for(var i in odds['odds']){
+                        var o = odds['odds'][i];
+                        var td = $("#"+oddsId+"-"+o['target']+"-"+o['item']).find("label").last();
+                        if($("#odds-monitor-dialog").length  == 0){
+                            if(intervalTimer){clearInterval(intervalTimer);}
+                            return false;
+                        }
+                        var value = parseFloat(td.text());
+                        var nValue = parseFloat(o['odds']);
+                        var _class = td.attr("class");
+                        td.attr("data-class",_class);
+                        var labelTd = $('<label class="text-muted" style="padding: 0px 2px;margin: 0;margin-bottom: 5px;display: inline-block">'+nValue+'</label>');
+                        if(nValue > value){
+                            labelTd.appendTo(td.parent());
+                            td.text(nValue).hide();
+                            flash(labelTd,'label label-danger',td);
+                        }else if(nValue < value){
+                            labelTd.appendTo(td.parent());
+                            td.text(nValue).hide();
+                            flash(labelTd,'label label-success',td);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function flash(tmpObj,className,obj) {
+        var i = 0,maxCount = 10;
+        var t = setInterval(function () {
+            i++;
+            tmpObj.toggleClass(className);
+            if(i > maxCount){
+                clearInterval(t);
+                setTimeout(function () {
+                    tmpObj.remove();
+                    obj.show();
+                },10000);
+            }
+        },500);
+    }
+</script>

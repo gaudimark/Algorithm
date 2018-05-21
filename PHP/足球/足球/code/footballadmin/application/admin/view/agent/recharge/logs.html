@@ -1,0 +1,68 @@
+<div class="panel">
+    <div class="panel-body">
+        {include file="agent/recharge/side_menu" /}
+        <div class="mb10">
+            <form class="form-inline" method="get">
+                <div class="input-group ml10">
+                    <span class="input-group-addon input-group-addon-select">
+                        <select name="log_type" class="form-control">
+                            <option value="0">全部</option>
+                            <option value="{$Think.const.RECHARGE_AGENT_ORDER_TYPE_RECHARGE}" {if $log_type eq RECHARGE_AGENT_ORDER_TYPE_RECHARGE}selected{/if}>充值</option>
+                            <option value="{$Think.const.RECHARGE_AGENT_ORDER_TYPE_WITHDRAWAL}" {if $log_type eq RECHARGE_AGENT_ORDER_TYPE_WITHDRAWAL}selected{/if}>兑换</option>
+                        </select>
+                    </span>
+                    <span class="input-group-addon input-group-addon-select">
+                        <select name="user_type" class="form-control">
+                            <option value="1" {if $user_type eq 1}selected{/if}>代理用户名</option>
+                            <option value="2" {if $user_type eq 2}selected{/if}>代理昵称</option>
+                        </select>
+                    </span>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="" value="{$username ?? ""}">
+                    <span class="input-group-addon">时间段</span>
+                    <input type="text" class="form-control" readonly data-toggle="datetime" data-end-date="#etime" id="btime" name="btime" value="{$btime ?? ""}">
+                    <span class="input-group-addon">至</span>
+                    <input type="text" class="form-control" readonly data-toggle="datetime" data-start-date="#btime" id="etime" name="etime" value="{$etime ?? ""}">
+
+                </div>
+                <button type="submit" name="search" class="btn btn-primary btn-sm">搜索</button>
+                <input type="submit" name="export" class="btn btn-info btn-sm btn-to-xls" value="导出报表">
+            </form>
+        </div>
+        <div class="table-responsive clear">
+            <div class="mt10 number text-primary">总充值金额：{:numberFormat($total,2,true)}</div>
+            <table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th width="80">序号</th>
+                    <th width="80">代理ID</th>
+                    <th width="150">代理用户</th>
+                    <th width="80">收支</th>
+                    <th width="150">操作前金额</th>
+                    <th width="150">金额</th>
+                    <th width="150">操作后金额</th>
+                    <th width="200">原因</th>
+                    <th width="150">时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach $lists as $vo}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.ra_user_id}</td>
+                    <td>{$vo.nickname}({$vo.username})</td>
+                    <td>{if $vo.number > 0}收入{else}支出{/if}</td>
+                    <td style="text-align: left" class="number text-primary">{:number_format($vo.before_num,2)}</td>
+                    <td style="text-align: left"class="number">
+                        <span class="{if $vo.number > 0}text-success{else}text-danger{/if}">{:number_format($vo.number,2)}</span>
+                    </td>
+                    <td style="text-align: left" class="number text-primary">{:number_format($vo.after_num,2)}</td>
+                    <td style="text-align: left" style="text-align: left">{$vo.explain}</td>
+                    <td>{$vo.create_time|date="Y-m-d H:i",###}</td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+            <center>{$lists->render()}</center>
+        </div>
+    </div>
+</div>

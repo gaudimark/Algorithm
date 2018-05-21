@@ -1,0 +1,27 @@
+<div class="panel">
+    <div class="panel-body" style="width: 500px;">
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url($controller.'/pay')}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+            <input type="hidden" name="id" value="{$res.id ?? 0}">
+            <div class="form-group">
+                <label class="col-xs-12 col-md-3 control-label">充值用户：</label>
+                <div class="col-xs-12 col-md-8 control-label text-left">
+                    {$res.nickname}({$res.username})
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-md-3 control-label">充值金额：</label>
+                <div class="col-xs-12 col-md-8">
+                    <input type="text" class="form-control" autocomplete="off" name="gold" id="gold" value="0" data-parsley-pattern-message="只能输入数字" data-parsley-pattern="/^\d+(.[0-9]{2})?$/"  data-parsley-required="true">
+                </div>
+            </div>
+            <div class="form-group dialog-handle">
+                <label class="col-md-3 control-label">&nbsp;</label>
+                <div class="col-md-8">
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+

@@ -1,0 +1,201 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="help-block bg-warning page-note mb10" style="margin-top: -20px;">
+            修改高级设置后，需要更新“系统配置”缓存，前台方能生效
+        </div>
+        <form class="form-horizontal parsley-form auto-submit-form" id="__formId__" name="__formId__" action="{:url('config/system')}" method="post" data-parsley-validate="">
+            <div class="mb10 clearfix">
+                <ul class="nav nav-tabs my-nav-tabs mb10" role="tablist">
+                    <li role="presentation" class="active"><a role="tab" data-toggle="tab" href="#sz">高级设置</a></li>
+                    <li role="presentation"><a role="tab" data-toggle="tab" href="#hd">APP热更地址</a></li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="sz">
+                    <div class="form-group form-group-title">系统默认开擂最低保证金</div>
+                    <div class="form-group">
+                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">足球</label>
+                        <div class="col-xs-10 col-sm-9 col-md-7 col-lg-5">
+                            <div class="input-group">
+                                <span class="input-group-addon">开擂保证金</span>
+                                <input type="text" class="form-control" name="setting[sys_arena_min_deposit][{$Think.const.GAME_TYPE_FOOTBALL}]" id="sys_arena_min_deposit{$Think.const.GAME_TYPE_FOOTBALL}" value="{$setting.sys_arena_min_deposit[GAME_TYPE_FOOTBALL] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                                <span class="input-group-addon">最低投注</span>
+                                <input type="text" class="form-control" name="setting[sys_arena_min_bet_money][{$Think.const.GAME_TYPE_FOOTBALL}]" id="sys_arena_min_bet_money{$Think.const.GAME_TYPE_FOOTBALL}" value="{$setting.sys_arena_min_bet_money[GAME_TYPE_FOOTBALL] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="form-group">
+                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">电竞</label>
+                        <div class="col-xs-10 col-sm-9 col-md-7 col-lg-5">
+                            <div class="input-group">
+                                <span class="input-group-addon">开擂保证金</span>
+                                <input type="text" class="form-control" name="setting[sys_arena_min_deposit][{$Think.const.GAME_TYPE_WCG}]" id="sys_arena_min_deposit{$Think.const.GAME_TYPE_WCG}" value="{$setting.sys_arena_min_deposit[GAME_TYPE_WCG] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                                <span class="input-group-addon">最低投注</span>
+                                <input type="text" class="form-control" name="setting[sys_arena_min_bet_money][{$Think.const.GAME_TYPE_WCG}]" id="sys_arena_min_bet_money{$Think.const.GAME_TYPE_WCG}" value="{$setting.sys_arena_min_bet_money[GAME_TYPE_WCG] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                            </div>
+                        </div>
+                    </div>-->
+                    <div class="form-group form-group-title">玩家开擂最低保证金</div>
+                    <div class="form-group">
+                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">最低保证金</label>
+                        <div class="col-xs-5 col-sm-3 col-md-3 col-lg-2">
+                            <input type="text" class="form-control" name="setting[sys_min_deposit]" id="sys_min_deposit" value="{$setting.sys_min_deposit ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                        </div>
+                    </div>
+                    <!--<div class="form-group form-group-title">开启申请房主</div>
+                    <div class="help-block">控制前端是否显示“申请房主”功能。</div>
+                    <div class="form-group">
+                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">开启申请房主</label>
+                        <div class="col-xs-5 col-sm-3 col-md-3 col-lg-2">
+                            <input type="checkbox" class="checkbox" name="setting[sys_homeowner_on]" id="sys_homeowner_on" {if $setting && isset($setting['sys_homeowner_on']) && $setting.sys_homeowner_on eq 1}checked{/if} value="1" >
+                        </div>
+                    </div>-->
+                   <!-- <div class="form-group form-group-title">申请房主冻结金币</div>
+                    <div class="form-group">
+                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">冻结金币</label>
+                        <div class="col-xs-5 col-sm-3 col-md-3 col-lg-2">
+                            <input type="text" class="form-control" name="setting[sys_freeze_home]" id="sys_freeze_home" value="{$setting.sys_freeze_home ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                        </div>
+                    </div>
+                    <div class="form-group form-group-title">玩家开庄</div>
+                    <div class="form-group">
+                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">单笔最低投注</label>
+                        <div class="col-xs-5 col-sm-3 col-md-3 col-lg-2">
+                            <input type="text" class="form-control" name="setting[sys_user_min_bet_money]" id="sys_user_min_bet_money" value="{$setting.sys_user_min_bet_money ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                            <div class="help-block">玩家开庄单笔最低投注,为0时表示不限制。</div>
+                        </div>
+
+                    </div>-->
+                    <div class="form-group form-group-title">开启房间系统自动结算</div>
+                    <div class="help-block">房间系统自动结算采用定时任务方式来执行，可能会有一定时间的延迟；自动结算会自动获取比赛状态为已结束的数据进行处理。</div>
+                    <div class="form-group">
+                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">自动结算</label>
+                        <div class="col-xs-5 col-sm-3 col-md-3 col-lg-7">
+                            <label class="radio-inline">
+                                <input type="radio" name="setting[sys_arena_auto_statement]" value="1" {if !isset($setting['sys_arena_auto_statement']) || $setting.sys_arena_auto_statement}checked{/if}>
+                                是
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="setting[sys_arena_auto_statement]" value="0" {if $setting.sys_arena_auto_statement eq 0}checked{/if}>
+                                否
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-title">系统标准</div>
+                    <div class="form-group">
+                        <div class="col-xs-5 col-sm-3 col-md-3 col-lg-7">
+                            <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">赔率类型</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="setting[odds]" value="1"  {if $setting.odds eq 1}checked{/if}>
+                                亚赔
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="setting[odds]" value="0" {if $setting.odds eq 0}checked{/if}>
+                                欧赔
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-title">离比赛开始前多长时间不能开擂</div>
+                    <div class="form-group">
+                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">时间（分钟）</label>
+                        <div class="col-xs-5 col-sm-3 col-md-3 col-lg-2">
+                            <input type="text" class="form-control" name="setting[sys_max_arena_open_time]" id="sys_max_arena_open_time" value="{$setting.sys_max_arena_open_time ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                        </div>
+                    </div>
+                    <!--<div class="form-group form-group-title">未结算投注有效时间(购物车)</div>
+                    <div class="form-group">
+                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">时间（分钟）</label>
+                        <div class="col-xs-5 col-sm-3 col-md-2 col-lg-1">
+                            <input type="text" class="form-control" name="setting[sys_max_arena_unsettled]" id="sys_max_arena_unsettled" value="{$setting.sys_max_arena_unsettled ?? '60'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                        </div>
+                    </div>-->
+                    <div class="form-group form-group-title">收益结算佣金比例</div>
+                    <div class="form-group">
+                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">庄家佣金</label>
+                        <div class="col-xs-5 col-sm-3 col-md-3 col-lg-2">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="setting[sys_maker_brok]" id="sys_maker_brok" value="{$setting.sys_maker_brok ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">玩家佣金</label>
+                        <div class="col-xs-5 col-sm-3 col-md-3 col-lg-2">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="setting[sys_player_brok]" id="sys_player_brok" value="{$setting.sys_player_brok ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-title">快捷投注筹码额度</div>
+                    <div class="form-group">
+                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">快捷投注筹码额度</label>
+                        <div class="col-md-1">
+                            <input type="text" class="form-control" name="setting[sys_chip][]" value="{$setting.sys_chip[0] ?? '0'}">
+                        </div>
+                        <div class="col-md-1">
+                            <input type="text" class="form-control" name="setting[sys_chip][]" value="{$setting.sys_chip[1] ?? '0'}">
+                        </div>
+                        <div class="col-md-1">
+                            <input type="text" class="form-control" name="setting[sys_chip][]" value="{$setting.sys_chip[2] ?? '0'}">
+                        </div>
+                        <div class="col-md-1">
+                            <input type="text" class="form-control" name="setting[sys_chip][]" value="{$setting.sys_chip[3] ?? '0'}">
+                        </div>
+                        <div class="col-md-1">
+                            <input type="text" class="form-control" name="setting[sys_chip][]" value="{$setting.sys_chip[4] ?? '0'}">
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="hd">
+                    <div class="form-group form-group-title">APP热更地址</div>
+                    <div class="form-group">
+                        <label class="col-xs-2 col-sm-2 col-md-4 col-lg-2 control-label">LB热更地址</label>
+                        <div class="col-xs-10 col-sm-6 col-md-5 col-lg-3">
+                            <input type="text" class="form-control" name="setting[app_online_update_url_lb]" id="app_online_update_url_lb" value="{$setting.app_online_update_url_lb ?? ''}" >
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="form-group" data-handle="btn-handle">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">&nbsp;</label>
+                <div class="col-xs-7 col-sm-5 col-md-5 col-lg-4">
+                    <button type="submit" class="btn btn-success" ><i class="icon-save"></i> 保 存 </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(function(){
+        /*$("#__formId__").submitForm(null,function (ret) {
+            if(ret.code != 1){
+                window.top.msgBox.error(ret.msg);
+                var tab = ret.data.tab;
+                var form_field = ret.data.form_field;
+                $('.my-nav-tabs a[href="#'+tab+'"]').tab('show');
+                $("#"+form_field).focus().parents(".form-group").addClass("has-error");
+            }else{
+                window.top.msgBox.success(ret.msg);
+                location.reload();
+            }
+        });*/
+
+        //水印位置
+        $('.water-pos li > a').click(function(e){
+            e.preventDefault();
+            var $this = $(this);
+            $this.parents('li').addClass('active').siblings('.active').removeClass('active');
+            $('#attach_water_location').val($this.data('value'));
+        });
+        $("#storage").change(function () {
+            var val = $(this).val();
+            $("#storage-list>div").hide();
+            $("#storage-"+val).show();
+        });
+        $("#storage").change();
+    });
+</script>

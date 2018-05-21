@@ -1,0 +1,153 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="mb10">
+            <a href="{:url('layout/index')}" class="btn btn-primary btn-sm" ><i class="fa fa-list"></i> 模块列表</a>
+        </div>
+        <form class="form-horizontal parsley-form" action="{:url("index/password")}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+        <input type="hidden" name="id" value="{$id ?? 0}">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel-heading panel-info">
+                        项目模块
+                    </div>
+                    <div class="mt10">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">模块名称：</label>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" name="title" id="title" value="{$res.title ?? ''}"  data-parsley-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">显示周期：</label>
+                            <div class="col-md-7">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" readonly data-toggle="datetime" data-end-date="#etime" data-timepicker="true" id="btime" name="btime" value="{$btime ?? ""}">
+                                    <span class="input-group-addon">至</span>
+                                    <input type="text" class="form-control" readonly data-toggle="datetime" data-start-date="#btime" data-timepicker="true" id="etime" name="etime" value="{$etime ?? ""}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">布局样式：</label>
+                            <div class="col-md-8">
+                                <ul class="layout-style">
+                                    <li class="one"><label><span><input type="radio" name="type" value="1" checked> 单项</span></label></li>
+                                    <li class="two"><label><span><input type="radio" name="type" value="2"> 双项</span></label></li>
+                                    <li class="three"><label><span><input type="radio" name="type" value="3"> 三项</span></label></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">首页位置：</label>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" name="index" id="index" value="{$res.index ?? '3'}"  data-parsley-required="true">
+                                <div class="help-block">首页位置必须从位置3开始</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">模块倒影：</label>
+                            <div class="col-md-8">
+                                {:widget('Upload/single',[
+                                'name' => 'inv_img',
+                                'value' => isset($res) && $res['inv_img'] ? $res['inv_img'] : '' ,
+                                'text' => '上传倒影'
+                                ])}
+                            </div>
+                        </div>
+                        <div class="form-group dialog-handle">
+                            <label class="col-md-3 control-label">&nbsp;</label>
+                            <div class="col-md-8">
+                                <button type="submit" class="btn btn-primary">确定</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="mt10">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="active"><a href="#t1" role="tab" data-toggle="tab">A项</a></li>
+                            <li style="display: none;"><a href="#t2" role="tab" data-toggle="tab">B项</a></li>
+                            <li style="display: none;"><a href="#t3" role="tab" data-toggle="tab">C项</a></li>
+                        </ul>
+                        <div class="tab-content mt10">
+                            <div class="tab-pane active" id="t1">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">项目名称：</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" name="name" id="name" value="{$res.item.name ?? ''}"  data-parsley-required="true">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">项目图片：</label>
+                                    <div class="col-md-8">
+                                        {:widget('Upload/single',[
+                                        'name' => 'img',
+                                        'value' => isset($res) && $res['img'] ? $res['img'] : '' ,
+                                        'text' => '上传图片'
+                                        ])}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">项目内容：</label>
+                                    <div class="col-md-8">
+                                        <select class="form-control pull-left" style="display: inline-block;width: 100px;">
+                                            {foreach $items as $key => $val}
+                                            <option value="{$val.id}">{$val.name}</option>
+                                            {/foreach}
+                                        </select>
+                                        <select class="form-control pull-left" style="display: inline-block;width: 100px;margin-left: 5px;">
+                                            <option value="all">全部</option>
+                                            <option value="match">赛事</option>
+                                            <option value="game">游戏</option>
+                                        </select>
+                                        <button type="button" disabled class="btn btn-primary btn-sm pull-left" style="margin-top: 2px;margin-left: 5px;">
+                                            <i class="fa fa-search"></i>
+                                            搜索选择
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">已选内容：</label>
+                                    <div class="col-md-8">
+                                        <table class="table table-hover table-bordered table-head">
+                                            <thead>
+                                            <tr>
+                                                <th>赛事</th>
+                                                <th width="150">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="t2">B</div>
+                            <div class="tab-pane" id="t3">C</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(function () {
+       $(".layout-style input[type=radio]").click(function () {
+           var val = $(this).val();
+           var tabs = $(".nav-tabs");
+           tabs.children().eq(0).find("a").click();
+           if(val == 1){
+               tabs.children().show().eq(0).nextAll().hide();
+           }else if(val == 2){
+               tabs.children().show().eq(1).nextAll().hide();
+           }else{
+               tabs.children().show();
+           }
+       });
+    });
+</script>

@@ -1,0 +1,126 @@
+<table class="table table-hover table-bordered table-head">
+    <thead>
+    <tr>
+        <th width="80">ID</th>
+        <th width="150">博彩公司</th>
+        <th width="150">队伍</th>
+        {foreach $currRules as $key => $r}
+        <th>
+            {if is_array($r)}
+            {$r[0]}
+            {else}
+            {$r}
+            {/if}
+        </th>
+        {/foreach}
+        
+        <th width="150">更新时间</th>
+        {if (!isset($is_opt) ||(isset($is_opt) && $is_opt)) || (isset($opt) && $opt == 'change')}
+        <th width="150">操作</th>
+        {/if}
+    </tr>
+    </thead>
+    <tbody>
+    {volist name="list" id="vo"}
+    <tr id="{$vo.id}">
+        <td rowspan="2">{$vo.id}</td>
+        <td rowspan="2">{$vo.match.name}</td>
+        <td>{$play.team_home_name}</td>
+        {foreach $currRules as $key => $r}
+        {if in_array($key,$bodanSame)}
+            <td rowspan="2" id="{$vo.id}-same-{$key}">
+                <label class="text-muted">{$vo.odds.init.same[$key]}</label><br/>
+                {if isset($vo.odds.time.same[$key]) && !is_null($vo.odds.time.same[$key])}
+                {if $vo.odds.time.same[$key] > $vo.odds.init.same[$key]}
+                <label class="text-danger">{$vo.odds.time.same[$key]}</label>
+                {elseif $vo.odds.time.same[$key] < $vo.odds.init.same[$key]}
+                <label class="text-success">{$vo.odds.time.same[$key]}</label>
+                {else}
+                <label class="text-muted">{$vo.odds.time.same[$key]}</label>
+                {/if}
+                {else}
+                -
+                {/if}
+            </td>
+        {elseif $key == 'other'}
+        <td rowspan="2" id="{$vo.id}-other-{$key}">
+            <label class="text-muted">{$vo.odds.init.other[$key]}</label><br/>
+            {if isset($vo.odds.time.other[$key]) && !is_null($vo.odds.time.other[$key])}
+            {if $vo.odds.time.other[$key] > $vo.odds.init.other[$key]}
+            <label class="text-danger">{$vo.odds.time.other[$key]}</label>
+            {elseif $vo.odds.time.other[$key] < $vo.odds.init.other[$key]}
+            <label class="text-success">{$vo.odds.time.other[$key]}</label>
+            {else}
+            <label class="text-muted">{$vo.odds.time.other[$key]}</label>
+            {/if}
+            {else}
+            -
+            {/if}
+        </td>
+        {else}
+        <td class="text-center" id="{$vo.id}-home-{$key}">
+            <label class="text-muted">{$vo.odds.init.home[$key]}</label>
+            <br/>
+            {if isset($vo.odds.time.home[$key]) && !is_null($vo.odds.time.home[$key])}
+                {if $vo.odds.time.home[$key] > $vo.odds.init.home[$key]}
+                    <label class="text-danger">{$vo.odds.time.home[$key]}</label>
+                {elseif $vo.odds.time.home[$key] < $vo.odds.init.home[$key]}
+                    <label class="text-success">{$vo.odds.time.home[$key]}</label>
+                {else}
+                    <label class="text-muted">{$vo.odds.time.home[$key]}</label>
+                {/if}
+            {else}
+                -
+            {/if}
+        </td>
+        {/if}
+        {/foreach}
+        <td rowspan="2">{:date("Y-m-d H:i:s",$vo.update_time)}</td>
+
+        {if !isset($is_opt) ||(isset($is_opt) && $is_opt)}
+        <td rowspan="2">
+            {if checkPermit($controller,'odds_add')}
+            <a class="j-dialog-handle btn btn-xs btn-primary" href="{:url($controller.'/odds_add',['play_id' => $play_id,'rules' => $rules,'id' => $vo.id])}" title="更新赔率">更新赔率</a>
+            {/if}
+            {if checkPermit($controller,'arena_publish')}
+            <a class="j-dialog-handle btn btn-xs btn-primary" href="{:url($controller.'/arena_publish',['play_id' => $play_id,'id' => $vo.id])}" title="开房">开房</a>
+            {/if}
+        </td>
+        {elseif isset($opt) && $opt == 'change'}
+        <td>
+            <a class="btn btn-xs btn-primary btn-odds-change" href="javascript:;" data-value="{$vo.id},{$vo.match.id},{$vo.match.name}" title="选择">选择</a>
+        </td>
+        {/if}
+    </tr>
+    <tr>
+        <td>{$play.team_guest_name}</td>
+        {foreach $currRules as $key => $r}
+        {if !in_array($key,$bodanSame) && $key != 'other'}
+        <td class="text-center" id="{$vo.id}-guest-{$key}">
+            <label class="text-muted">{$vo.odds.init.guest[$key]}</label>
+            <br/>
+            {if isset($vo.odds.time.guest[$key]) && !is_null($vo.odds.time.guest[$key])}
+            {if $vo.odds.time.guest[$key] > $vo.odds.init.guest[$key]}
+            <label class="text-danger">{$vo.odds.time.guest[$key]}</label>
+            {elseif $vo.odds.time.guest[$key] < $vo.odds.init.guest[$key]}
+            <label class="text-success">{$vo.odds.time.guest[$key]}</label>
+            {else}
+            <label class="text-muted">{$vo.odds.time.guest[$key]}</label>
+            {/if}
+            {else}
+            -
+            {/if}
+        </td>
+        {/if}
+        {/foreach}
+
+
+
+
+
+
+
+    </tr>
+    {/volist}
+    </tbody>
+</table>

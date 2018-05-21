@@ -1,0 +1,45 @@
+<div class="panel">
+    <div class="panel-body" style="width: 700px;">
+        <div class="table-responsive clear">
+            <div id="user_log">
+                <table class="table table-hover table-bordered table-head">
+                    <thead>
+                    <tr>
+                        <th width="80">ID</th>
+                        <th width="350">原因</th>
+                        <th width="150">IP</th>
+                        <th width="150">时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {volist name="list" id="vo"}
+                    <tr>
+                        <td>{$vo.id}</td>
+                        <td>{$vo.explain}</td>
+                        <td>{$vo.data.ip}</td>
+                        <td>{$vo.create_time|date='Y-m-d H:i:s',###}</td>
+                    </tr>
+                    {/volist}
+                    </tbody>
+                </table>
+                <center>{$list->render()}</center>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $(document).on("click","#user_log .pagination a",function () {
+            var href = $(this).attr("href");
+            Ajax.get(href,{},function (data) {
+                var content = extractContainer(data,'#user_log');
+                $("#user_log").html(content.html());
+            });
+            return false;
+        });
+    });
+</script>
+
+
+
+

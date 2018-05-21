@@ -1,0 +1,83 @@
+<table class="table table-hover table-bordered table-head">
+    <thead>
+    <tr>
+        <th width="150">ID</th>
+        <th width="200">博彩公司</th>
+        {foreach $currRules as $key => $r}
+        <th>
+            {if is_array($r)}
+            {$r[0]}
+            {else}
+            {$r}
+            {/if}
+        </th>
+        {/foreach}
+        <th width="150">房间状态</th>
+        <th width="200">更新时间</th>
+        {if (!isset($is_opt) ||(isset($is_opt) && $is_opt)) || (isset($opt) && $opt == 'change')}
+        <th width="150">操作</th>
+        {/if}
+    </tr>
+    </thead>
+    <tbody>
+    {volist name="list" id="vo"}
+    <tr>
+        <td>{$vo.id}</td>
+        <td>{$vo.match.name}</td>
+        {foreach $currRules as $key => $r}
+        <td id="{$vo.id}-{$key}-">
+            {if $key == 'handicap'}
+            <label class="text-muted">{:handicap($vo.odds.init[$key],false,false)}</label><br/>
+            <label class="{if $vo.odds.time[$key] > $vo.odds.init[$key]}text-danger{elseif $vo.odds.time[$key] < $vo.odds.init[$key]}text-success{else}text-muted{/if}">
+            {:handicap($vo.odds.time[$key],false,false)}
+            </label>
+            {else}
+            <label class="text-muted">{$vo.odds.init[$key]}</label><br/>
+            {if isset($vo.odds.time[$key]) && !is_null($vo.odds.time[$key])}
+            {if $vo.odds.time[$key] > $vo.odds.init[$key]}
+            <label class="text-danger">
+                {$vo.odds.time[$key]}
+            </label>
+            {elseif $vo.odds.time[$key] < $vo.odds.init[$key]}
+            <label class="text-success">{$vo.odds.time[$key]}</label>
+            {else}
+            <label class="text-muted">{$vo.odds.time[$key]}</label>
+            {/if}
+            {else}
+            -
+            {/if}
+
+            {/if}
+        </td>
+        {/foreach}
+        <td>
+            {if $vo.odds_type == 1}
+            <a class=" btn btn-xs btn-primary" href="javasript:;" title="已开房">已开房</a>
+            {/if}
+            {if $vo.odds_type == 0}
+            <a class="btn btn-xs btn-primary" href="javasript:;" title="未开房">未开房</a>
+            {/if}
+        </td>
+        <td>{:date("Y-m-d H:i:s",$vo.update_time)}</td>
+        {if !isset($is_opt) ||(isset($is_opt) && $is_opt)}
+        <td>
+            {if checkPermit($controller,'odds_add')}
+            <a class="j-dialog-handle btn btn-xs btn-primary" href="{:url($controller.'/odds_add',['play_id' => $play_id,'rules' => $rules,'id' => $vo.id])}" title="更新赔率">更新赔率</a>
+            {/if}
+            {if $vo.odds_type == 0}
+            {if checkPermit($controller,'arena_publish')}
+            
+            <a class="j-dialog-handle btn btn-xs btn-primary" href="{:url($controller.'/arena_publish',['play_id' => $play_id,'rules' => $rules,'id' => $vo.id])}" title="开房">开房</a>
+     
+            {/if}
+            {/if}
+        </td>
+        {elseif isset($opt) && $opt == 'change'}
+            <td>
+                <a class="btn btn-xs btn-primary btn-odds-change" href="javascript:;" data-value="{$vo.id},{$vo.match.id},{$vo.match.name}" title="选择">选择</a>
+            </td>
+        {/if}
+    </tr>
+    {/volist}
+    </tbody>
+</table>

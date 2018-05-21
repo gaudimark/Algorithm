@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "progress_hit",
+    "texture": "65EUXKfsBDS6iDlAZppiAf",
+    "rect": [
+      3,
+      4,
+      1041,
+      22
+    ],
+    "offset": [
+      -0.5,
+      0
+    ],
+    "originalSize": [
+      1048,
+      30
+    ]
+  }
+}

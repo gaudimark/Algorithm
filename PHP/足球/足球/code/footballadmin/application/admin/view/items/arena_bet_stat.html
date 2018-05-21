@@ -1,0 +1,100 @@
+<div class="panel">
+    <div class="panel-body" style="width: 900px" id="__formId__">
+        <div class="mb10">
+            投注总额：<span class="number text-danger">{:number_format($arena.bet_money)}</span>&nbsp;&nbsp;
+            {if $arena.classify eq ARENA_CLASSIFY_CREDIT}
+            收回本金：<span class="number text-danger">{:number_format($arena.ret_credit_gold,2)}</span>&nbsp;&nbsp;
+            房主最终收益：<span class="number text-danger">{:number_format($arena.win,2)}</span>
+            {else}
+            最高支付奖金：<span class="number text-danger" id="stat-max-pay-money">{:number_format($maxBonus)}</span>&nbsp;&nbsp;
+            {if $arena.status == ARENA_STATEMENT_END}
+            实际支付奖金：<span class="number text-danger">{:number_format($arena.win_target.win)}</span>&nbsp;&nbsp;
+            房主最终收益：<span class="number text-danger">{:number_format($arena.win,2)}</span>
+            {else}
+            房主可能收益：<span class="number text-danger" id="stat-max-win">{:number_format($arena.bet_money-$maxBonus,2)}</span>
+            {/if}
+            {/if}
+        </div>
+        <div class="table-responsive clear">
+        <table class="table table-hover table-bordered table-head">
+            <thead>
+            <tr>
+                <th>-</th>
+                <th width="10%">赔率</th>
+                <th width="15%">已投注</th>
+                {if $arena['classify'] eq ARENA_CLASSIFY_GOLD && $arena['has_sys']}<th width="15%" style="display: none">系统补注</th>{/if}
+                <th width="15%">可投注</th>
+                <th width="15%">预计支付奖金</th>
+                {if $arena['classify'] eq ARENA_CLASSIFY_GOLD && $arena['has_sys']}<th width="10%" style="display: none">操作</th>{/if}
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="arena_target" id="vo"}
+            {if $vo.target neq 'over'}
+                <tr>
+                    <td>
+                        {if $vo.target == 'handicap'}
+                        <span class="text-muted">让球</span>
+                        {elseif in_array($vo.target,['under','over'])}
+                        <span class="text-muted">预设总分</span>
+                        {else}
+                        {$odds[$vo['target'].$vo['item']]['name']}
+                        {if $odds[$vo['target'].$vo['item']]['target_name'] && !is_numeric($odds[$vo['target'].$vo['item']]['target_name'])}
+                        &nbsp;{$odds[$vo['target'].$vo['item']]['target_name']}
+                        {/if}
+                        {/if}
+                    </td>
+                    <td>
+                    {if(isset($vo.item) && $vo.item)}
+                        {$arena['odds'][$vo['target']][$vo.item]}
+                    {else}
+                        {$arena['odds'][$vo['target']]}
+                    {/if}
+                    </td>
+                    {if !in_array($vo.target,['handicap','under','over'])}
+                    <td class="number">{:number_format($vo.money,2)}</td>
+                    {if $arena['classify'] eq ARENA_CLASSIFY_GOLD && $arena['has_sys']}<td class="number" style="display: none">{:number_format($vo.sys_money,2)}</td>{/if}
+                    <td class="number">{:number_format($vo.deposit,2)}</td>
+                    {if $arena['classify'] eq ARENA_CLASSIFY_GOLD}
+                    <td class="number">{:number_format($vo.bonus,2)}</td>
+                    {else}
+                    <td class="number">{:number_format($vo.bonus - $vo.money,2)}</td>
+                    {/if}
+                    {else}
+                    <td class="number">-</td>
+                    {if $arena['classify'] eq ARENA_CLASSIFY_GOLD && $arena['has_sys']}<td class="number" style="display: none">-</td>{/if}
+                    <td class="number">-</td>
+                    <td class="number">-</td>
+                    {/if}
+                    {if $arena['classify'] eq ARENA_CLASSIFY_GOLD  && $arena['has_sys'] }
+                    <td style="display: none">
+                        {if checkPermit($controller,'arena_sys_bet')}
+                            {if !in_array($vo.target,['handicap','under','over'])}
+                            <a href="{:url($controller.'/arena_sys_bet',['arena_id' => $arena['id'],'target' => $vo['target'],'item' =>$vo.item])}" class="btn btn-primary btn-sm j-dialog-handle" title="系统补注">投注</a>
+                            {/if}
+                        {/if}
+                    </td>
+                    {/if}
+                </tr>
+            {/if}
+            {/volist}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div><!--
+<script>
+    $(function () {
+        var wHeight = $(window).height();
+        var height = $("#__formId__").outerHeight(true);
+        if(height > (wHeight) - 300){
+            $("#__formId__").css({
+               'height' : (wHeight) - 300,
+                'margin-right':'-15px',
+                'padding-right':'15px',
+                'overflow-y' : 'scroll',
+                'overflow-x' : 'hidden'
+            });
+        }
+    });
+</script>-->

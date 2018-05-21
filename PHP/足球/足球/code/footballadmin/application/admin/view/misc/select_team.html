@@ -1,0 +1,68 @@
+<div class="panel" id="misc-team-panel">
+    <div class="panel-body" style="width: 400px">
+        <div>
+            <div class="input-group">
+                <input type="text" class="form-control" name="name" id="misc-team-name" value="" placeholder="队伍名称">
+                <span class="input-group-addon input-group-addon-btn">
+                    <button class="btn btn-primary btn-sm" id="misc-select-team"> 搜 索 </button>
+                </span>
+            </div>
+        </div>
+        <div id="misc-content-list" style="min-height: 200px;max-height:350px;overflow-x: hidden;overflow-y: auto">
+            {if isset($lists)}
+            {if $lists}
+            <ul class="list-group mt10">
+                {foreach $lists as $vo}
+                <li class="list-group-item">
+                    <label class="checkbox-inline">
+                        {if $type eq 'radio'}
+                        <input type="radio" name="misc-team-lib" class="misc-team-lib" value="{$vo.id}" data-name="{$vo.name}">
+                        {else}
+                        <input type="checkbox" class="misc-team-lib" value="{$vo.id}" data-name="{$vo.name}">
+                        {/if}
+                        {$vo.name}
+                    </label>
+                </li>
+                {/foreach}
+            </ul>
+            {else}
+                <div class="mt10">
+                    <h5 class="text-muted">未检索到{if $item_id}{:getSport($item_id)}下{/if}“{$name}”相关队伍的信息</h5>
+                </div>
+            {/if}
+            {/if}
+        </div>
+        <div class="form-group dialog-handle">
+            <label class="col-md-3 control-label">&nbsp;</label>
+            <div class="col-md-8">
+                <button type="button" class="btn btn-primary" id="btn-misc-team-enter">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#misc-select-team').click(function () {
+            var name = $.trim($("#misc-team-name").val());
+            if(!name){return false;}
+            Ajax.get('{:url("misc/select_team")}',{'name':name,'item_id':{$item_id},'type':'{$type}'},function (ret) {
+                var content = extractContainer(ret,'#misc-content-list');
+                $("#misc-content-list").html(content.html());
+            });
+        });
+        $("#btn-misc-team-enter").click(function () {
+            var lib = [];
+            $(".misc-team-lib:checked").each(function () {
+                lib.push({'id' : $(this).val(),'name' : $(this).attr("data-name")});
+            });
+            try{
+                miscSelectTeamRet(lib);
+                var dialog = $("#misc-team-panel").closest('.j-dialog');
+                if(dialog.length > 0) {
+                    dialogIndex = dialog.find("[name=j-dialog-index]").val();
+                    dialogIndex && jDialog.data[dialogIndex].close();
+                }
+            }catch (e){}
+        });
+    });
+</script>

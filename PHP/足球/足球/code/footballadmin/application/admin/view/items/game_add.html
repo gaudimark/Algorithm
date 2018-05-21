@@ -1,0 +1,52 @@
+<div class="panel">
+    <div class="panel-body" style="width: 500px;">
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url($controller.'/game_add')}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+            <input type="hidden" name="id" value="{$res.id ?? 0}">
+            <div class="form-group">
+                <label class="col-md-3 control-label">游戏名称：</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="name" id="name" value="{$res.name ?? ''}"  data-parsley-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">游戏别名：</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="alias" id="alias" value="{$res.alias ?? ''}" {if $res && $res.alias} disabled {else} data-parsley-required="true"{/if}>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">状态：</label>
+                <div class="col-md-8">
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="{$Think.const.STATUS_ENABLED}" {if !$res || !isset($res['status']) || $res.status eq STATUS_ENABLED}checked{/if}>
+                        正常
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="{$Think.const.STATUS_DISABLED}" {if $res && $res.status eq STATUS_DISABLED}checked{/if}>
+                        禁用
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">图标：</label>
+                <div class="col-md-8">
+                    {:widget('Upload/single',[
+                    'name' => 'icon',
+                    'value' => isset($res.icon) ? $res.icon : '',
+                    'text' => '上传图标',
+                    'exts' => '*.jpg;*.jpg;*.jpeg;*.gif;*.png',
+                    'tips' => '支持PNG，JPG，GIF格式图片'
+                    ])}
+                </div>
+            </div>
+            <div class="form-group dialog-handle">
+                <label class="col-md-3 control-label">&nbsp;</label>
+                <div class="col-md-8">
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+

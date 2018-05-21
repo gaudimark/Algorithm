@@ -1,0 +1,47 @@
+{__NOLAYOUT__}
+<div class="panel">
+    <div class="panel-body" style="width: 300px;">
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url('Arenarecommend/addArena')}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+            <input type="hidden" name="id" id="id" value="{$id ?? 0}">
+            <div class="form-group">
+                <label class="col-md-3 control-label">房间ID：</label>
+                <div class="col-md-8">
+                	<input type="text" class="form-control" name="arena_id" id="arena_id" value="{$data.arena_id ?? ''}" onkeyup="checkArena()"  data-parsley-required="true">
+                	<label id="showmsg"></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">排序：</label>
+                <div class="col-md-8">
+                	<input type="text" class="form-control" name="sort" id="sort" value="{$data.sort ?? ''}"  data-parsley-required="true">
+                </div>
+            </div>
+            <div class="form-group dialog-handle">
+                <label class="col-md-3 control-label">&nbsp;</label>
+                <div class="col-md-8">
+                    <button type="submit" class="btn btn-primary rcm-arena">确定</button>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+</div>
+<script>
+	function checkArena(){
+		var arena_id = $.trim($("#arena_id").val());
+		var id = $("#id").val();
+		if(arena_id){
+			Ajax.post('{:url("Arenarecommend/checkArena")}',{'id':id,'arena_id':arena_id},function (ret) {
+	            $("#showmsg").empty();
+	            $("#showmsg").html(ret.msg);
+	            if(ret.code == 0){
+	            	$(".rcm-arena").attr("disabled","disabled");
+	            }else{
+                    $(".rcm-arena").removeAttr("disabled");
+	            }
+	        });
+		}
+	}
+	
+</script>
+

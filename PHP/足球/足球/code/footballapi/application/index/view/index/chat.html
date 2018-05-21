@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{:config('site_source_domain')}common/plugins/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="{:config('site_source_domain')}common/plugins/font_awesome/css/font-awesome.min.css" />
+    <script type="text/javascript" src="{:config('site_source_domain')}common/js/jquery-1.12.2.min.js"></script>
+    <script type="application/javascript" src="{:config('site_source_domain')}common/js/jquery.json.js"></script>
+</head>
+<body style="padding-top: 20px;">
+<div class="container-fluid">
+    <div id="ret-content" class="col-sm-8" style="background: #eee;height: 500px;border:1px solid #ddd;overflow: scroll">
+
+    </div>
+    <div class="row">
+        <div class="input-group" style="margin-bottom: 5px">
+            <input type="text" class="form-control inp-params-key" name="content" id="content" placeholder="聊天内空" value="" />
+            <a class="input-group-addon" href="javascript:;" onclick="send()">发送</a>
+        </div>
+        <div>
+            <a class="btn btn-success" href="javascript:;" onclick="logout()">退出</a>
+        </div>
+        <div id="client_id"></div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    var client_id = '';
+    var group_id = '{$group_id}';
+    var token = '{$token}';
+    function send() {
+        var content = $("#content").val();
+        $.post("{:url('index/push/send_group')}",{'group_id':group_id,'content':content,'token':token},function (ret) {
+
+        })
+    }
+    
+    function logout() {
+        $.post("{:url('index/push/unbind_group')}",{'group_id':group_id,'client_id':client_id,'token':token},function (ret) {
+
+        })
+    }
+
+    ws = new WebSocket("ws://192.168.0.22:8282");
+    //ws.binaryType = "arraybuffer";
+    ws.open = function () {
+        ws.binaryType = 'arraybuffer';
+        alert("链接成功");
+        ws.send("tom");
+    }
+    ws.onerror = function (e) {
+        console.log(e);
+    }
+    ws.onmessage = function (e) {
+        obj = $.parseJSON(e.data);
+        console.log(obj);
+        if(obj) {
+            if (obj.mark == '92000'){
+                var data = JSON.stringify({'type':'pong','message':'here'});
+                ws.send(data);//返回给服务器。表示在线
+            }else if (obj.mark == '92001'){
+                //$("#client_id").text(obj.client_id);
+                client_id = obj.data.client_id;
+                bindUser(client_id);
+                //获取分配给客户端ID,发送绑定事件
+            }else if(obj.mark == 92003){
+                var data = obj.data;
+                if(data.type == 'bind_group'){
+                    var msg = '<div>'+data.message+'</div>';
+                    $(msg).appendTo($("#ret-content"));
+                }else if(data.type == 'say'){
+                    var msg = '<div>'+data.form_name+'说：'+data.message+'</div>';
+                    $(msg).appendTo($("#ret-content"));
+                }
+            }
+        }
+        /*console.log(e.data);
+        var reader = new FileReader();
+        reader.readAsBinaryString(e.data);
+        reader.onloadend = function () {
+         obj = $.parseJSON(reader.result);
+
+        }*/
+
+    }
+
+    function bindUser(clientId) {
+        $.post("{:url('index/push/bind_uid')}",{'client_id':clientId,'token':token},function (ret) {
+            $("<div>"+ret.msg+"</div>").appendTo($("#ret-content"));
+            if(ret.code == 0){
+                bindGroup(client_id);
+            }
+        },'json');
+    }
+    function bindGroup(clientId) {
+        $.post("{:url('index/push/bind_group')}",{'client_id':clientId,'group_id':group_id,'token':token},function (ret) {
+            //$("<div>"+ret.msg+"</div>").appendTo($("#ret-content"));
+        },'json');
+    }
+
+</script>

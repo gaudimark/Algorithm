@@ -1,0 +1,18 @@
+<script id="{$unID}" name="{$name}" type="text/plain">{$value}</script>
+<script type="text/javascript">
+    $(function () {
+        var ue = UE.getEditor('{$unID}',{
+            zIndex : 6,
+            initialFrameHeight : '{$height}',
+            serverUrl : '{:url('Misc/Ueditor')}',
+            toolbars: [
+            {:json_encode($toolbars)}
+            ],
+            autoHeightEnabled: false,
+            autoFloatEnabled: true,
+                elementPathEnabled: false,
+                wordCount : false,
+                enterTag : 'br'
+    });
+    });
+</script>

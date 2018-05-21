@@ -1,0 +1,54 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="help-block bg-warning page-note mb10" style="margin-top: -20px;">
+            如果对游戏进行新增、修改操作后，需要更新“游戏数据”缓存，前台方能生效
+        </div>
+        <div class="mb10 clearfix">
+            {if checkPermit($controller,'game_add')}
+            <div style="display: inline-block">
+                <a href="{:url($controller.'/game_add')}" class="btn btn-success btn-sm j-dialog-handle" title="新增"><i class="fa fa-plus"></i> 新增</a>
+            </div>
+            {/if}
+            <div style="display: inline-block">
+                <form class="form-inline" method="get">
+                    <div class="input-group">
+                        <span class="input-group-addon">游戏名称</span>
+                        <input type="text" class="form-control" name="name" value="{$name ?? ""}">
+                    </div>
+                    <button class="btn btn-primary btn-sm">搜索</button>
+                </form>
+            </div>
+        </div>
+        <div class="table-responsive clear">
+            <table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th width="80">ID</th>
+                    <th width="350">游戏名称</th>
+                    <th width="350">游戏别名</th>
+                    <th width="100">图标</th>
+                    <th width="100">状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.name}</td>
+                    <td>{$vo.alias ?? ''}</td>
+                    <td>{if $vo.icon}<img src="{$domain}{$vo.icon}" width="20"> {/if}</td>
+                    <td>{if $vo.status eq STATUS_ENABLED}正常{else}禁用{/if}</td>
+                    <td>
+                        {if checkPermit($controller,'game_add')}
+                        <a href="{:url($controller.'/game_add',['id' => $vo.id])}" class="j-dialog-handle" title="编辑">编辑</a>
+                        {/if}
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <center>{$list->render()}</center>
+        </div>
+    </div>
+</div>

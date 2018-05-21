@@ -1,0 +1,71 @@
+<div class="panel" id="arena-list-dialog-content">
+    <div class="panel-body" style="width:1000px;">
+
+        <div class="table-responsive clear">
+        <table class="table table-hover table-bordered table-head">
+            <thead>
+            <tr>
+                <th  width="80">房间ID</th>
+                <th  width="100">房主</th>
+                <th  width="120">比赛</th>
+                <th  width="120">主场</th>
+                <th  width="120">客场</th>
+                <th  width="80">保证金</th>
+                <th  width="80">投注总额</th>
+                <th  width="100">开始时间</th>
+                <th  width="80">状态</th>
+                <th  width="80">隐私设置</th>
+                <th  width="80">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr>
+                <td><span class="number">{$vo.id}</span></td>
+                <td style="text-align: left">
+                    {if $vo.has_default}
+                    <i class="fa fa-star text-danger" title="默认"></i>
+                    {/if}
+                    {if $vo.has_recommend}
+                    <i class="fa fa-tint text-primary" title="推荐"></i>
+                    {/if}
+                    {if $vo.has_sys}
+                    <label class="label label-danger">系统</label>
+                    {else}
+                    {if $vo.has_robot}
+                    <i class="fa fa-android text-danger"></i>
+                    {/if}
+                    {$vo.user_nickname}
+                    {/if}</td>
+                <td style="text-align: left">{$vo.match_name}</td>
+                <td style="text-align: left">{$vo.team_home_name}</td>
+                <td style="text-align: left">{$vo.team_guest_name}</td>
+                <td><span class="text-primary number">{$vo.deposit|number_format=2}</span></td>
+                <td><spa class="text-primary number">{$vo.bet_money|number_format=2}</spa></td>
+                <td>{:date("m-d H:i",$vo.create_time)}</td>
+                <td>{:arenaStatusToWord($vo.status,true,$vo.play_time,$vo.play_status)}</td>
+                <td>{:arenaDisplayToWord($vo.private,true)}</td>
+                <td>
+                    <a href="javascript:changeArena({$vo.id});" class="btn btn-xs btn-primary">选择</a>
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+        </div>
+        <center id="arena-list-pages">{$list->render()}</center>
+    </div>
+    <script>
+        $(function () {
+            $("#arena-list-pages").find("a").unbind("click").click(function () {
+                var href = $(this).attr("href");
+                Ajax.get(href,{},function (content) {
+                    content = extractContainer(content,'#arena-list-dialog-content');
+                    $("#arena-list-dialog-content").html(content.html());
+
+                })
+                return false;
+            });
+        });
+    </script>
+</div>

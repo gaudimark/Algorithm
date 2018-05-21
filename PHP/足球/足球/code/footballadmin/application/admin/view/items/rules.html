@@ -1,0 +1,72 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="help-block bg-warning page-note mb10" style="margin-top: -20px;">
+            修改玩法后，需要更新“房间玩法”缓存，前台方能生效
+        </div>
+        <div class="mb10" style="overflow: hidden">
+            <div class="col-sm-1">
+                <a href="{:url($controller.'/rules_add')}" class="btn btn-success btn-sm j-dialog-handle" title="添加玩法"><i class="icon-plus"></i>添加玩法</a>
+            </div>
+            <div class="col-sm-8">
+                {if $gameList}
+                <form class="form-inline" method="get">
+                    <div class="input-group">
+                        <span class="input-group-addon">游戏</span>
+                        <select class="form-control" name="game_id" style="width: 200px;">
+                            <option value="0">全部</option>
+                            {foreach $gameList as $k => $r}
+                            <option value="{$r.id}" {if $game_id eq $r.id}selected{/if}>{$r.name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <button class="btn btn-primary btn-sm">搜索</button>
+                </form>
+                {/if}
+            </div>
+        </div>
+
+        <div class="table-responsive clear">
+        <table class="table table-hover table-bordered table-head">
+            <thead>
+            <tr>
+                <th width="80">ID</th>
+                {if $gameList}
+                <th width="200">游戏名称</th>
+                {/if}
+                <th width="200">玩法名称</th>
+                <th width="100">玩法别名</th>
+                <th width="120">玩法类型</th>
+                <th width="120">开擂最低保证金</th>
+                <th width="100">状态</th>
+                <th width="100">排序</th>
+                <th width="200">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr>
+                <td>{$vo.id}</td>
+                {if $gameList}
+                <td>{:getGame($vo['game_id'],'name')}</td>
+                {/if}
+                <td>{:parseRuleName($vo.name,[],['#team_home_name#' => '主队','#team_guest_name#' => '客队'])}</td>
+                <td>{:parseRuleName($vo.alias,[],['#team_home_name#' => '主队','#team_guest_name#' => '客队'])}</td>
+                <td>{$ruleType[$vo.type] ?? '未知'}</td>
+                <td>{$vo.min_deposit}</td>
+                <td>{if $vo.status == STATUS_ENABLED}
+                    <span class="label label-success">正常</span>
+                    {else}禁用{/if}</td>
+                <td>{$vo.sort}</td>
+                <td>
+                    {if checkPermit($controller,'rules_add')}
+                    <a href="{:url($controller.'/rules_add',['id' => $vo.id])}" class="j-dialog-handle" title="编辑项目">编辑</a>
+                    {/if}
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+         </div>
+        <center>{$list->render()}</center>
+    </div>
+</div>

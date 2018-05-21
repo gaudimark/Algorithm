@@ -1,0 +1,193 @@
+2017-01-03 13:56:11 exception 'think\exception\ErrorException' with message 'Undefined property: Workerman\Connection\TcpConnection::$socket' in D:\code\10-leitai\api\push\controller\Worker.php:11
+Stack trace:
+#0 D:\code\10-leitai\api\push\controller\Worker.php(11): think\Error::appError(8, 'Undefined prope...', 'D:\\code\\10-leit...', 11, Array)
+#1 [internal function]: app\push\controller\Worker->onMessage(Object(Workerman\Connection\TcpConnection), 'xxx')
+#2 D:\code\10-leitai\vendor\workerman\workerman-for-win\Connection\TcpConnection.php(429): call_user_func(Array, Object(Workerman\Connection\TcpConnection), 'xxx')
+#3 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #47)
+#4 D:\code\10-leitai\vendor\workerman\workerman-for-win\Events\Select.php(257): call_user_func_array(Array, Array)
+#5 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(785): Workerman\Events\Select->loop()
+#6 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(445): Workerman\Worker->run()
+#7 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(354): Workerman\Worker::runAllWorkers()
+#8 D:\code\10-leitai\vendor\topthink\think-worker\src\Server.php(48): Workerman\Worker::runAll()
+#9 [internal function]: think\worker\Server->__construct()
+#10 D:\code\10-leitai\thinkphp\library\think\App.php(249): ReflectionClass->newInstanceArgs(Array)
+#11 D:\code\10-leitai\thinkphp\library\think\Loader.php(410): think\App::invokeClass('app\\push\\contro...')
+#12 D:\code\10-leitai\thinkphp\library\think\App.php(373): think\Loader::controller('worker', 'controller', false, 'Error')
+#13 D:\code\10-leitai\thinkphp\library\think\App.php(138): think\App::module(Array, Array, NULL)
+#14 D:\code\10-leitai\thinkphp\start.php(18): think\App::run()
+#15 D:\code\10-leitai\public_api\server.php(12): require('D:\\code\\10-leit...')
+#16 {main}
+2017-03-11 13:40:43 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-11 13:40:43 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-11 13:40:43 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-11 13:40:43 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-13 10:32:55 exception 'think\exception\ErrorException' with message 'Illegal string offset 'type'' in D:\code\10-leitai\library\service\Socket.php:48
+Stack trace:
+#0 D:\code\10-leitai\library\service\Socket.php(48): think\Error::appError(2, 'Illegal string ...', 'D:\\code\\10-leit...', 48, Array)
+#1 [internal function]: library\service\Socket::onMessage('7f00000108fc000...', '\xE7\x94\xA8\xE6\x88\xB7\xE2\x80\x9C\xE6\x88\x91\xE6\x98\xAF...')
+#2 D:\code\10-leitai\vendor\workerman\gateway-worker\src\BusinessWorker.php(361): call_user_func('\\library\\servic...', '7f00000108fc000...', '\xE7\x94\xA8\xE6\x88\xB7\xE2\x80\x9C\xE6\x88\x91\xE6\x98\xAF...')
+#3 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 D:\code\10-leitai\vendor\workerman\workerman-for-win\Connection\TcpConnection.php(429): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#5 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #74)
+#6 D:\code\10-leitai\vendor\workerman\workerman-for-win\Events\Select.php(257): call_user_func_array(Array, Array)
+#7 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(785): Workerman\Events\Select->loop()
+#8 D:\code\10-leitai\vendor\workerman\gateway-worker\src\BusinessWorker.php(175): Workerman\Worker->run()
+#9 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(445): GatewayWorker\BusinessWorker->run()
+#10 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(354): Workerman\Worker::runAllWorkers()
+#11 D:\code\10-leitai\api\socket\controller\Business.php(18): Workerman\Worker::runAll()
+#12 [internal function]: app\socket\controller\Business->__construct()
+#13 D:\code\10-leitai\thinkphp\library\think\App.php(243): ReflectionClass->newInstanceArgs(Array)
+#14 D:\code\10-leitai\thinkphp\library\think\Loader.php(418): think\App::invokeClass('app\\socket\\cont...')
+#15 D:\code\10-leitai\thinkphp\library\think\App.php(367): think\Loader::controller('business', 'controller', false, 'Error')
+#16 D:\code\10-leitai\thinkphp\library\think\App.php(130): think\App::module(Array, Array, NULL)
+#17 D:\code\10-leitai\thinkphp\start.php(18): think\App::run()
+#18 D:\code\10-leitai\public_api\server_business.php(17): require('D:\\code\\10-leit...')
+#19 {main}
+2017-03-13 10:32:55 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-13 10:32:55 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-13 10:33:45 exception 'think\exception\ErrorException' with message 'Illegal string offset 'type'' in D:\code\10-leitai\library\service\Socket.php:48
+Stack trace:
+#0 D:\code\10-leitai\library\service\Socket.php(48): think\Error::appError(2, 'Illegal string ...', 'D:\\code\\10-leit...', 48, Array)
+#1 [internal function]: library\service\Socket::onMessage('7f00000108fc000...', 'here')
+#2 D:\code\10-leitai\vendor\workerman\gateway-worker\src\BusinessWorker.php(361): call_user_func('\\library\\servic...', '7f00000108fc000...', 'here')
+#3 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 D:\code\10-leitai\vendor\workerman\workerman-for-win\Connection\TcpConnection.php(429): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#5 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #74)
+#6 D:\code\10-leitai\vendor\workerman\workerman-for-win\Events\Select.php(257): call_user_func_array(Array, Array)
+#7 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(785): Workerman\Events\Select->loop()
+#8 D:\code\10-leitai\vendor\workerman\gateway-worker\src\BusinessWorker.php(175): Workerman\Worker->run()
+#9 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(445): GatewayWorker\BusinessWorker->run()
+#10 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(354): Workerman\Worker::runAllWorkers()
+#11 D:\code\10-leitai\api\socket\controller\Business.php(18): Workerman\Worker::runAll()
+#12 [internal function]: app\socket\controller\Business->__construct()
+#13 D:\code\10-leitai\thinkphp\library\think\App.php(243): ReflectionClass->newInstanceArgs(Array)
+#14 D:\code\10-leitai\thinkphp\library\think\Loader.php(418): think\App::invokeClass('app\\socket\\cont...')
+#15 D:\code\10-leitai\thinkphp\library\think\App.php(367): think\Loader::controller('business', 'controller', false, 'Error')
+#16 D:\code\10-leitai\thinkphp\library\think\App.php(130): think\App::module(Array, Array, NULL)
+#17 D:\code\10-leitai\thinkphp\start.php(18): think\App::run()
+#18 D:\code\10-leitai\public_api\server_business.php(17): require('D:\\code\\10-leit...')
+#19 {main}
+2017-03-13 10:34:00 exception 'think\exception\ErrorException' with message 'Illegal string offset 'type'' in D:\code\10-leitai\library\service\Socket.php:48
+Stack trace:
+#0 D:\code\10-leitai\library\service\Socket.php(48): think\Error::appError(2, 'Illegal string ...', 'D:\\code\\10-leit...', 48, Array)
+#1 [internal function]: library\service\Socket::onMessage('7f00000108fc000...', 'here')
+#2 D:\code\10-leitai\vendor\workerman\gateway-worker\src\BusinessWorker.php(361): call_user_func('\\library\\servic...', '7f00000108fc000...', 'here')
+#3 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 D:\code\10-leitai\vendor\workerman\workerman-for-win\Connection\TcpConnection.php(429): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#5 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #74)
+#6 D:\code\10-leitai\vendor\workerman\workerman-for-win\Events\Select.php(257): call_user_func_array(Array, Array)
+#7 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(785): Workerman\Events\Select->loop()
+#8 D:\code\10-leitai\vendor\workerman\gateway-worker\src\BusinessWorker.php(175): Workerman\Worker->run()
+#9 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(445): GatewayWorker\BusinessWorker->run()
+#10 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(354): Workerman\Worker::runAllWorkers()
+#11 D:\code\10-leitai\api\socket\controller\Business.php(18): Workerman\Worker::runAll()
+#12 [internal function]: app\socket\controller\Business->__construct()
+#13 D:\code\10-leitai\thinkphp\library\think\App.php(243): ReflectionClass->newInstanceArgs(Array)
+#14 D:\code\10-leitai\thinkphp\library\think\Loader.php(418): think\App::invokeClass('app\\socket\\cont...')
+#15 D:\code\10-leitai\thinkphp\library\think\App.php(367): think\Loader::controller('business', 'controller', false, 'Error')
+#16 D:\code\10-leitai\thinkphp\library\think\App.php(130): think\App::module(Array, Array, NULL)
+#17 D:\code\10-leitai\thinkphp\start.php(18): think\App::run()
+#18 D:\code\10-leitai\public_api\server_business.php(17): require('D:\\code\\10-leit...')
+#19 {main}
+2017-03-13 10:34:15 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-13 10:34:15 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-13 10:36:20 exception 'think\exception\ErrorException' with message 'Illegal string offset 'type'' in D:\code\10-leitai\library\service\Socket.php:48
+Stack trace:
+#0 D:\code\10-leitai\library\service\Socket.php(48): think\Error::appError(2, 'Illegal string ...', 'D:\\code\\10-leit...', 48, Array)
+#1 [internal function]: library\service\Socket::onMessage('7f00000108fc000...', '[object Object]')
+#2 D:\code\10-leitai\vendor\workerman\gateway-worker\src\BusinessWorker.php(361): call_user_func('\\library\\servic...', '7f00000108fc000...', '[object Object]')
+#3 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 D:\code\10-leitai\vendor\workerman\workerman-for-win\Connection\TcpConnection.php(429): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#5 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #74)
+#6 D:\code\10-leitai\vendor\workerman\workerman-for-win\Events\Select.php(257): call_user_func_array(Array, Array)
+#7 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(785): Workerman\Events\Select->loop()
+#8 D:\code\10-leitai\vendor\workerman\gateway-worker\src\BusinessWorker.php(175): Workerman\Worker->run()
+#9 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(445): GatewayWorker\BusinessWorker->run()
+#10 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(354): Workerman\Worker::runAllWorkers()
+#11 D:\code\10-leitai\api\socket\controller\Business.php(18): Workerman\Worker::runAll()
+#12 [internal function]: app\socket\controller\Business->__construct()
+#13 D:\code\10-leitai\thinkphp\library\think\App.php(243): ReflectionClass->newInstanceArgs(Array)
+#14 D:\code\10-leitai\thinkphp\library\think\Loader.php(418): think\App::invokeClass('app\\socket\\cont...')
+#15 D:\code\10-leitai\thinkphp\library\think\App.php(367): think\Loader::controller('business', 'controller', false, 'Error')
+#16 D:\code\10-leitai\thinkphp\library\think\App.php(130): think\App::module(Array, Array, NULL)
+#17 D:\code\10-leitai\thinkphp\start.php(18): think\App::run()
+#18 D:\code\10-leitai\public_api\server_business.php(17): require('D:\\code\\10-leit...')
+#19 {main}
+2017-03-13 10:36:35 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-13 10:36:35 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-13 10:38:22 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-13 10:38:22 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-13 10:38:45 exception 'think\exception\ErrorException' with message 'Illegal string offset 'type'' in D:\code\10-leitai\library\service\Socket.php:48
+Stack trace:
+#0 D:\code\10-leitai\library\service\Socket.php(48): think\Error::appError(2, 'Illegal string ...', 'D:\\code\\10-leit...', 48, Array)
+#1 [internal function]: library\service\Socket::onMessage('7f00000108fc000...', '{"type":"pong",...')
+#2 D:\code\10-leitai\vendor\workerman\gateway-worker\src\BusinessWorker.php(361): call_user_func('\\library\\servic...', '7f00000108fc000...', '{"type":"pong",...')
+#3 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 D:\code\10-leitai\vendor\workerman\workerman-for-win\Connection\TcpConnection.php(429): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#5 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #74)
+#6 D:\code\10-leitai\vendor\workerman\workerman-for-win\Events\Select.php(257): call_user_func_array(Array, Array)
+#7 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(785): Workerman\Events\Select->loop()
+#8 D:\code\10-leitai\vendor\workerman\gateway-worker\src\BusinessWorker.php(175): Workerman\Worker->run()
+#9 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(445): GatewayWorker\BusinessWorker->run()
+#10 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(354): Workerman\Worker::runAllWorkers()
+#11 D:\code\10-leitai\api\socket\controller\Business.php(18): Workerman\Worker::runAll()
+#12 [internal function]: app\socket\controller\Business->__construct()
+#13 D:\code\10-leitai\thinkphp\library\think\App.php(243): ReflectionClass->newInstanceArgs(Array)
+#14 D:\code\10-leitai\thinkphp\library\think\Loader.php(418): think\App::invokeClass('app\\socket\\cont...')
+#15 D:\code\10-leitai\thinkphp\library\think\App.php(367): think\Loader::controller('business', 'controller', false, 'Error')
+#16 D:\code\10-leitai\thinkphp\library\think\App.php(130): think\App::module(Array, Array, NULL)
+#17 D:\code\10-leitai\thinkphp\start.php(18): think\App::run()
+#18 D:\code\10-leitai\public_api\server_business.php(17): require('D:\\code\\10-leit...')
+#19 {main}
+2017-03-13 10:39:00 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-13 10:39:00 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-13 10:41:34 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-13 10:41:34 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-13 10:42:00 exception 'think\exception\ErrorException' with message 'Illegal string offset 'type'' in D:\code\10-leitai\library\service\Socket.php:48
+Stack trace:
+#0 D:\code\10-leitai\library\service\Socket.php(48): think\Error::appError(2, 'Illegal string ...', 'D:\\code\\10-leit...', 48, Array)
+#1 [internal function]: library\service\Socket::onMessage('7f00000108fc000...', '{"type":"pong",...')
+#2 D:\code\10-leitai\vendor\workerman\gateway-worker\src\BusinessWorker.php(361): call_user_func('\\library\\servic...', '7f00000108fc000...', '{"type":"pong",...')
+#3 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 D:\code\10-leitai\vendor\workerman\workerman-for-win\Connection\TcpConnection.php(429): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#5 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #74)
+#6 D:\code\10-leitai\vendor\workerman\workerman-for-win\Events\Select.php(257): call_user_func_array(Array, Array)
+#7 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(785): Workerman\Events\Select->loop()
+#8 D:\code\10-leitai\vendor\workerman\gateway-worker\src\BusinessWorker.php(175): Workerman\Worker->run()
+#9 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(445): GatewayWorker\BusinessWorker->run()
+#10 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(354): Workerman\Worker::runAllWorkers()
+#11 D:\code\10-leitai\api\socket\controller\Business.php(18): Workerman\Worker::runAll()
+#12 [internal function]: app\socket\controller\Business->__construct()
+#13 D:\code\10-leitai\thinkphp\library\think\App.php(243): ReflectionClass->newInstanceArgs(Array)
+#14 D:\code\10-leitai\thinkphp\library\think\Loader.php(418): think\App::invokeClass('app\\socket\\cont...')
+#15 D:\code\10-leitai\thinkphp\library\think\App.php(367): think\Loader::controller('business', 'controller', false, 'Error')
+#16 D:\code\10-leitai\thinkphp\library\think\App.php(130): think\App::module(Array, Array, NULL)
+#17 D:\code\10-leitai\thinkphp\start.php(18): think\App::run()
+#18 D:\code\10-leitai\public_api\server_business.php(17): require('D:\\code\\10-leit...')
+#19 {main}
+2017-03-13 10:42:15 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-13 10:42:15 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-13 10:42:45 exception 'think\exception\ErrorException' with message 'Illegal string offset 'type'' in D:\code\10-leitai\library\service\Socket.php:49
+Stack trace:
+#0 D:\code\10-leitai\library\service\Socket.php(49): think\Error::appError(2, 'Illegal string ...', 'D:\\code\\10-leit...', 49, Array)
+#1 [internal function]: library\service\Socket::onMessage('7f00000108fc000...', '{"type":"pong",...')
+#2 D:\code\10-leitai\vendor\workerman\gateway-worker\src\BusinessWorker.php(361): call_user_func('\\library\\servic...', '7f00000108fc000...', '{"type":"pong",...')
+#3 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 D:\code\10-leitai\vendor\workerman\workerman-for-win\Connection\TcpConnection.php(429): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#5 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #74)
+#6 D:\code\10-leitai\vendor\workerman\workerman-for-win\Events\Select.php(257): call_user_func_array(Array, Array)
+#7 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(785): Workerman\Events\Select->loop()
+#8 D:\code\10-leitai\vendor\workerman\gateway-worker\src\BusinessWorker.php(175): Workerman\Worker->run()
+#9 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(445): GatewayWorker\BusinessWorker->run()
+#10 D:\code\10-leitai\vendor\workerman\workerman-for-win\Worker.php(354): Workerman\Worker::runAllWorkers()
+#11 D:\code\10-leitai\api\socket\controller\Business.php(18): Workerman\Worker::runAll()
+#12 [internal function]: app\socket\controller\Business->__construct()
+#13 D:\code\10-leitai\thinkphp\library\think\App.php(243): ReflectionClass->newInstanceArgs(Array)
+#14 D:\code\10-leitai\thinkphp\library\think\Loader.php(418): think\App::invokeClass('app\\socket\\cont...')
+#15 D:\code\10-leitai\thinkphp\library\think\App.php(367): think\Loader::controller('business', 'controller', false, 'Error')
+#16 D:\code\10-leitai\thinkphp\library\think\App.php(130): think\App::module(Array, Array, NULL)
+#17 D:\code\10-leitai\thinkphp\start.php(18): think\App::run()
+#18 D:\code\10-leitai\public_api\server_business.php(17): require('D:\\code\\10-leit...')
+#19 {main}
+2017-03-13 10:43:00 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3
+2017-03-13 10:43:00 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3

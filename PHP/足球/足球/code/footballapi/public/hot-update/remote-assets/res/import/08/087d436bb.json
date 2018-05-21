@@ -1,0 +1,191 @@
+[
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "tab_2_selected",
+      "texture": "1159fb1bc",
+      "rect": [
+        450,
+        66,
+        414,
+        60
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        414,
+        60
+      ]
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "help",
+      "texture": "1159fb1bc",
+      "rect": [
+        2,
+        517,
+        84,
+        107
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        84,
+        107
+      ]
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "tab_selected",
+      "texture": "1159fb1bc",
+      "rect": [
+        450,
+        330,
+        160,
+        46
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        160,
+        46
+      ]
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "search",
+      "texture": "1159fb1bc",
+      "rect": [
+        90,
+        406,
+        84,
+        107
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        84,
+        107
+      ]
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "tab_normal",
+      "texture": "1159fb1bc",
+      "rect": [
+        267,
+        505,
+        160,
+        46
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        160,
+        46
+      ]
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "touzhu",
+      "texture": "1159fb1bc",
+      "rect": [
+        2,
+        628,
+        84,
+        107
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        84,
+        107
+      ]
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "back",
+      "texture": "1159fb1bc",
+      "rect": [
+        2,
+        406,
+        84,
+        107
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        84,
+        107
+      ]
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "tab_1_selected",
+      "texture": "1159fb1bc",
+      "rect": [
+        450,
+        2,
+        414,
+        60
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        414,
+        60
+      ]
+    }
+  },
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "zhibo",
+      "texture": "1159fb1bc",
+      "rect": [
+        90,
+        517,
+        84,
+        107
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        84,
+        107
+      ]
+    }
+  }
+]

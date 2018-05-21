@@ -1,0 +1,60 @@
+<div class="panel">
+    <div class="panel-body">
+        <div>
+        	<div id="container">
+        		<table id="datatable" class="table table-hover table-bordered table-head">
+        			<thead>
+        				<tr>
+        					<th></th>
+        					<th>金额</th>
+        				</tr>
+        			</thead>
+        			<tbody>
+        				{foreach name="commission" item="com" key="k"}
+        				<tr>
+        					<th>{if $k == date("Ymd")}今日{else}{$k}{/if}</th>
+        					<td>{$com}</td>
+        				</tr>
+        				{/foreach}
+        			</tbody>
+        		</table>
+        	</div>
+        </div>
+    </div>
+</div>
+<script>
+	$(function(){
+		$("#container").highcharts({
+			data:{
+				table:"datatable",
+			},
+			chart:{
+				type : 'column'
+			},
+			title:{
+				text:"佣金收入"
+			},
+			yAxis:{
+				allowDecimals:false,
+				title:{
+					text:'数值'
+				}
+			},
+			tooltip:{
+				formatter:function(){
+					return '<b>'+this.series.name+'</b><br/>'+this.point.y;
+				},
+			},
+			credits:{
+				enabled:false
+			},
+			plotOptions:{
+				column:{
+					dataLabels:{
+						enabled:true
+					}
+				}
+			}
+		});
+	});
+</script>

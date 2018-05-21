@@ -1,0 +1,38 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="help-block bg-warning page-note mb10" style="margin-top: -20px;">
+            修改高级设置后，需要更新“系统配置”缓存，前台方能生效
+        </div>
+        <form class="form-horizontal parsley-form auto-submit-form" id="__formId__" name="__formId__" action="{:url('config/domain')}" method="post" data-parsley-validate="">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-title">访问API域名列表，每行为一个独立域名,默认返回第一个</div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">地址列表</label>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" name="setting[territory][domain_api]" placeholder="访问API域名列表，每行为一个独立域名" style="height: 100px;">{$setting.territory.domain_api ?? ''}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-title">访问Socket域名列表，每行为一个独立域名，格式：192.168.0.1:8282,随机返回列表是某一个</div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">地址列表</label>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" name="setting[territory][domain_socket]" placeholder="访问Socket域名列表，每行为一个独立域名" style="height: 100px;">{$setting.territory.domain_socket ?? ''}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-title">访问资源域名列表，每行为一个独立域名,默认返回第一个</div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">地址列表</label>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" name="setting[territory][domain_res]" placeholder="访问资源域名列表，每行为一个独立域名" style="height: 100px;">{$setting.territory.domain_res ?? ''}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group"></div>
+                <div class="form-group" data-handle="btn-handle" style="text-align: center">
+                    <button type="submit" class="btn btn-success" ><i class="icon-save"></i> 保 存 </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

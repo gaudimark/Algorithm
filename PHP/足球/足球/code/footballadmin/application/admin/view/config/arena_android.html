@@ -1,0 +1,120 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="help-block bg-warning page-note mb10" style="margin-top: -20px;">
+            修改房间机器人设置后，需要更新“系统配置”缓存，前台方能生效；总投注下限或总投注上限为0时，则表示不生效
+        </div>
+        <form class="form-horizontal parsley-form auto-submit-form" id="__formId__" name="__formId__" action="{:url('config/arena_android')}" method="post" data-parsley-validate="">
+            <div class="form-group form-group-title">足球</div>
+
+            <div class="form-group" data-handle="btn-handle">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1 control-label">开启自动下注</label>
+                <div class="col-xs-7 col-sm-5 col-md-5 col-lg-4">
+                    <input type="checkbox" name="setting[arena_android_on][]" value="{$Think.const.GAME_TYPE_FOOTBALL}" {if $setting['arena_android_on'] && in_array(GAME_TYPE_FOOTBALL,$setting['arena_android_on'])}checked{/if}>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1 control-label">冷门</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">总投注下限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_limit][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_LM}][min]" value="{$setting['arena_android_limit'][GAME_TYPE_FOOTBALL][PLAY_HOT_LM]['min'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                        <span class="input-group-addon">总投注上限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_limit][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_LM}][max]" value="{$setting['arena_android_limit'][GAME_TYPE_FOOTBALL][PLAY_HOT_LM]['max'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">A投注局数间隔下限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_gt_rand][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_LM}][min]" value="{$setting['arena_android_gt_rand'][GAME_TYPE_FOOTBALL][PLAY_HOT_LM]['min'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                        <span class="input-group-addon">A投注局数间隔上限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_gt_rand][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_LM}][max]" value="{$setting['arena_android_gt_rand'][GAME_TYPE_FOOTBALL][PLAY_HOT_LM]['max'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">B投注局数间隔下限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_lt_rand][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_LM}][min]" value="{$setting['arena_android_lt_rand'][GAME_TYPE_FOOTBALL][PLAY_HOT_LM]['min'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                        <span class="input-group-addon">B投注局数间隔上限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_lt_rand][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_LM}][max]" value="{$setting['arena_android_lt_rand'][GAME_TYPE_FOOTBALL][PLAY_HOT_LM]['max'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">随机百分比下限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_bfb_rand][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_LM}][min]" value="{$setting['arena_android_bfb_rand'][GAME_TYPE_FOOTBALL][PLAY_HOT_LM]['min'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                        <span class="input-group-addon">随机百分比上限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_bfb_rand][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_LM}][max]" value="{$setting['arena_android_bfb_rand'][GAME_TYPE_FOOTBALL][PLAY_HOT_LM]['max'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1 control-label">普通</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">总投注下限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_limit][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_PT}][min]" value="{$setting['arena_android_limit'][GAME_TYPE_FOOTBALL][PLAY_HOT_PT]['min'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                        <span class="input-group-addon">总投注上限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_limit][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_PT}][max]" value="{$setting['arena_android_limit'][GAME_TYPE_FOOTBALL][PLAY_HOT_PT]['max'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">A投注局数间隔下限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_gt_rand][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_PT}][min]" value="{$setting['arena_android_gt_rand'][GAME_TYPE_FOOTBALL][PLAY_HOT_PT]['min'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                        <span class="input-group-addon">A投注局数间隔上限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_gt_rand][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_PT}][max]" value="{$setting['arena_android_gt_rand'][GAME_TYPE_FOOTBALL][PLAY_HOT_PT]['max'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">B投注局数间隔下限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_lt_rand][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_PT}][min]" value="{$setting['arena_android_lt_rand'][GAME_TYPE_FOOTBALL][PLAY_HOT_PT]['min'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                        <span class="input-group-addon">B投注局数间隔上限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_lt_rand][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_PT}][max]" value="{$setting['arena_android_lt_rand'][GAME_TYPE_FOOTBALL][PLAY_HOT_PT]['max'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">随机百分比下限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_bfb_rand][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_PT}][min]" value="{$setting['arena_android_bfb_rand'][GAME_TYPE_FOOTBALL][PLAY_HOT_PT]['min'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                        <span class="input-group-addon">随机百分比上限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_bfb_rand][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_PT}][max]" value="{$setting['arena_android_bfb_rand'][GAME_TYPE_FOOTBALL][PLAY_HOT_PT]['max'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1 control-label">热门</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">总投注下限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_limit][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_RM}][min]" value="{$setting['arena_android_limit'][GAME_TYPE_FOOTBALL][PLAY_HOT_RM]['min'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                        <span class="input-group-addon">总投注上限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_limit][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_RM}][max]" value="{$setting['arena_android_limit'][GAME_TYPE_FOOTBALL][PLAY_HOT_RM]['max'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">A投注局数间隔下限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_gt_rand][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_RM}][min]" value="{$setting['arena_android_gt_rand'][GAME_TYPE_FOOTBALL][PLAY_HOT_RM]['min'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                        <span class="input-group-addon">A投注局数间隔上限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_gt_rand][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_RM}][max]" value="{$setting['arena_android_gt_rand'][GAME_TYPE_FOOTBALL][PLAY_HOT_RM]['max'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">B投注局数间隔下限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_lt_rand][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_RM}][min]" value="{$setting['arena_android_lt_rand'][GAME_TYPE_FOOTBALL][PLAY_HOT_RM]['min'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                        <span class="input-group-addon">B投注局数间隔上限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_lt_rand][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_RM}][max]" value="{$setting['arena_android_lt_rand'][GAME_TYPE_FOOTBALL][PLAY_HOT_RM]['max'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">随机百分比下限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_bfb_rand][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_RM}][min]" value="{$setting['arena_android_bfb_rand'][GAME_TYPE_FOOTBALL][PLAY_HOT_RM]['min'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                        <span class="input-group-addon">随机百分比上限</span>
+                        <input type="text" class="form-control" name="setting[arena_android_bfb_rand][{$Think.const.GAME_TYPE_FOOTBALL}][{$Think.const.PLAY_HOT_RM}][max]" value="{$setting['arena_android_bfb_rand'][GAME_TYPE_FOOTBALL][PLAY_HOT_RM]['max'] ?? '0'}" data-parsley-pattern="/^\d+$/" data-parsley-pattern-message="" >
+                    </div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="form-group" data-handle="btn-handle">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-1 control-label">&nbsp;</label>
+                <div class="col-xs-7 col-sm-5 col-md-5 col-lg-4">
+                    <button type="submit" class="btn btn-success" ><i class="icon-save"></i> 保 存 </button>
+                </div>
+            </div>
+        </form>
+        <div class="help-block bg-warning page-note mb10" style="margin-top: 30px;">
+            说明:
+            <div class="well-body">
+                如果随机值（总投注）a/（总秒数/60）>=该比赛最低下注限制，则随机1-10个60秒进行下注(A投注局数间隔)，每次押注值为随机值/（总秒数/60）*随机值b*随机百分比 <br>
+                如果随机值（总投注）a/（总秒数/60）<该比赛最低下注限制,则计算出z值（z=比赛最低下注限制/(a/（总秒数/60）)）,则随机1-5个z值进行下注（B投注局数间隔），每次押注值为随机值/（总秒数/60）*随机值b*随机百分比 <br>
+                每次机器人的押注值必须为比赛最低下注限制的整数倍 <br>
+            </div>
+        </div>
+    </div>
+</div>

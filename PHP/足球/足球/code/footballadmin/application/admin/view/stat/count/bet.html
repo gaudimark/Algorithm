@@ -1,0 +1,65 @@
+<div class="panel">
+    <div class="panel-body">
+        <div>
+        	<div id="container">
+        		<table id="datatable" class="table table-hover table-bordered table-head">
+        			<thead>
+        				<tr>
+        					<th></th>
+        					<th>数量</th>
+        					<th>金额</th>
+        				</tr>
+        			</thead>
+        			<tbody>
+        				<tr>
+        					<th>赢</th>
+        					<td>{$win_count}</td>
+        					<td>{$win_sum}</td>
+        				</tr>
+        				<tr>
+        					<th>输</th>
+        					<td>{$lose_count}</td>
+        					<td>{$lose_sum}</td>
+        				</tr>
+        			</tbody>
+        		</table>
+        	</div>
+        </div>
+    </div>
+</div>
+<script>
+	$(function(){
+		$("#container").highcharts({
+			data:{
+				table:"datatable",
+			},
+			chart:{
+				type : 'column'
+			},
+			title:{
+				text:"输赢统计（赢的金额未包含被扣除的佣金）"
+			},
+			yAxis:{
+				allowDecimals:false,
+				title:{
+					text:'数值'
+				}
+			},
+			tooltip:{
+				formatter:function(){
+					return '<b>'+this.series.name+'</b><br/>'+this.point.y+' '+this.point.name.toLowerCase();
+				},
+			},
+			credits:{
+				enabled:false
+			},
+			plotOptions:{
+				column:{
+					dataLabels:{
+						enabled:true
+					}
+				}
+			}
+		});
+	});
+</script>

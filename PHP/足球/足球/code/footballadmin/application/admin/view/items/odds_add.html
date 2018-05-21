@@ -1,0 +1,38 @@
+<div class="panel">
+    <style>
+        .table-odds-add  th,
+        .table-odds-add td{padding:3px;text-align: center;vertical-align: middle !important;}
+        .table-odds-add .form-control{padding:3px !important;}
+    </style>
+    <div class="panel-body" style="width:900px;" id="odds-panel-body">
+        <div class="help-block bg-warning page-note" style="margin-top: -11px;">
+            让球、让分、预设总分有/时：正数必须都是正数，负数必须都为负数，如：2/2.5,-2/-2.5；
+        </div>
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url($controller."/odds_add")}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+        <input type="hidden" name="id" value="{$id ?? 0}">
+        <input type="hidden" name="play_id" value="{$play_id ?? 0}">
+        <input type="hidden" name="rules_id" value="{$rules_id ?? 0}">
+        <input type="hidden" name="rules_type" value="{$rules_type ?? 0}">
+        <input type="hidden" name="game_id" value="{$play.game_id ?? 0}">
+        <div class="form-group">
+            <label class="col-md-3 control-label">玩法、规则</label>
+            <div class="col-md-5">
+                <select name="rules" id="rulesSelect" class="form-control" {if $id}disabled{/if}>
+                <option value="0">选择玩法、规则</option>
+                {foreach $rules_list as $key => $vo}
+                <option value="{$key}" data-type="{$vo.type}" {if $rules_id eq $key}selected{/if}>{:parseRuleNameDefault($vo.name)}</option>
+                {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group" id="rules-list-content"></div>
+        <div class="form-group dialog-handle">
+            <label class="col-md-3 control-label">&nbsp;</label>
+            <div class="col-md-8">
+                <button type="submit" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+{include file="items/odds_change_js"}

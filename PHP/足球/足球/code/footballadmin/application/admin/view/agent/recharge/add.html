@@ -1,0 +1,84 @@
+<div class="panel">
+    <div class="panel-body" style="width: 500px;">
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url($controller.'/add')}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+            <input type="hidden" name="id" value="{$res.id ?? 0}">
+            <div class="form-group">
+                <label class="col-xs-12 col-md-3 control-label">用户名：</label>
+                <div class="col-xs-12 col-md-8">
+                    <input type="text" class="form-control" name="username" id="username" value="{$res.username ?? ''}" {if $res && $res.username} disabled {else} data-parsley-required="true"{/if}>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-md-3 control-label">密码：</label>
+                <div class="col-xs-12 col-md-8">
+                    <input type="text" class="form-control" name="password" id="password">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-md-3 control-label">昵称：</label>
+                <div class="col-xs-12 col-md-8">
+                    <input type="text" class="form-control" name="nickname" id="nickname" value="{$res.nickname ?? ''}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-md-3 control-label">状态：</label>
+                <div class="col-xs-12 col-md-8">
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="{$Think.const.STATUS_ENABLED}" {if !$res || !isset($res['status']) || $res.status eq STATUS_ENABLED}checked{/if}>
+                        正常
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="{$Think.const.STATUS_DISABLED}" {if $res && $res.status eq STATUS_DISABLED}checked{/if}>
+                        禁用
+                    </label>
+                </div>
+            </div>
+            <!--<div class="form-group">
+                <label class="col-xs-12 col-md-3 control-label">是否充值：</label>
+                <div class="col-xs-12 col-md-8">
+                    <label class="radio-inline">
+                        <input type="radio" name="has_recharge" value="{$Think.const.STATUS_YES}" {if !$res || !isset($res['has_recharge']) || $res.has_recharge eq STATUS_YES}checked{/if}>
+                        正常
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="has_recharge" value="{$Think.const.STATUS_NO}" {if $res && $res.has_recharge eq STATUS_NO}checked{/if}>
+                        禁用
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-md-3 control-label">是否兑换：</label>
+                <div class="col-xs-12 col-md-8">
+                    <label class="radio-inline">
+                        <input type="radio" name="has_withdrawal" value="{$Think.const.STATUS_YES}" {if !$res || !isset($res['has_withdrawal']) || $res.has_withdrawal eq STATUS_YES}checked{/if}>
+                        正常
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="has_withdrawal" value="{$Think.const.STATUS_NO}" {if $res && $res.has_withdrawal eq STATUS_NO}checked{/if}>
+                        禁用
+                    </label>
+                </div>
+            </div>-->
+            <div class="form-group">
+                <label class="col-xs-12 col-md-3 control-label">支付宝兑换权重：</label>
+                <div class="col-xs-6 col-md-3">
+                    <input type="text" class="form-control" name="withdrawal_weights" id="withdrawal_weights" value="{$res.withdrawal_weights ?? '1'}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-md-3 control-label">银行卡兑换权重：</label>
+                <div class="col-xs-6 col-md-3">
+                    <input type="text" class="form-control" name="bank_withdrawal_weights" id="bank_withdrawal_weights" value="{$res.bank_withdrawal_weights ?? '1'}">
+                </div>
+            </div>
+            <div class="form-group dialog-handle">
+                <label class="col-md-3 control-label">&nbsp;</label>
+                <div class="col-md-8">
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+

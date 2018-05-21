@@ -1,0 +1,107 @@
+<script>
+var bool = true;
+window.onload = function()
+{
+	var jsname = "http://www.51bet.com/article/index?p=1&t=1";
+	
+	loadData(jsname,0)
+}
+//获取滚动条当前的位置 
+function getScrollTop() { 
+var scrollTop = 0; 
+if (document.documentElement && document.documentElement.scrollTop) { 
+scrollTop = document.documentElement.scrollTop; 
+} 
+else if (document.body) { 
+scrollTop = document.body.scrollTop; 
+} 
+return scrollTop; 
+} 
+
+//获取当前可是范围的高度 
+function getClientHeight() { 
+	var clientHeight = 0; 
+	if (document.body.clientHeight && document.documentElement.clientHeight) { 
+		clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight); 
+	} 
+	else { 
+		clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight); 
+	} 
+		return clientHeight; 
+} 
+
+//获取文档完整的高度 
+function getScrollHeight() { 
+	return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight); 
+} 
+
+
+window.onscroll = function () { 
+	if(document.getElementById("backBtn") == "undefined" || document.getElementById("backBtn") == null){
+		if (getScrollTop() + getClientHeight() == getScrollHeight()) { 
+			var page = document.getElementById("page").value;
+			page = parseInt(page)+1;
+			if(bool == true){
+				loadData("http://www.51bet.com/article/index?p="+page+"&t=1",0) ;
+			}
+		} 
+	}
+} 
+function loadData(url,type){
+	var _data;
+	
+	var http = new XMLHttpRequest();
+	http.open('get', url, true);
+	http.onerror = function(e) {
+	}
+	http.onload = function(e) {
+		var status = http.status !== undefined ? http.status : 200;
+		
+		if (status === 200 || status === 204 || status === 0) {
+			_data = http.response || http.responseText;
+			_data = eval("("+_data+")");
+			if(type == 0){
+				var div = document.createElement('div');
+					div.innerHTML = _data.str;
+					document.getElementById("body").appendChild(div);
+			} else {
+				document.getElementById("body").innerHTML = _data.str;
+				window.scrollTo(0,0);
+			}
+			if(_data.str != ""){
+				document.getElementById("page").value = _data.page;
+			}else{
+				bool = false;
+			}
+		} else {
+			error("[" + http.status + "]" + http.statusText + ":" + http.responseURL);
+		}
+	}
+	http.send(null);
+
+}
+
+function view(id){
+bool = true;
+	var url = "http://www.51bet.com/article/view";
+	loadData(url+"?id="+id,1);
+}
+</script>
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<title></title>
+	</head>
+	
+	<body >
+		<input type="hidden" id="page" value="1">
+		<div id="body">
+		
+		</div>
+	</body>
+</html>	

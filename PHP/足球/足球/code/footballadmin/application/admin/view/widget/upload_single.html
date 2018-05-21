@@ -1,0 +1,107 @@
+<div class="upload-single" id="{$unID}" {if $value}data-source="{$url}"{/if}>
+    <div class="input-group">
+        <input readonly type="text" class="form-control" name="{$name}" id="{$unID}_input" value="{$value}" {if $required}data-parsley-required="true"{/if}>
+        <span class="input-group-addon input-group-addon-btn"><button type="button"  id="{$unID}-handle" class="" title="上传图片">上传图片</button></span>
+    </div>
+    <div class="upload-progress" style="display: none;">
+        <div class="progress">
+            <div style="width: 10%;" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
+    <label class="upload-speed" style="display: none;">
+        <span>0.00%</span>
+        <span>0.00 kb/s</span>
+    </label>
+    <a class="img-box" target="_blank"></a>
+    {if $tips}
+    <div class="help-block">{$tips}</div>
+    {/if}
+</div>
+<script>
+    $(function () {
+        $("#{$unID}").mouseenter(function () {
+            var dataImg = $(this).attr("data-source");
+            if(dataImg){
+                $(this).find(".img-box").html('<img src="'+dataImg+'">').show().attr("href",dataImg);
+            }
+        }).mouseleave(function () {
+            $(this).find(".img-box").hide();
+        });
+        $("#{$unID}-handle").uploadify({
+            'buttonCursor' : 'cursor',
+            'debug' : false,
+            'auto' : true,
+            'uploader' : '{:url("Misc/uploadsave")}',
+            'swf' : '/assets/common/plugins/uploadify/swfupload.swf',
+            'width' : '98',
+            'height' : '34',
+            'formData' :{
+                'file_post_name' : 'uploadfile',
+                'ajax' : 1
+            },
+            'fileObjName' : 'uploadfile',
+            'file_post_name' : 'uploadfile',
+            'buttonImage' : '',
+            'buttonText' : '<i class="icon-upload"></i> {$text}',
+            'buttonClass' : 'btn btn-primary upload-handle',
+            'uploadLimit' : 9999,
+            'multi' : false,
+            'queueSizeLimit' : 9999,
+            'fileTypeExts' : '{$exts}',
+            'onInit' : function () {},
+            'onSelect' : function (event,queueId,fileObj) {},
+            'onUploadProgress' : function (file,bytesUploaded,bytesTotal,totalBytesUploaded,totalBytesTotal) {
+                var num = parseFloat((bytesUploaded / bytesTotal) * 100);
+                var speed = Math.max(0,bytesUploaded - this.bytesUploaded);
+                this.bytesUploaded = bytesUploaded;
+                var width = Math.min(100,num.toFixed(2));
+                var uploadSpeed = $("#{$unID}").find(".upload-speed");
+                uploadSpeed.find("span").eq(0).text(width + '%');
+                uploadSpeed.find("span").eq(1).text(formatSize(speed) + '/s');
+                $("#{$unID}").find(".progress-bar").width(width+'%');
+            },
+
+            'onUploadStart' : function (file) {
+                $("#{$unID}").find(".upload-speed").show();
+                $("#{$unID}").find(".upload-progress").show();
+                $("#{$unID}").find(".progress-bar").width(0);
+            },
+            'onUploadSuccess' : function (file,ret,response) {
+                $("#{$unID}").find(".upload-speed").hide();
+                $("#{$unID}").find(".upload-progress").hide();
+                $("#{$unID}").find(".progress-bar").width(0);
+                if(!ret){alert("上传文件失败");return false;}
+                try{
+                    if(typeof ret == 'string'){
+                        ret = $.parseJSON(ret);
+                    }
+                    if(ret.code == 0) {alert(ret.msg)}
+                    var data = ret['data'];
+                    $("#{$unID}_input").val(data.path);
+                    $("#{$unID}").attr("data-source",data.url).attr("data-name",data.name);
+                }catch(e){
+                    alert(e);
+                }
+            },
+            'onUploadError' : function (file,errorCode,errorMsg,errorString) {
+                if(errorString != 'Cancelled'){
+                    alert(errorString+'('+errorMsg+')');
+                }
+                $("#{$unID}").find(".upload-speed").hide();
+                $("#{$unID}").find(".upload-progress").hide();
+                $("#{$unID}").find(".progress-bar").width(0);
+
+            },
+            'onAddQueueItem' : function (file) {
+            },
+            'onUploadComplete' : function (file) {
+                $("#{$unID}").find(".upload-speed").hide();
+                $("#{$unID}").find(".upload-progress").hide();
+            },
+            'onQueueComplete' : function (queueData) {},
+            'onFallback' : function () {
+                //Tips.error("Flash加载失败！")
+            }
+        });
+    });
+</script>

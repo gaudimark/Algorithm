@@ -1,0 +1,111 @@
+<div class="panel">
+    <div class="panel-body">
+        {include file="agent/recharge/side_menu" /}
+        <div class="mb10">
+            <form class="form-inline" method="get">
+                <div class="input-group ml10">
+                    <span class="input-group-addon input-group-addon-select">
+                        <select class="form-control" name="agent_id">
+                            <option value="0">全部订单</option>
+                            <optgroup label="代理用户">
+                                {foreach $recharge_agent_user as $vo}
+                                <option value="{$vo.id}" {if $agent_id && $agent_id eq $vo.id}selected{/if}>{$vo.name}</option>
+                                {/foreach}
+                            </optgroup>
+                        </select>
+                    </span>
+                    <span class="input-group-addon input-group-addon-select">
+                        <select class="form-control" name="platform">
+                            <option value="0">全部提现方式</option>
+                            <option value="alipay" {if $platform eq 'alipay'}selected{/if}>支付宝</option>
+                            <option value="bank" {if $platform eq 'bank'}selected{/if}>银行卡</option>
+                        </select>
+                    </span>
+                    <span class="input-group-addon">时间段</span>
+                    <input type="text" class="form-control" readonly data-toggle="datetime" data-end-date="#etime" id="btime" name="btime" value="{$btime ?? ""}">
+                    <span class="input-group-addon">至</span>
+                    <input type="text" class="form-control" readonly data-toggle="datetime" data-start-date="#btime" id="etime" name="etime" value="{$etime ?? ""}">
+
+                </div>
+                <button type="submit" name="search" class="btn btn-primary btn-sm">搜索</button>
+                <input type="submit" name="export" class="btn btn-info btn-sm btn-to-xls" value="导出报表">
+            </form>
+        </div>
+        <div class="table-responsive clear">
+            <div class="mt10 number text-primary">兑换金额：{:numberFormat($total,2,true)}</div>
+            <table class="table table-hover table-bordered table-head" style="min-width: 1650px;">
+                <thead>
+                <tr>
+                    <th width="80">ID</th>
+                    <th width="100">代理ID</th>
+                    <th width="100">代理用户</th>
+                    <th width="110">用户ID</th>
+                    <th width="110">申请用户</th>
+                    <th width="100">金额(元)</th>
+                    <th width="80">手续费(元)</th>
+                    <th width="80">提现方式</th>
+                    <th width="200">账号信息</th>
+                    <th width="90">申请时间</th>
+                    <th width="80">状态</th>
+                    <th width="90">更新时间</th>
+                    <th width="200">备注</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="lists" id="vo"}
+                <tr class="{if !in_array($vo.status,[WD_SUCCESS,WD_FAIL])}list-status{/if}">
+                    <td>
+                        <span class="number">{$vo.id}</span>
+                        <input type="hidden" class="lib_id" name="ids[]" value="{$vo.id}" />
+                        <input type="hidden" class="lib_account" name="account[]" value="{$vo.wd_account}" />
+                        <input type="hidden" class="lib_name" name="name[]" value="{$vo.wd_name}" />
+                    </td>
+                    <td>{$vo.agent_id}</td>
+                    <td>{$vo.nickname}({$vo.username})</td>
+                    <td>{$vo.user_id}</td>
+                    <td style="text-align: left" id="td-user-info-wd-{$vo.id}">
+                        {if checkPermit('User','info')}
+                        <a href="{:url('user/info',['id'=>$vo.user_id])}" class="j-dialog-handle btn btn-default btn-xs text-primary" title="用户详情">{:getUser($vo.user_id,'nickname')}</a>
+                        {else}
+                        {:getUser($vo.user_id,'nickname')}
+                        {/if}
+                    </td>
+                    <td class="number text-primary">{:numberFormat($vo.money,2,true)}</td>
+                    <td class="number text-primary">{:numberFormat($vo.money * $vo.fee,2,true)}</td>
+                    <td>{:lang($vo.platform)}</td>
+                    <td style="text-align: left;word-wrap: break-word;word-break: break-all">
+                        {$vo.wd_account}<br/>
+                        {$vo.wd_name}
+                        {if $vo.wd_bank}<Br/>{$bank[$vo.wd_bank] ?? '--'}{/if}
+                    </td>
+                    <td>{:date("Y-m-d H:i:s",$vo.create_time)}</td>
+                    <td>
+                        {switch name="$vo.status"}
+                        {case value="$Think.const.WD_NOT_AUDITED"}未审核{/case}
+                        {case value="$Think.const.WD_UNTREATED"}未处理{/case}
+                        {case value="$Think.const.WD_LOCK"}锁定{/case}
+                        {case value="$Think.const.WD_PROCESS"}<span class="text-info">处理中</span>{/case}
+                        {case value="$Think.const.WD_SUCCESS"}<span class="text-success">完成</span>{/case}
+                        {case value="$Think.const.WD_FAIL"}
+                        <span class="text-danger">失败</span>
+                        <i class="fa fa-info-circle text-primary" title="{$vo.pay_msg}" data-toggle="tooltip" data-placement="top"></i>
+                        {/case}
+                        {case value="$Think.const.WD_RECEDE"}<span class="text-danger">已退款</span>{/case}
+                        {case value="$Think.const.WD_DIS"}
+                        <span class="text-danger">拒绝</span>
+                        <i class="fa fa-info-circle text-primary" title="{$vo.remark}" data-toggle="tooltip" data-placement="top"></i>
+                        {/case}
+                        {/switch}
+                    </td>
+                    <td>{:date("Y-m-d H:i:s",$vo.update_time)}</td>
+                    <td style="word-wrap: break-word;word-break: break-all">{if in_array($vo.status,[WD_DIS,WD_RECEDE])}{$vo.remark ?? '--'}{else}{$vo.pay_msg ?? '--'}{/if}</td>
+
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <center>{$lists->render()}</center>
+        </div>
+    </div>
+</div>

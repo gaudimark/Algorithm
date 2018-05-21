@@ -1,0 +1,27 @@
+		<style type="text/css">
+			*{margin:0;padding:0;list-style-type:none;}
+			body{width:100%;height:100%;position:relative;font-family:"Microsoft YaHei";padding:0 3px;box-sizing:border-box;}
+			a{text-decoration:none;}
+			.main{width:100%;height:auto;overflow:hidden;}
+			.header{width:100%;height:40px;background:#f0f0f0;position:relative;}
+			.header h1{font-size:22px;text-align:center;font-weight:normal;line-height:40px;}
+			.header .backBtn{position:absolute;left:0;width:40px;height:40px;top:0;line-height:40px;font-size:26px;color:#666;left:6px;}
+			.info{width:100%;height:auto;overflow:hidden;}
+			h2{width:100%;height:auto;margin:10px auto;font-weight:normal;font-size:20px;color:#333;text-align:center;}
+			.time{width:100%;display:block;line-height:26px;text-align:center;color:#666;}
+			.content{width:100%;height:auto;overflow:hidden;margin:10px auto;font-size:14px;line-height:26px;color:#666;}
+			.content img{max-width:80%;display:block;margin:8px auto;}
+		</style>
+		<div class="main">
+			<div class="header">
+				<h1>新闻详情</h1>
+				<a href="javascript:;" class="backBtn" id="backBtn" onclick="loadData('{:url("index/article/index",["p"=>1,"t"=>$data.type])}',1)"><</a>
+			</div>
+			<div class="info">
+				<h2>{$data.title}</h2>
+				<span class="time">{:date("Y-m-d",$data.update_time)}</span>
+				<div class="content">
+					{$data.content}
+				</div>
+			</div>
+		</div>

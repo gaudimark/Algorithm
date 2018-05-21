@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "beijing",
+    "texture": "b0LmJpur5CJ7Y0aYVFLByk",
+    "rect": [
+      0,
+      0,
+      1920,
+      1200
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      1920,
+      1200
+    ]
+  }
+}

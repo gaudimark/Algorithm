@@ -1,0 +1,69 @@
+<div class="panel" id="misc-match-panel">
+    <div class="panel-body" style="width: 400px">
+        <div>
+            <div class="input-group">
+                <input type="text" class="form-control" name="name" id="misc-match-name" value="" placeholder="赛事名称">
+                <span class="input-group-addon input-group-addon-btn">
+                    <button class="btn btn-primary btn-sm" id="misc-select-match"> 搜 索 </button>
+                </span>
+            </div>
+        </div>
+        <div id="misc-content-list" style="min-height: 200px;max-height:350px;overflow-x: hidden;overflow-y: auto">
+            {if isset($lists)}
+            {if $lists}
+            <ul class="list-group mt10">
+                {foreach $lists as $vo}
+                <li class="list-group-item">
+                    {if $type eq 'radio'}
+                    <label class="radio-inline">
+                        <input type="radio" name="misc-match-lib" class="misc-match-lib" value="{$vo.id}" data-name="{$vo.name}">
+                    {else}
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class="misc-match-lib" value="{$vo.id}" data-name="{$vo.name}">
+                    {/if}
+                        {$vo.name}
+                    </label>
+                </li>
+                {/foreach}
+            </ul>
+            {else}
+                <div class="mt10">
+                    <h5 class="text-muted">未检索到{if $item_id}{:getSport($item_id)}下{/if}“{$name}”相关信息的赛事</h5>
+                </div>
+            {/if}
+            {/if}
+        </div>
+        <div class="form-group dialog-handle">
+            <label class="col-md-3 control-label">&nbsp;</label>
+            <div class="col-md-8">
+                <button type="button" class="btn btn-primary" id="btn-misc-match-enter">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#misc-select-match').click(function () {
+            var name = $.trim($("#misc-match-name").val());
+            if(!name){return false;}
+            Ajax.get('{:url("misc/select_match")}',{'name':name,'item_id':{$item_id},'type':'{$type}'},function (ret) {
+                var content = extractContainer(ret,'#misc-content-list');
+                $("#misc-content-list").html(content.html());
+            });
+        });
+        $("#btn-misc-match-enter").click(function () {
+            var lib = [];
+            $(".misc-match-lib:checked").each(function () {
+                lib.push({'id' : $(this).val(),'name' : $(this).attr("data-name")});
+            });
+            try{
+                miscSelectMatchRet(lib);
+                var dialog = $("#misc-match-panel").closest('.j-dialog');
+                if(dialog.length > 0) {
+                    dialogIndex = dialog.find("[name=j-dialog-index]").val();
+                    dialogIndex && jDialog.data[dialogIndex].close();
+                }
+            }catch (e){}
+        });
+    });
+</script>

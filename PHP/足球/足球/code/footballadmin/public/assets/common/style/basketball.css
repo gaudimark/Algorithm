@@ -1,0 +1,171 @@
+.gaming-wrap{background:#753001;color:#753001;}
+a{color:#e39967;}
+.gaming-wrap .container{background:#753001;}
+.search-container{padding-top:.5rem;}
+.gaming-wrap .header{background:#431b01;border-bottom:1px solid #863d0b;box-shadow:none;}
+.gaming-wrap .header .header-bom{border-bottom:1px solid #240f02;}
+.gaming-wrap .slide-header .header-bom{padding:0 .35rem;}
+.gaming-wrap .header .slidebox{height:.46rem;text-align:center;color:#fefefe;}
+.gaming-wrap .header .slidebox p em{color:#eec93d;margin:0 .04rem;}
+.gaming-wrap .header .fa-angle-left{position:absolute;left:0rem;padding:0 .1rem;font-size:.28rem;color:#fff;line-height:.46rem;z-index:2;height: .46rem;}
+.gaming-wrap .header .search .search-link{height: .3rem;background:#f2b891;border-radius:.06rem;}
+.gaming-wrap .header .search .personal{width:21px;height:26px;float:right;background:url(../images/basketball/personal.png) no-repeat;margin-left:.1rem;margin-top:.05rem;background-size:100%;}
+.gaming-wrap .header .seticon{background:none;right: 5px;}
+.gaming-wrap .header .filter-icon{right: 57px;background: url(../images/filter.png) no-repeat center;background-size: 100% auto;}
+.gaming-wrap .header .seticon .fa-bars{font-size:.2rem;color:#fff;}
+.select-type{width:.5rem;height:.3rem;line-height:.3rem;margin-right:.08rem;color:#f2b891;}
+.select-type span i{margin-left:.06rem;}
+.games-box{width:100%;height:auto;overflow:hidden;padding:.1rem;padding-bottom:.2rem;background:#753001;border-bottom:1px solid #000000;}
+.games-box a{width:48.5%;height:.56rem;display:block;background:#f2b891 url(../images/basketball/ball-icon.png) no-repeat 5px center;border-radius:.08rem;float:left;margin-top:.1rem;font-size:.15rem;color:#753001;display:table;overflow:hidden;position:relative;padding-left:.45rem;box-sizing:border-box;}
+.games-box a span{display:table-cell;width:60%;vertical-align:middle;text-align:left;}
+.games-box a:nth-child(2n+1){margin-right:3%;}
+.games-box a img{width:.34rem;height:.34rem;position:absolute;border-radius:.2rem;}
+.games-match-box{width:100%;height:auto;overflow:hidden;}
+.games-match-list{width:100%;height:auto;overflow:hidden;padding:.14rem .1rem;border-bottom:1px solid #431b01;background:#833602;}
+.games-match-list:nth-child(even){background:#753001;}
+.games-match-list .games-match-title{width:100%;height:auto;min-height:.3rem;overflow:hidden;line-height:.26rem;position:relative;padding-left:.24rem;padding-top:.03rem;}
+.games-match-list .games-match-title img{width:auto;height:.3rem;position:absolute;top:0px;left:0;}
+.games-match-list .games-match-info{width:100%;height:auto;border:1px solid #ab5013;margin-top:.06rem;padding:.08rem .06rem;}
+.games-match-list .games-match-info p{font-size:.12rem;color:#bf6629;}
+.games-match-list .games-match-ranks{margin-top:.04rem;color:#f4f5f8;position:relative;}
+.games-match-list .games-match-ranks b{font-weight:normal;color:#eec93d;margin:0 .04rem;}
+.games-match-list .games-match-ranks i{width:.22rem;height:.18rem;position:absolute;right:0;top:0;background:#431b01;text-align:center;line-height:.18rem;font-size:.12rem;border-radius:.06rem;color:#e39967;}
+.header-right{position:absolute;right:0;width:auto;height:100%;}
+.header-right a{width:.26rem;height:.26rem;float:left;margin-top:.09rem;font-size:.24rem;text-align:center;line-height:.26rem;}
+/* 投注页 */
+.matchs-about{width:100%;height:.64rem;overflow:hidden;margin-top:.34rem;padding:0 .1rem;color:#e39967;}
+.matchs-about .flex-1{text-align:right;padding-top:.05rem;}
+.matchs-about .flex-1:last-child{text-align:left;}
+.matchs-about .flex-1:last-child span{margin-left:.2rem;}
+.matchs-about .flex-1 span{width:1rem;display:inline-block;line-height:.3rem;text-align:left;}
+.matchs-about img{width:.63rem;height:.63rem;border:1px solid #ab5013;border-radius:999px;}
+/* 投注页 */
+.arenabox{width:100%;height:auto;margin-top:.3rem;padding:0 .1rem;}
+.arenabox .arenalist-top{margin-bottom:.08rem;color:#bf6629;}
+.arenabox .match-about{height:.2rem;color:#e39967;}
+.arenabox .match-about .slidebox{height:100%;}
+.arenabox ul{border:1px solid #ab5013;margin-top:.08rem;}
+.arenabox ul li{text-align:center;padding:.08rem 0 .3rem;position:relative;border:1px solid #ab5013;}
+.arenabox ul li:first-child{border-right:1px solid #ab5013;}
+.arenabox ul li p{color:#fff;line-height:.3rem;margin:.05rem auto;}
+.arenabox ul li em{display:block;color:#fff;margin-bottom:.05rem;}
+.arenabox ul li span{display:block;color:#eec93d;font-size:.16rem;margin-bottom:.05rem;}
+.arenabox ul li i{width:.48rem;height:.24rem;text-align:center;line-height:.24rem;position:absolute;bottom:-1px;left:50%;margin-left:-24px;background:#edab7f;color:#fff;border-top-left-radius:.06rem;border-top-right-radius:.06rem;}
+.chipin{width:100%;height:auto;background:#431b01;position:fixed;bottom:0;left:0;z-index:10;padding:.14rem .1rem; border-top:1px solid #ab5013;overflow:visible;}
+.chipin-gold{bottom:-134px;}
+.chipin .down-btn{width:.52rem;height:.2rem;border:1px solid #ab5013;position:absolute;top:-21px;left:50%;margin-left:-26px;background:#431b01;border-bottom:0;border-top-left-radius:.08rem;border-top-right-radius:.08rem;text-align:center;line-height:.24rem;}
+.chipin .down-btn i{width:10px;height:10px;display:inline-block;font-size:.16rem;line-height:10px;transform: rotate(180deg);-webkit-transition: all 0.3s ease-in-out 0s;transition: all 0.3s ease-in-out 0s;}
+.chipin .chipinbox{width:100%;height:.44rem;}
+.chipin .chipin-cnt{color:#e39967;position: relative;width: auto;border-radius:0;left: 0;background:none; top: 0 !important; margin: 0;line-height: 18px; clear:both;  }
+.chipin .chipin-cnt i{background:none;display:none;}
+.chipin .chipinbox li{width:.4rem;height:.4rem;text-align:center;line-height:.41rem;font-size:.12rem;float:left;background:url(../images/chipin-icon-3.png) no-repeat;background-size:101%;margin-right:.08rem;color:#0024c1;border-radius:.3rem;}
+.chipin .chipinbox li:nth-child(2){background:url(../images/chipin-icon-2.png) no-repeat;background-size:101%;color:#ff7400;}
+.chipin .chipinbox li:nth-child(3){background:url(../images/chipin-icon-4.png) no-repeat;background-size:101%;color:#04be12;}
+.chipin .chipinbox li:nth-child(4){background:url(../images/chipin-icon-5.png) no-repeat;background-size:101%;color:#0095df;}
+.chipin .chipinbox li:nth-child(5){background:url(../images/chipin-icon-1.png) no-repeat;background-size:101%;color:#c22000;}
+
+.chipin .chipin-right{width:100%;height:auto;overflow:hidden;position:relative;margin-top:.1rem;padding:0;}
+.chipin .chipin-right input{width:100%;height:.3rem;background:#f2b891;border:0;border-radius:.06rem;padding:0 .06rem;box-sizing:border-box;margin:0;color:#753001;font-size:.14rem;}
+.chipin .chipin-right button{width:.5rem;height:.3rem;border:0;background:#753001;position:absolute;top:0;right:-1px;border-top-right-radius:.06rem;border-bottom-right-radius:.06rem;color:#fff;}
+.chipin p{float:left;margin-left:0px;font-size:.12rem;color:#e39967;margin-top:.05rem;}
+.chipin p span{margin-right:.24rem;}
+.shopping-cart{background:#e39967;bottom: 163px;-webkit-transition: all 0.1s ease-in-out 0s;transition: all 0.1s ease-in-out 0s;}
+.gaming-wrap ::-webkit-input-placeholder{color:#c76c2e;}
+@keyframes glow {
+  0% {border:1px solid #f2b891;-webkit-box-shadow:  0 0 1px #f2b891, inset 0 0 1px #f2b891, 0 0px 0 #f2b891;}	
+  100% {border:1px solid #d6824a;-webkit-box-shadow:  0 0 10px #d6824a, inset 0 0 10px #d6824a, 0 0px 0 #d6824a; }
+}
+ @-webkit-keyframes glow {
+  0% {border:1px solid #f2b891;-webkit-box-shadow:  0 0 1px #f2b891, inset 0 0 1px #f2b891, 0 0px 0 #f2b891;}	
+  100% {border:1px solid #d6824a;-webkit-box-shadow:  0 0 10px #d6824a, inset 0 0 10px #d6824a, 0 0px 0 #d6824a; }
+}
+@keyframes glow-b{
+  0% {border:.01rem solid #b5cd17;border-bottom:0;-webkit-box-shadow: 0 0 2px #b5cd17, inset 0 0 3px #b5cd17, 0 1px 0 #ddfc0d;}	
+  100% {border:.01rem solid #ddfc0d;border-bottom:0;-webkit-box-shadow: 0 0 10px #ddfc0d, inset 0 0 5px #ddfc0d, 0 1px 0 #ddfc0d; }
+}
+@-webkit-keyframes glow-b{
+  0% {border:.01rem solid #b5cd17;border-bottom:0;-webkit-box-shadow: 0 0 2px #b5cd17, inset 0 0 3px #b5cd17, 0 1px 0 #ddfc0d;}	
+  100% {border:.01rem solid #ddfc0d;border-bottom:0;-webkit-box-shadow: 0 0 10px #ddfc0d, inset 0 0 5px #ddfc0d, 0 1px 0 #ddfc0d; }
+}
+.wcgbet{width:100%;height:auto;overflow:hidden;}
+.wcgbet .wcg-arenalist{width:100%;height:auto;overflow:hidden;padding:.12rem .1rem;border-bottom:1px solid #431b01;}
+.wcgbet .wcg-arenalist:nth-child(even){background:#833602;}
+/* .wcgbet .wcg-arenalist:nth-child(even) ul li span {background:#345297;} */
+.wcg-arenalist  .arenalist-top { width: 100%;height: .3rem;overflow: hidden; position: relative;padding-right: .2rem;}
+.wcg-arenalist  .arenalist-top p {width: 56%;height: .3rem; line-height: .3rem; float: left;font-size: .14rem; overflow: hidden;color:#e39967;}
+
+
+.wcg-arenalist .arenalist-top  .privacy-icon {width: .18rem;height: 18px;display: inline-block;background: url(../images/basketball/privacy-icon.png) no-repeat 0 4px;margin-left: .05rem;background-size: 85% auto;vertical-align: middle;}
+.wcg-arenalist .arenalist-top  .fa-key{font-size:13px;margin-left:.06rem;color:#e39967;}
+.wcg-arenalist .arenalist-top  .privacy-friends-cion{    background-position: 0 -17px;}
+.wcg-arenalist  .arenalist-top .right-about { width: 44%;height: .3rem;float: right;font-size: .12rem;line-height: .3rem; text-align: right;}
+.wcg-arenalist  .arenalist-top .right-about span {display: inline-block;margin-left: .05rem;color:#e39967;}
+.wcg-arenalist  .arenalist-top .right-about img {width: .3rem;height: .3rem;border: 1px solid #ab5013; display: inline-block; border-radius: 999px;vertical-align: middle;}
+.wcg-arenalist  .arenalist-top .fa-angle-right {position: absolute;right: 0;top: 5px;font-size: 20px;color: #e39967;}
+.wcg-arenalist  .arenalist-bom {width: 100%; height: auto;border: 1px solid #ab5013;	padding: .08rem;overflow: hidden;}
+.wcg-arenalist  .arenalist-bom .match-about {width: 100%;height:auto;min-height:.26rem; line-height: .22rem;font-size: .14rem;text-align: left;margin: .05rem auto;padding-left:.25rem;padding-top:.02rem;position:relative;color:#e39967;}
+.wcg-arenalist  .match-about img {height: .26rem; position:absolute;left:0px;top:0px;}
+.wcg-time { float: left;margin-right: .1rem;line-height: .26rem;color:#c76c2e;font-size:.12rem;}
+.wcg-arenalist  .arenalist-bom ul {   /*  width: 100%; */height: auto;flex:1;box-sizing: border-box;}
+.wcg-arenalist  .arenalist-bom ul li { border: 0;background: none;text-align: left; position: relative; margin: 0;width:100%;overflow:hidden;height: .26rem;font-size: .14rem;line-height: .26rem;	color:#fff;}
+.wcg-arenalist  .arenalist-bom ul li span { width: auto;height: .22rem;line-height: .22rem;position: absolute;right: 0; top: 2px;font-size:.12rem;/* background:#304a87; */}
+.wcg-arenalist  .arenalist-bom ul li em { width: .44rem;height: .22rem;overflow:hidden;text-align:center;line-height: .22rem;float:left;color: #753001;top: 2px;border-radius: .06rem; font-size: .12rem;background: #f2b891;}
+.wcg-arenalist .arenalist-bom ul li i { float:left;color: #dbbb49;margin-right:.08rem;}
+.chipincase .chipin-fixed{width:90%;min-height:1.4rem;height:auto;overflow: hidden;position:absolute;margin-top:-.3rem;z-index:9999;/* top:-100%; */transition: all .4s;left:5%;padding:0 .15rem;background:rgba(156,0,0,.9);-webkit-box-shadow:0 2px 4px #000;-webkit-transform:translate3d(0px,-400px,0);}
+.chipincase .chipin-fixed{background:rgba(67,27,1,0.8);border-top:0;}
+.chipincase .chipin-fixed .chipin-right{padding-right:.03rem;}
+.chipincase .chipin-fixed .chipin-right button{border-top-right-radius:.06rem;border-bottom-right-radius:.06rem;width:.6rem;right:-2px;font-size:.14rem;text-indent:0px;}
+/* .chipincase .chipin-fixed p,.chipincase .chipin-fixed .chipin-cnt{color:#99b2ec;} */
+.chipincase .chipin-fixed .chipin-cnt{margin-bottom:.1rem;}
+.lt-null-data{text-align:center;line-height:.3rem;margin-top:.2rem;}
+.lt-null-data p a{display:inline-block;padding:0 .1rem;border-radius:.06rem;height:.26rem;line-height:.26rem;background:#f2b891;color:#fff;}
+/* 搜索 */
+.search-select{width:100%;height:auto;overflow:hidden;padding:.1rem;border-bottom:1px solid #000;text-align:center;}
+.search-select a{    width: auto;
+    padding: 0 .13rem;
+    height: auto;
+    line-height: .22rem;
+    float: left;
+    border: 1px solid #4a6bb7;
+    /* background: #01501d; */
+    margin-right: .1rem;
+    margin-bottom: .1rem;
+}
+.search-top h3{font-weight:normal;line-height:.4rem;padding:0 .1rem;font-size:.14rem;color:#e39967;}
+.scorelist {padding:.14rem .1rem;border-bottom:1px solid #000;position:relative;}
+.score-top{margin-bottom:.05rem;}
+.score-top .score-bf{float: left;margin:0 .05rem;}
+.score-top h3{font-weight:normal;font-size:.14rem; color:#fff;   float: left;}
+.scorelist p{font-size:.12rem;}
+.scorelist p b {font-weight: normal;font-size: .12rem; margin-right: .05rem;}
+.scorelist p span{margin-right:.06rem;}
+.scorelist .score-over{position:relative;}
+.scorelist .score-over {position:relative;}
+.scorelist .fa-angle-right{position:absolute;right:.08rem;top:50%;margin-top:-.07rem;}
+.hamlet-popup .popup-cont{background:rgba(52,82,151,0.8);}
+.hamlet-popup .popup-cont .hamlet-top img{width: 40px; height: 40px;float: left; border-radius: 999px; margin-right: .1rem;}
+.hamlet-popup .popup-cont .hamlet-top h3{    font-size: .13rem;font-weight: normal;line-height: .4rem;color: #e39967;margin: 0;}
+.hamlet-btn a {width: 48%;float: left;height: .3rem;border-radius: .06rem;background: #f2b891; text-align: center;line-height: .3rem; color: #fff;margin: .08rem auto;}
+.hamlet-popup .hamlet-btn a:last-child { margin-left: 4%;}
+.hamlet-popup .popup-cont  p {font-size:.12rem;color:#f2b891;}
+.popup .popupbg {opacity:.3;}
+.popup .popup-cont{background:rgba(67,27,1,1);}
+.popup .popup-cont .popup-btn{border:0;display:block;width:.7rem;height:.26rem;border-radius:.06rem;color:#fff;margin:.2rem auto auto;background:#f2b891;}
+.yqminput{width:90%;height:auto;overflow:hidden;margin:.1rem auto auto;}
+.yqminput input{width:100%;height:.28rem;margin:.1rem auto auto;border:1px solid #dcdcdc;box-sizing:border-box;padding:0 .06rem;}
+/* 底部 */
+.footer{height:.54rem;background:#431b01;border-top:1px solid #863d0b;}
+.footer li{border-top:1px solid #240f02;border-right:1px solid #240f02;}
+.footer li:last-child{border-right:0;border-left:1px solid #431b01;}
+.footer li i{width:.35rem;height:.28rem;display:block;margin:.04rem auto auto;background:url(../images/basketball/footer-icon.png) no-repeat -36px center;background-size: auto 90%;}
+.footer .footer-home.active  i{background:url(../images/basketball/footer-icon.png) no-repeat 3px center;background-size: auto 90%;}
+.footer  .footer-play i{background-position:-124px center;}
+.footer  .footer-play.active i{background-position:-81px center;}
+.footer  li.active span{color:#fff;}
+.footer li span{width:100%;height:.16rem;line-height:.16rem;text-align:center;display:block;color:#f2b891;font-size:.12rem;}
+
+
+
+
+
+

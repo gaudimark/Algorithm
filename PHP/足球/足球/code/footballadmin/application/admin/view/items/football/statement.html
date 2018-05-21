@@ -1,0 +1,81 @@
+<div class="help-block bg-warning page-note ">
+    半场比分、全场比分、黄牌数、红牌数、最先进行球数据请正确填写，否则会影响最终房间结算结果！
+</div>
+<div class="mb10 clearfix">
+    <div class="alert alert-warning pull-left" style="margin-bottom: 0;margin-left:18%">
+        <div class="play_home pull-left">
+            <p class="text-danger">主场</p>
+            <h4 style="text-align: right">{$play.team_home_name}</h4>
+        </div>
+        <div class="play_home pull-left" style="margin: 0 60px;">
+            <p class="text-danger">{:date("Y-m-d H:i",$play.play_time)}</p>
+            <h4 style="text-align: center">{$match.name}</h4>
+        </div>
+        <div class="play_home pull-left">
+            <p class="text-danger">&nbsp;</p>
+            <h4 style="text-align: right">{$play.team_guest_name}</h4>
+        </div>
+    </div>
+</div>
+<div class="panel-body" style="width:600px;" id="odds-panel-body">
+    <div class="form-group">
+        <label class="col-md-3 control-label">半场比分</label>
+        <div class="col-md-7">
+            <div class="input-group">
+                <input type="text" class="form-control" name="team_home_half_score" data-parsley-pattern="^\d+$" value="{$play.team_home_half_score ?? "0"}">
+                <span class="input-group-addon">：</span>
+                <input type="text" class="form-control" name="team_guest_half_score"  data-parsley-pattern="^\d+$" value="{$play.team_guest_half_score ?? "0"}">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">全场比分</label>
+        <div class="col-md-7">
+            <div class="input-group">
+                <input type="text" class="form-control" name="team_home_score" data-parsley-pattern="^\d+$" value="{$play.team_home_score ?? "0"}">
+                <span class="input-group-addon">：</span>
+                <input type="text" class="form-control" name="team_guest_score" data-parsley-pattern="^\d+$" value="{$play.team_guest_score ?? "0"}">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">黄牌数</label>
+        <div class="col-md-7">
+            <div class="input-group">
+                <input type="text" class="form-control" name="home_yellow" data-parsley-pattern="^\d+$" value="{$play.home_yellow ?? '0'}">
+                <span class="input-group-addon">：</span>
+                <input type="text" class="form-control" name="guest_yellow" data-parsley-pattern="^\d+$" value="{$play.guest_yellow ?? '0'}">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">红牌数</label>
+        <div class="col-md-7">
+            <div class="input-group">
+                <input type="text" class="form-control" name="home_red" data-parsley-pattern="^\d+$" value="{$play.home_red ?? '0'}">
+                <span class="input-group-addon">：</span>
+                <input type="text" class="form-control" name="guest_red" data-parsley-pattern="^\d+$" value="{$play.guest_red ?? '0'}">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">最先进行球</label>
+        <div class="col-md-5">
+            <select name="first_goals" class="form-control" >
+                <option value="0">==最先进球队伍==</option>
+                <option value="{$Think.const.HOME}">主队</option>
+                <option value="{$Think.const.GUEST}">客队</option>
+                <option value="99">没有入球</option>
+            </select>
+            {if $play.first_goals > 0}
+            <input type="hidden" name="first_goals" value="{$play.first_goals}">
+            {/if}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">备注</label>
+        <div class="col-md-7">
+            <textarea class="form-control" name="remark" id="remark">{$play.remark ?? ''}</textarea>
+        </div>
+    </div>
+</div>

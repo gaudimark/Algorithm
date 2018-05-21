@@ -1,0 +1,425 @@
+<style>
+    .risk_0{background: #3d8b40; color:#fff;}
+</style>
+<div class="panel">
+    <div class="panel-body">
+        <div class="mb10 clearfix">
+            <div class="mb10">
+                <span style="font-size: 16px;margin-right: 20px;">房间：{$arena.id}</span>
+
+                {if checkPermit($controller,'rdef')}
+                    {if $arena.has_default eq 1}
+                    <a href="{:url($controller.'/rdef',['id'=>$arena.id])}" class="btn btn-default btn-xs text-primary mr10 ajax-confirm" title="取消默认房间(#{$arena.id})设置吗？">
+                        <i class="fa fa-check text-success"></i>
+                        默认
+                    </a>
+                    {else}
+                    <a href="{:url($controller.'/rdef',['id'=>$arena.id])}" class="btn btn-default btn-xs text-primary mr10 ajax-confirm" title="将房间(#{$arena.id})设置成默认房间吗？">
+                        默认
+                    </a>
+                    {/if}
+                {/if}
+
+                {if $arena.has_recommend}
+                    {if checkPermit($controller,'un_arena_recommend')}
+                    <a href="{:url($controller.'/un_arena_recommend',['id'=>$arena.id])}" class="btn btn-default btn-xs text-primary ajax-confirm" title="取消房间(#{$arena.id})推荐吗？"><i class="fa fa-check text-success"></i> 热门</a>
+                    {/if}
+                    {else}
+                    {if checkPermit($controller,'arena_recommend')}
+                    <a href="{:url($controller.'/arena_recommend',['id'=>$arena.id])}" class="btn btn-default btn-xs text-primary ajax-confirm" title="将房间(#{$arena.id})设置成推荐房间吗？">热门</a>
+                    {/if}
+                {/if}
+            </div>
+            <div class="alert alert-warning pull-left" style="margin-bottom: 0">
+                <div class="play_home pull-left">
+                    <p class="text-danger">主场</p>
+                    <h4 style="text-align: right">{$play.team_home_name}</h4>
+                </div>
+                <div class="play_home pull-left" style="margin: 0 60px;">
+                    <p class="text-danger">{:date("Y-m-d H:i",$play.play_time)}</p>
+                    <h4 style="text-align: center">{$arena.match.name}</h4>
+                </div>
+                <div class="play_home pull-left">
+                    <p class="text-danger">&nbsp;</p>
+                    <h4 style="text-align: right">{$play.team_guest_name}</h4>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div style="position: relative;z-index:1;">
+                    <div style="width: 65px;height: 65px;border-radius: 50%;text-align: center;padding-top:10px;" class="{:getArenaRiskStyle($arena.deposit,$arena.risk)}">
+                        <p style="position: absolute;width: 65px;text-align: center;margin-top: 13px;">
+                            {switch name=getArenaRiskStyle($arena.deposit,$arena.risk)}
+                            {case value="risk_1"}可能亏损{/case}
+                            {case value="risk_2"}有风险{/case}
+                            {case value="risk_3"}有风险{/case}
+                            {case value="risk_4"}较高风险{/case}
+                            {case value="risk_5"}高风险{/case}
+                            {case value="risk_6"}超高风险{/case}
+                            {default /}安全
+                            {/switch}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mb10 clearfix">
+            <div class="col-sm-6">
+                <table class="table table-hover table-bordered table-head text-primary" style="font-size: 18px;margin-left: -15px;">
+                    <tr>
+                        <td style="padding:15px;text-align: left;line-height: 24px;" class="col-sm-4">
+                            <p>房间状态：{:arenaStatusToWord($arena.status,true,$arena.play.play_time,$arena.play.status)}</p>
+                            <p>房间保证金：{:numberFormat($arena.deposit,2,true)}</p>
+                        </td>
+                        <td style="padding:15px;text-align: left;line-height: 24px;" class="col-sm-4">
+                            <p>投注总额：{:numberFormat($arena.bet_money,2,true)}</p>
+                            <p>投注数：{:numberFormat($arena.bet_number,0,true)}</p>
+                        </td>
+                        <td style="padding:15px;text-align: left;line-height: 24px;" class="col-sm-4">
+                            <p>房间盈亏：{if $arena.status eq ARENA_STATEMENT_END}
+                                {if $arena.win < 0}
+                                <span class="text-danger number" style="font-size: 18px;">{$arena.win|number_format=2}</span>
+                                {else}
+                                <span class="text-success number" style="font-size: 18px;">+{$arena.win|number_format=2}</span>
+                                {/if}
+                                {else}--{/if}</p>
+                            <p>佣金：{if $arena.status eq ARENA_STATEMENT_END}{$arena.win_brok}{else}--{/if}</p>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </div>
+        {if in_array($arena.status,[ARENA_START,ARENA_SEAL,ARENA_PLAY])}
+        <div class="mb10 clearfix">
+            {if checkPermit($controller,'arena_conf')}
+            <a href="{:url($controller.'/arena_conf',['id'=>$arena.id])}" class="btn btn-primary btn-sm j-dialog-handle" title="房间设置">房间设置</a>
+            {/if}
+            {if checkPermit($controller,'sealArena')}
+                {if $arena.status eq ARENA_SEAL}
+                <a class="btn btn-primary btn-sm" href="javascript:unsealArena({$arena.id});">解封</a>
+                {else}
+                <a class="btn btn-primary btn-sm" href="javascript:sealArena({$arena.id});">封擂</a>
+                {/if}
+            {/if}
+            {if $arena.classify neq ARENA_CLASSIFY_CREDIT}
+                {if checkPermit($controller,'arena_deposit')}
+                <a href="{:url($controller.'/arena_deposit',['id'=>$arena.id])}" class="btn btn-primary btn-sm j-dialog-handle" title="追加保证金">追加保证金</a>
+                {/if}
+            {/if}
+            {if checkPermit($controller,'odds_monitor')}
+            <a href="{:url($controller.'/odds_monitor',['play_id'=>$arena.play_id,'rules_type' => $arena.rules_type])}" class="btn btn-info btn-sm j-dialog-handle" title="赔率监控">赔率监控</a>
+            {/if}
+            {if checkPermit($controller,['arena_disabled','arena_del'])}
+                {if checkPermit($controller,'arena_disabled')}
+                <a href="javascript:disabledArena({$arena.id});" class="btn btn-danger btn-sm" title="取消房间">取消</a>
+                {/if}
+                {if $arena.bet_number < 1}
+                    {if checkPermit($controller,'arena_del')}
+                    <a href="javascript:delArena({$arena.id});" class="btn btn-danger btn-sm" title="删除房间">删除</a>
+                    {/if}
+                {/if}
+            {/if}
+        </div>
+        {/if}
+        <div class="mb10 clearfix" style="height: 300px;background: #f5f5f5;border:1px solid #eee;padding:10px;" id="chartsContainer">
+        </div>
+        <div class="clear mb10" id="table-responsive-oddslist">
+            {if in_array($arena.rules_type,[RULES_TYPE_BODAN,RULES_TYPE_BODAN_COMB])}
+            <table class="table table-hover table-bordered table-head" style="font-size: 14px;">
+                <tr>
+                    <th style="width: 60px;">队伍</th>
+                    {foreach $chartCategories as $vo}
+                    <td>{$vo.name}</td>
+                    {/foreach}
+                </tr>
+                <tr>
+                    <th style="width: 60px;">初盘</th>
+                    {foreach $chartCategories as $key => $vo}
+                    <td class="number">
+                        {$odds.init[$vo.target][$vo.item]}
+                    </td>
+                    {/foreach}
+                </tr>
+                <tr>
+                    <th style="width: 60px;">即时</th>
+                    {foreach $chartCategories as $key => $vo}
+                    <td class="text-danger number">
+                        {$odds.time[$vo.target][$vo.item]}
+                    </td>
+                    {/foreach}
+                </tr>
+                {if $arena.status neq ARENA_STATEMENT_END}
+                <tr>
+                    <th>--</th>
+                    {foreach $chartCategories as $key => $vo}
+                    <td>
+                        <p>预计支付奖金：{:numberFormat($arenaOdds[$key]['bonus'],2,true)}</p>
+                        <p>预计盈亏：{:numberFormat($arena['bet_money'] - $arenaOdds[$key]['bonus'],2,true)}</p>
+                    </td>
+                    {/foreach}
+                </tr>
+                {/if}
+            </tr>
+            </table>
+            {else}
+            <table class="table table-hover table-bordered table-head" style="font-size: 14px;">
+                <tr>
+                    <th style="width: 60px;">队伍</th>
+                    {if isset($odds.time['handicap'])}
+                    <td>盘口</td>
+                    {elseif isset($odds.time['over']) || isset($odds.time['under'])}
+                    <td>预设总分</td>
+                    {/if}
+                    {foreach $chartCategories as $vo}
+                    <td>{$vo.name}</td>
+                    {/foreach}
+                </tr>
+                <tr>
+                    <th style="width: 60px;">初盘</th>
+                    {if isset($odds.init['handicap'])}
+                    <td class="number">{:handicap($odds.init['handicap'],false,false,$arena.game_type)}</td>
+                    {elseif isset($odds.init['over'])}
+                    <td class="number">{$odds.init['over']}</td>
+                    {elseif isset($odds.init['under'])}
+                    <td class="number">{$odds.init['under']}</td>
+                    {/if}
+                    {foreach $chartCategories as $key => $vo}
+                    <td class="number">
+                        {$odds.init[$key]}
+                    </td>
+                    {/foreach}
+                </tr>
+                <tr>
+                    <th>即时</th>
+                    {if isset($odds.time['handicap'])}
+                    <td class="text-danger number">{:handicap($odds.time['handicap'],false,false,$arena.game_type)}</td>
+                    {elseif isset($odds.time['over'])}
+                    <td class="text-danger number">{$odds.time['over']}</td>
+                    {elseif isset($odds.time['under'])}
+                    <td class="text-danger number">{$odds.time['under']}</td>
+                    {/if}
+
+                    {foreach $chartCategories as $key => $vo}
+                    <td class="text-danger number">
+                        {$odds.time[$key]}
+                    </td>
+                    {/foreach}
+                </tr>
+                {if $arena.status neq ARENA_STATEMENT_END}
+                <tr>
+                    <th>--</th>
+                    {if isset($odds.time['handicap'])}
+                    <td>--</td>
+                    {elseif isset($odds.time['over']) || isset($odds.time['under'])}
+                    <td>--</td>
+                    {/if}
+
+                    {foreach $chartCategories as $key => $vo}
+                    <td>
+                        <p>预计支付奖金：{:numberFormat($arenaOdds[$key]['bonus'],2,true)}</p>
+                        <p>预计盈亏：{:numberFormat($arena['bet_money'] - $arenaOdds[$key]['bonus'],2,true)}</p>
+                    </td>
+                    {/foreach}
+                </tr>
+                {/if}
+            </table>
+            {/if}
+        </div>
+        <div id="bet-list-content" class="table-responsive clear">
+            <table class="table table-hover table-bordered table-condensed table-head">
+                <thead>
+                <tr>
+                    <th>用户昵称</th>
+                    <th>投注内容</th>
+                    <th>投注金额</th>
+                    <th>赔率</th>
+                    {if in_array($arena.rules_type,[RULES_TYPE_ASIAN,RULES_TYPE_OU,RULES_TYPE_KILL_NUM])}
+                    <th>盘口/预设总分</th>
+                    {/if}
+                    <th>可能收益</th>
+                    {if $arena['status'] eq ARENA_STATEMENT_END}
+                    <th class="text-danger">结算</th>
+                    <th class="text-danger">佣金</th>
+                    <th class="text-danger">状态</th>
+                    {/if}
+                    <th>投注时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                <tr>
+                    <td>{:getUser($vo.user_id,'nickname')}</td>
+                    <td>{$arenaOdds[$vo['target'].$vo['item']]['name']}
+                        {if $arenaOdds[$vo['target'].$vo['item']]['target_name'] && !is_numeric($arenaOdds[$vo['target'].$vo['item']]['target_name'])}
+                        &nbsp;{$arenaOdds[$vo['target'].$vo['item']]['target_name']}
+                        {/if}
+                    </td>
+                    <td class="number">{:numberformat($vo.money,2,true)}</td>
+                    <td class="number">{$vo.odds}</td>
+                    {if in_array($arena.rules_type,[RULES_TYPE_ASIAN,RULES_TYPE_OU,RULES_TYPE_KILL_NUM])}
+                    <td class="number">
+                        {if in_array($arena.rules_type,[RULES_TYPE_ASIAN])}{:handicap($vo['handicap'],false,false,$arena.game_type)}
+                        {elseif in_array($arena.rules_type,[RULES_TYPE_OU,RULES_TYPE_KILL_NUM])}{$vo['under']}{/if}
+                    </td>
+                    {/if}
+                    <td class="number">
+                        {if $arena.classify eq ARENA_CLASSIFY_CREDIT}
+                        {:number_format(forWin($vo.money,$vo.odds,$arena.rules_type,$vo.brok,$arena.game_type)['win_total'] - $vo.money,2)}
+                        {else}
+                        {:number_format(forWin($vo.money,$vo.odds,$arena.rules_type,$vo.brok,$arena.game_type)['win_total'],2)}
+                        {/if}
+                    </td>
+                    {if $arena['status'] eq ARENA_STATEMENT_END}
+                    {if $vo.status eq DEPOSIT_LOST_HALF}
+                    <td class="number text-info">
+                        {$vo.money / 2}
+                    </td>
+                    <td class="number text-muted">-</td>
+                    {else}
+                    <td class="number text-danger">
+                        {if $arena.classify eq ARENA_CLASSIFY_CREDIT && $vo.win_money > 0}
+                        {:number_format($vo.win_money-$vo.money,2)}
+                        {else}
+                        {:number_format($vo.win_money,2)}
+                        {/if}
+                    </td>
+                    <td class="number text-danger">{$vo.fee}</td>
+                    {/if}
+
+                    <td>
+                        {if in_array($arena.status,[ARENA_START,ARENA_PLAY,ARENA_END,ARENA_STATEMENT_END])}
+                        {:betStatus($vo.status,true,$vo.win_money)}
+                        {else}
+                        {:arenaStatusToWord($arena.status,true,$arena.play.play_time,$arena.play.status)}
+                        {/if}
+                    </td>
+                    {/if}
+                    <td>{:date("Y-m-d H:i:s",$vo.create_time)}</td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <center id="page-ajax-content" data-toggle="#bet-list-content">{$list->render()}</center>
+        </div>
+    </div>
+</div>
+<script>
+
+    var pointWidth = null;
+    {if count($chartCategories) < 8}pointWidth = 80;{/if}
+
+    $(function () {
+
+        ChartsOption.colors = ['#bbdab2','#50B432'];
+        ChartsOption.chart['type'] = 'column';
+        ChartsOption.plotOptions = {
+            column : {
+                stacking : 'normal',
+                pointWidth : pointWidth,
+                dataLabels : {
+                    enabled : true,
+                    color : (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                    style : {
+                        textShadow : '0 0 3px black'
+                    }
+                }
+            }
+        };
+        ChartsOption.legend = {
+            align:'right',
+            verticalAlign : 'top'
+        };
+        ChartsOption.tooltip = {
+            crosshairs : 'true',
+            formatter : function () {
+                return '<b>'+this.x+'</b><br/>'+
+                                this.series.name+':'+this.y+'<br/>'+
+                                '总量:'+this.point.stackTotal;
+            }
+        };
+        ChartsOption.chart.renderTo = 'chartsContainer';
+        ChartsOption.series = {:json_encode(array_values($chartData))};
+        new Highcharts.Chart(ChartsOption,function(chart){
+
+            chart.xAxis[0].setCategories({:json_encode(array_values($chartCategoriesName))});
+        });
+
+        $(document).on('click',"#page-ajax-content a",function () {
+            var self = $(this);
+            var target = $("#bet-list-content");
+            var url = self.attr("href");
+            Ajax.get(url,{'ajax':1},function (ret) {
+                ret = extractContainer(ret,'#bet-list-content');
+                $("#bet-list-content").html(ret.html());
+            });
+            return false;
+        });
+        $(window).resize(function () {
+            setOddsTable();
+        });
+        setOddsTable();
+
+    });
+
+    function setOddsTable() {
+        var width = $("#table-responsive-oddslist").find('table').width();
+        var contentWidth = $("#page-content").width();
+        if(width > contentWidth - 30){
+            $("#table-responsive-oddslist").css({
+                'overflow-x':'auto'
+            })
+        }else{
+            $("#table-responsive-oddslist").css({
+                'overflow-x':'hidden'
+            })
+        }
+    }
+
+    function disabledArena(id) {
+        Tips.warn("确定要取消此房间吗？<br/><em class='org'>取消后：保证金返还给房主；投注返还给用户。</em>",function () {
+            Ajax.post('{:url($controller."/arena_disabled")}',{'id':id},function (ret) {
+                if(ret.code){
+                    Tips.success("操作成功",function () {location.reload() });
+                }else{
+                    Tips.error(ret.msg);
+                }
+            });
+        },true);
+    }
+    function delArena(id) {
+        Tips.warn("确定要删除此房间吗？",function () {
+            Ajax.post('{:url($controller."/arena_del")}',{'id':id},function (ret) {
+                if(ret.code){
+                    Tips.success("操作成功",function () {location.reload() });
+                }else{
+                    Tips.error(ret.msg);
+                }
+            });
+        },true);
+    }
+
+
+    function sealArena(id,status) {
+        Tips.warn("确定要封擂吗？<br/><em>封擂后用户将不能再投注！</em>",function () {
+            Ajax.post('{:url($controller."/sealArena")}',{'id':id},function (ret) {
+                if(ret.code){
+                    Tips.success("操作成功",function () {location.reload() });
+                }else{
+                    Tips.error(ret.msg);
+                }
+            });
+        },true);
+    }
+    function unsealArena(id,status) {
+        Tips.warn("确定要解封此房间吗？<br/><em>解封后用户可以继续投注！</em>",'',function () {
+            Ajax.post('{:url($controller."/unsealArena")}',{'id':id},function (ret) {
+                if(ret.code){
+                    Tips.success("操作成功",function () {location.reload() });
+                }else{
+                    Tips.error(ret.msg);
+                }
+            });
+        },true);
+    }
+</script>

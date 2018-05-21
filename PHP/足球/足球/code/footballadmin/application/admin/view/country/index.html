@@ -1,0 +1,64 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="mb10 clearfix">
+            {if checkPermit('country','addCountry')}
+            <div class="pull-right">
+                <a href="{:url('country/addCountry')}" class="btn btn-success btn-sm j-dialog-handle" title="新增国家"><i class="icon-plus"></i> 新增国家</a>
+            </div>
+            {/if}
+            <form class="form-inline" method="get">
+                <div class="input-group">
+                    <span class="input-group-addon">国家名称</span>
+                    <input type="text" class="form-control" name="name" value="{$name ?? ""}">
+                </div>
+                <button class="btn btn-primary btn-sm">搜索</button>
+            </form>
+
+        </div>
+        <div class="table-responsive clear">
+        	<table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th rowspan="2" width="80">ID</th>
+                    <th rowspan="2" width="350">国家名称</th>
+                    <th rowspan="2">logo</th>
+                    <th rowspan="2" width="150">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                    <tr>
+                        <td>{$vo.id}</td>
+                        <td>{$vo.name}</td>
+                        <td>{if $vo.logo}<img src="{$domain}{$vo.logo}" width="40"> {/if}</td>
+                        <td class="dr_option" >
+                            {if checkPermit('country','addCountry')}
+                            <a href="{:url('country/addCountry',['id'=>$vo.id])}" class="btn btn-xs btn-primary j-dialog-handle" title="编辑国家">编辑国家</a>
+                            {/if}
+                            {if checkPermit('country','delCountry')}
+                            <a href="javascript:;" onclick="delCountry({$vo.id})" class="btn btn-xs btn-danger" title="删除">删除</a>
+                            {/if}
+                        </td>
+                    </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <center>{$list->render()}</center>
+        </div>
+    </div>
+</div>
+<script>
+	function delCountry(id){
+		Tips.warn("确定执行该操作？",'',function () {
+            Ajax.post('{:url("country/delCountry")}',{'id':id},function (ret) {
+            	if(ret.code == 1){
+                    Tips.success("操作成功",function () {
+                        location.reload();
+                    })
+            	}else{
+                    Tips.error(ret.msg);
+            	}
+            });
+        },true);
+	}
+</script>

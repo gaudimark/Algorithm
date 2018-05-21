@@ -1,0 +1,48 @@
+<div class="panel">
+    <div class="panel-body" style="width: 550px;">
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url($controller.'/teams_add')}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+            <input type="hidden" name="id" value="{$id ?? 0}">
+            <div class="form-group">
+                <label class="col-md-3 control-label">球队名称：</label>
+                <div class="col-md-5">
+                    <input type="text" class="form-control" name="name" id="name" value="{$team_info.name ?? ''}"  data-parsley-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">国家：</label>
+                <div class="col-md-5">
+                    <select class="form-control" name="country" id="country">
+                        {volist name="country" id="vo"}
+                        <option value="{$vo.id}" {if $team_info && $team_info.country_id == $vo.id}selected{/if}>{$vo.first}{$vo.name}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">logo：</label>
+                <div class="col-md-8">
+                    {:widget('Upload/single',[
+                    'name' => 'logo',
+                    'value' => $team_info ? $team_info.logo : '',
+                    'text' => '上传logo',
+                    'exts' => '*.jpg;*.jpg;*.jpeg;*.gif;*.png',
+                    'tips' => '支持PNG，JPG，GIF格式图片,图片最小尺寸为：90 X 90 像素'
+                    ])}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">球队别名：</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="alias" id="alias" value="{$team_info.alias ?? ''}">
+                </div>
+            </div>
+            <div class="form-group dialog-handle">
+                <label class="col-md-3 control-label">&nbsp;</label>
+                <div class="col-md-8">
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

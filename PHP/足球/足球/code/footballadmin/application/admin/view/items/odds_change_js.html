@@ -1,0 +1,111 @@
+<script>
+    var playItems = {
+        'home' : '{$play.team_home_name}',
+        'guest' : '{$play.team_guest_name}'
+    };
+    var handicapList = {:json_encode($handicapList)};
+    var itemId = {$item_id};
+    var rule_id = {$rules_id ?? 0};
+    var rule_type = {$rules_type ?? 0};
+    var oddsList = {:json_encode($odds)};
+    var oddsId = {$id ?? 0};
+    var handicap = false;
+    var under = false;
+
+    $(function () {
+        $("#rulesSelect").change(function () {
+            handicap = false;
+            under = false;
+            setTpl(oddsList[$(this).val()]);
+            rule_type = $(this).find("option:selected").attr("data-type");
+            $("input[name=rules_type]").val(rule_type);
+        });
+        {if isset($arena) && $arena}
+        $("#auto_update_odds").click(function () {
+            if($(this).prop("checked")){
+                $("#rules-list-content").find("input").attr("disabled",true);
+            }else{
+                $("#rules-list-content").find("input").removeAttr("disabled");
+            }
+        });
+        {/if}
+    });
+
+    function setTpl(lists) {
+        var html = '<div>';
+        for(var k in lists){
+            var odds = lists[k];
+            var name = odds['name']+($.isNumeric(odds['target_name']) || odds['target_name'] == odds['name']  ? "" :" "+ odds['target_name']);
+            html += '<div class="col-md-4">' +
+                    '<input type="hidden" name="data['+k+'][target]" value="'+odds['target']+'">'+
+                    '<input type="hidden" name="data['+k+'][item]" value="'+odds['item']+'">'+
+                    '<input type="hidden" name="item['+k+']" value="'+name+'">'+
+                    '<div class="input-group mt10">'
+                    + '<span class="input-group-addon">'+name+'</span>'
+                    + '<input type="text" class="form-control" name="data['+k+'][odds]" value="'+ odds['odds'] +'">'
+                    + '</div></div>';
+            if(!handicap && odds['handicap']){
+
+                html += '<div class="col-md-4"><div class="input-group mt10">'
+                        + '<span class="input-group-addon">让球/让分</span>';
+
+                if(itemId == {$Think.const.GAME_TYPE_FOOTBALL}){
+                    html += getHandicap(k,odds['handicap_value']);
+                }else{
+                    html +='<input type="hidden" name="data[handicap][target]" value="handicap">'+
+                            '<input type="hidden" name="data[handicap][item]" value="">'+
+                            '<input type="text" class="form-control" name="data[handicap][odds]" value="'+ odds['handicap_value'] +'">';
+                }
+
+                html += '</div></div>';
+                handicap = true;
+            }
+            if(under === false && odds['under'] != undefined && odds['over'] != undefined ){
+
+                html += '<div class="col-md-4"><div class="input-group mt10">'
+                        + '<span class="input-group-addon">预设总分</span>'
+                        +'<input type="hidden" name="data[under][target]" value="under">'
+                        +'<input type="hidden" name="data[under][item]" value="">'
+                        +'<input type="text" class="form-control" name="data[under][odds]" value="'+ odds['under'] +'">'
+                        + '</div></div>';
+                under = true;
+            }
+
+        }
+        html += '</div>';
+        $("#rules-list-content").html(html);
+        setAutoUpdateOdds();
+    }
+
+    function getHandicap(key,sel) {
+        var select = '<input type="hidden" name="data[handicap][target]" value="handicap">'+
+                '<input type="hidden" name="data[handicap][item]" value="">{if isset($has_update) && $has_update}<!--<input type="hidden" name="data[handicap][odds]" value="'+sel+'">-->{/if}';
+        select += '<select class="form-control" name="data[handicap][odds]" >';
+        //{if isset($has_update) && $has_update}disabled{/if}
+        //console.log(handicapList);
+        for(var i in handicapList){
+            select += '<option value="'+handicapList[i]['value']+'" '+(sel == handicapList[i]['value'] ? 'selected':'')+'>'+handicapList[i]['text']+'</option>';
+        }
+        select += '</select>';
+        return select;
+    }
+    if(oddsId) {
+        setTpl(oddsList);
+    }else{
+        var rulesSelect = $("#rulesSelect");
+        rulesSelect.find("option").eq(1).prop("selected",true);
+        rule_id = rulesSelect.find("option").eq(1).val();
+        rule_type = rulesSelect.find("option").eq(1).attr("data-type");
+        $("input[name=rules_type]").val(rule_type);
+       // rulesSelect.change();
+        setTpl(oddsList[rule_id]);
+    }
+
+    function setAutoUpdateOdds() {
+        try{
+            if(autoUpdateOdds == 1) {
+                $("#rules-list-content").find("input").attr("disabled",true);
+            }
+        }catch(e){}
+    }
+</script>

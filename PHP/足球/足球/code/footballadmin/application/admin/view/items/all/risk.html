@@ -1,0 +1,41 @@
+
+<div class="panel" id="arena-risk-lists">
+    <div class="panel-body" style="width: 700px;">
+        <div class="table-responsive clear">
+        <table class="table table-hover table-bordered table-head">
+            <thead>
+            <tr>
+                <th width="120">房间ID</th>
+                <th >队伍</th>
+                <th width="150">预计亏损</th>
+                <th width="80">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="lists" id="vo"}
+            <tr>
+                <td><span class="number">{$vo.arena_id}</span></td>
+                <td style="text-align: left">{$vo.teams[0]['name']} VS {$vo.teams[1]['name']}</td>
+                <td class="text-danger number">{:numberFormat($vo.risk,2,true)}</td>
+                <td> <a class="btn btn-xs btn-danger ajax"  data-tips="0" href="{:url('items.all/risk',['arena_id' => $vo.arena_id])}" title="查看">查看</a></td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+        </div>
+        <center>{$paginate->render()}</center>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        $(document).on("click","#arena-risk-lists .pagination a",function () {
+            var href = $(this).attr("href");
+            Ajax.get(href,{},function (data) {
+                var content = extractContainer(data,'#arena-risk-lists');
+                $("#arena-risk-lists").html(content.html());
+            });
+            return false;
+        })
+    });
+</script>

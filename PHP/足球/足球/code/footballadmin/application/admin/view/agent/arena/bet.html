@@ -1,0 +1,138 @@
+
+<div class="panel">
+    <div class="panel-body">
+        {if isset($play) && $play}
+        <div style="position: absolute;right:20px;">
+            <a href="javascript:history.back();" class="btn btn-primary btn-xs"><i class="fa-angle-double-left"></i> 返回</a>
+        </div>
+        <div class="mb10 clearfix">
+            <div class="alert alert-warning pull-left" style="margin-bottom: 0">
+                <div class="play_home pull-left">
+                    <p class="text-danger">主场</p>
+                    <h4 style="text-align: right">{$play.team_home_name}</h4>
+                </div>
+                <div class="play_home pull-left" style="margin: 0 60px;">
+                    <p class="text-danger">{:date("Y-m-d H:i",$play.play_time)}</p>
+                    <h4 style="text-align: center">{$play.match.name}</h4>
+                </div>
+                <div class="play_home pull-left">
+                    <p class="text-danger">&nbsp;</p>
+                    <h4 style="text-align: right">{$play.team_guest_name}</h4>
+                </div>
+            </div>
+        </div>
+        {/if}
+        <div class="mb10">
+            <form class="form-inline" method="get">
+                <input type="hidden" name="play_id" value="{$play_id}">
+                <div class="input-group">
+                    <span class="input-group-addon">昵称</span>
+                    <input type="text" class="form-control" style="width: 120px" name="nickname" value="{$nickname ?? ""}">
+                    <span class="input-group-addon">投注ID</span>
+                    <input type="text" class="form-control" style="width: 100px" name="bet_id" value="{$bet_id ?? ""}">
+                    <span class="input-group-addon">状态</span>
+                    <select class="form-control" name="status">
+                        <option value="0">全部</option>
+                        <option value="{$Think.const.DEPOSIT_WIN}" {if $status eq DEPOSIT_WIN}selected{/if} >已中奖</option>
+                        <option value="{$Think.const.DEPOSIT_LOSE}" {if $status eq DEPOSIT_LOSE}selected{/if}>未中奖</option>
+                        <option value="{$Think.const.DEPOSIT_NOT_START}" {if $status eq DEPOSIT_NOT_START}selected{/if}>结果未公开</option>
+                        <option value="{$Think.const.DEPOSIT_CANCEL}" {if $status eq DEPOSIT_CANCEL}selected{/if}>取消</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary btn-sm mt10">搜索</button>
+            </form>
+        </div>
+        <div class="table-responsive clear">
+            <table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th rowspan="2" width="80">投注ID</th>
+                    <th rowspan="2" width="150">用户昵称</th>
+                    <th colspan="3">比赛</th>
+                    <th colspan="3">投注 (投注内容，赔率)</th>
+                    <th rowspan="2">投注金额</th>
+                    <th rowspan="2">预计收益</th>
+                    <th rowspan="2">结算(佣金)</th>
+                    <th rowspan="2">查看价格</th>
+                    <th rowspan="2" width="100">投注房间ID</th>
+                    <th rowspan="2" width="100">状态</th>
+                    <th rowspan="2" width="200">投注时间</th>
+                    <!--<th rowspan="2" width="100">操作</th>-->
+                </tr>
+                <tr>
+                    <th width="120">赛事</th>
+                    <th width="120">主场</th>
+                    <th width="120">客场</th>
+                    <th width="80">玩法</th>
+                    <th width="150">投注对象</th>
+                    <th width="80">赔率</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.nickname}</td>
+                    <td>{$vo.match.name}</td>
+                    <td>{$vo['teams'][0]['name']}</td>
+                    <td>{$vo['teams'][1]['name']}</td>
+                    <td>{:parseRuleName(getRuleData($vo.game_type,$vo.rules_id,'name'),$vo.teams)}</td>
+                    <td class="text-primary" style="text-align: left">
+                        {if isset($vo.arena_odds[$vo['target'].$vo['item']])}
+                        {$vo.arena_odds[$vo['target'].$vo['item']]['name']}
+                        {if !is_numeric($vo.arena_odds[$vo['target'].$vo['item']]['target_name']) }
+                        &nbsp;{$vo.arena_odds[$vo['target'].$vo['item']]['target_name']}
+                        {/if}
+                        {/if}
+                    </td>
+                    <td class="text-danger number">
+                        {$vo.odds}
+                    </td>
+                    <td class="text-warning number">{:number_format($vo.money)}</td>
+                    <td class="text-warning number">
+                        {:number_format(forWin($vo.money,$vo.odds,$vo.rules_type,$vo.brok,$vo.game_type)['win_total'],2)}
+                    </td>
+                    <td class="text-success number">
+                        {if $vo.win_money > 0}
+                        {:number_format($vo.win_money,2)}
+                        {if $vo.fee}
+                        ({$vo.fee})
+                        {/if}
+                        {/if}
+                    </td>
+                    <td class="text-warning number">{$vo.buy}</td>
+                    <td>{$vo.arena_id}</td>
+                    <td>
+                        {if in_array($vo.arena_status,[ARENA_START,ARENA_PLAY,ARENA_END,ARENA_STATEMENT_END])}
+                        {:betStatus($vo.status,true,$vo.win_money)}
+                        {else}
+                        {:arenaStatusToWord($vo.arena_status,true,$vo.play_time,$vo.play_status)}
+                        {/if}
+                    </td>
+                    <td>{:date("Y-m-d H:i:s",$vo.create_time)}</td>
+                    <!--<td>
+                        <a href="javascript:cancel({$vo.id});" class="btn btn-xs btn-primary">取消</a>
+                    </td>-->
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+
+            <center>{$list->render()}</center>
+        </div>
+    </div>
+</div>
+<script>
+    function cancel(id) {
+        window.top.msgBox.confirm('确定要取消该投注单吗？',function (o) {
+            var txt = o._tpl.find("textarea").val();
+            Ajax.post('{:url("football.bet/cancel")}',{'id':id,'txt':txt},function (ret) {
+                if(ret.code){
+                    window.top.msgBox.success("操作成功");reloadIframe('');
+                }else{
+                    window.top.msgBox.error(ret.msg);
+                }
+            });
+        },true,true,'取消说明');
+    }
+</script>

@@ -1,0 +1,157 @@
+<div class="page-upload-box" id="page-upload-box">
+    <div class="note">
+        <div class="pull-right"><a href="#" class="btn btn-success btn-xs" id="uploader-handle">上传图片</a></div>
+        <i class="icon-exclamation-sign"></i> 上传过程中，请勿关闭或刷新当前窗口
+    </div>
+    <div class="file-list">
+        <div class="file-header">
+            <div class="filename">文件名称</div>
+            <div class="filesize">大小</div>
+            <div class="status">状态</div>
+            <div class="opts">操作</div>
+        </div>
+        <div id="file-list"></div>
+        <!--<div class="file-item">
+            <div class="file-info">
+                <div class="filename">bootstrap-3.3.4-dist.zip</div>
+                <div class="filesize">531kb</div>
+                <div class="status">210%（7426kb/s）</div>
+                <div class="opts">暂停 | 移除</div>
+            </div>
+            <div class="file-progress" style="width:20%;"></div>
+        </div>
+        <div class="file-item">
+            <div class="file-info">
+                <div class="filename">bootstrap-3.3.4-dist.zip</div>
+                <div class="filesize">531kb</div>
+                <div class="status">0%</div>
+                <div class="opts">暂停 | 移除</div>
+            </div>
+            <div class="file-progress" style="width:0%;"></div>
+        </div>-->
+    </div>
+    <div class="file-total" id="file-total">
+        <span>正在上传：<em id="fileSuccessTotal">0</em>/<em id="fileTotal">0</em></span>
+        <span>总进度：<em id="progressTotal">0</em></span>
+        <span>速度：<em id="speedTotal">0</em></span>
+    </div>
+</div>
+
+<script>
+    var callbackData = [];
+    var UploaderHandle = null;
+    var Old_BytesUploaded = 0;
+    var UploadingFileId = null;
+    var fileTotal = 0;
+    var fileSuccessTotal = 0;
+    var fileErrorTotal = 0;
+    var formData = {
+        'file_post_name' : 'uploadfile'
+    };
+
+    $("#uploader-handle").uploadify({
+        'buttonCursor' : 'cursor',
+        'debug' : false,
+        'auto' : true,
+        'uploader' : '{:url("Misc/uploadsave")}',
+        'swf' : '/assets/common/plugins/uploadify/swfupload.swf',
+        'width' : '98',
+        'height' : '34',
+        'formData' :{
+            'file_post_name' : 'uploadfile',
+            'ajax' : 1
+        },
+        'fileObjName' : 'uploadfile',
+        'file_post_name' : 'uploadfile',
+        'buttonText' : '<i class="icon-upload"></i> 上传文件',
+        'buttonClass' : 'btn btn-primary upload-handle btn-sm',
+        'uploadLimit' : 9999,
+        'multi' : true,
+        'queueSizeLimit' : 9999,
+        'fileTypeExts' : '*.*',
+        'onInit' : function () {},
+        'onSelect' : function (fileObj) {
+            fileTotal++;
+            $('#page-upload-bg').css({
+                'width' : $(window).width(),
+                'height' : $(document).outerHeight(true)
+            }).show();
+            $('#page-upload-box').show();
+            addFileToQueue(fileObj);
+        },
+        'onCancel' : function(fileObj){fileTotal--;},
+        'onUploadProgress' : function (file,bytesUploaded,bytesTotal,totalBytesUploaded,totalBytesTotal) {
+            uploadProgress(file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal);
+        },
+
+        'onUploadStart' : function (file) {
+            $("#fileSuccessTotal").text(fileSuccessTotal+1);
+            $("#fileTotal").text(fileTotal);
+            UploadingFileId = file.id;
+            var target = $('.file-item[file-id='+file.id+']');
+            target.find('.opts').text('-');
+        },
+        'onUploadSuccess' : function (file,ret,response) {
+            fileSuccessTotal++;
+            var target = $('.file-item[file-id='+file.id+']');
+            ret = jQuery.parseJSON(ret);
+            if(ret.code == 1){
+                target.find('.file-progress').addClass('file-progress_success');
+                callbackData.push(ret.data.url);
+            }else{
+                target.find('.file-progress').addClass('file-progress_error');
+                target.find('.opts').html(data.info);
+            }
+        },
+        'onUploadError' : function(fileObj, errorCode, errorMsg, errorString){
+            if(errorString == 'Cancelled'){return false;}
+            fileErrorTotal++;
+        },
+        'onAddQueueItem' : function (file) {
+        },
+        'onUploadComplete' : function (file) {
+        },
+        'onQueueComplete' : function (queueData) {
+            //Tips.success('上传完成');
+            {$caller}(callbackData);
+        },
+        'onFallback' : function () {}
+    });
+
+
+    function uploadProgress(file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal){
+        var target = $('.file-item[file-id='+file.id+']');
+        var progress = target.find('.file-progress');
+        var num  = parseFloat((bytesUploaded / bytesTotal)*100);
+        progress.css({'width' : parseInt(num)+'%'});
+        if(num >= 100){
+            target.find('.status').html('完成');
+        }else{
+            target.find('.status').html(num.toFixed(2)+'%('+formatSize(bytesUploaded-Old_BytesUploaded)+'/S)');
+        }
+        if(bytesUploaded-Old_BytesUploaded > 0){
+            $("#speedTotal").text(formatSize(bytesUploaded-Old_BytesUploaded)+'/S');
+        }else{
+            $("#speedTotal").text('0 KB/S');
+        }
+
+        Old_BytesUploaded = bytesUploaded;
+        var p = Math.min(100,parseFloat((totalBytesUploaded / totalBytesTotal)*100));
+        $("#progressTotal").text(p.toFixed(2)+'%');
+    }
+
+    function addFileToQueue(fileObj){
+        var Tpl = $('<div class="file-item"><div class="file-info"><div class="filename"></div><div class="filesize"></div><div class="status"></div><div class="opts"><a href="javascript:;" onclick="removefile(\''+fileObj.id+'\')">移除</a></div></div><div class="file-progress" style="width:0;"></div></div>');
+        Tpl.find(".filename").text(fileObj.name);
+        Tpl.find('.filesize').text(formatSize(fileObj.size));
+        Tpl.find('.status').text('等待...');
+        Tpl.attr('file-id',fileObj.id);
+        Tpl.appendTo($('#file-list'));
+    }
+    function removefile(id){
+        $("#uploader-handle").uploadify('cancel',id);
+        $('.file-item[file-id='+id+']').fadeOut(200,function(){
+            $(this).remove();
+        })
+    }
+</script>

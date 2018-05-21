@@ -1,0 +1,132 @@
+<div class="panel">
+    <style>
+        .table-odds-add  th,
+        .table-odds-add td{padding:3px;text-align: center;vertical-align: middle !important;}
+        .table-odds-add .form-control{padding:3px !important;}
+    </style>
+    <div class="panel-body" style="width:900px;" id="odds-panel-body">
+        <div class="help-block bg-warning page-note" style="margin-top: -11px;">
+            让球、让分、预设总分有/时：正数必须都是正数，负数必须都为负数，如：2/2.5,-2/-2.5；
+        </div>
+        {if isset($has_update) && $has_update}
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url($controller."/arena_conf")}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+        {else}
+        <form class="form-horizontal parsley-form auto-submit-form" action="{:url($controller."/arena_publish")}" id="__formId__" name="__formId__" method="post" data-parsley-validate>
+        {/if}
+        <input type="hidden" name="id" value="{$id ?? 0}">
+        <input type="hidden" name="play_id" value="{$play_id ?? 0}">
+        <input type="hidden" name="company_id" id="company_id" value="{$company_id ?? 0}">
+        <input type="hidden" name="odds_id" id="odds_id" value="{$odds_id ?? 0}">
+        <input type="hidden" name="rules_id" value="{$rules ?? 0}">
+        <input type="hidden" name="game_id" value="{$play.game_id ?? 0}">
+        <div class="form-group" id="rules-list-content"></div>
+        {if !isset($has_update) || !$has_update}
+        <div class="form-group">
+            <label class="col-md-3 control-label">房间保证金</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control" name="deposit" id="deposit" value="{if isset($sys_arena_min_deposit[$item_id])}{$sys_arena_min_deposit[$item_id]}{/if}" data-parsley-pattern="^\d+$" data-parsley-required="true">
+            </div>
+        </div>
+        {/if}
+        {if !isset($arena) || (isset($arena) && $arena && $arena.classify neq ARENA_CLASSIFY_CREDIT)}
+        <div class="form-group">
+            <label class="col-md-3 control-label">每单最少投注</label>
+            <div class="col-md-3">
+                <input type="text" class="form-control" name="min_bet" id="min_bet" value="{if isset($arena)}{$arena.min_bet ?? 0}{else}{if isset($sys_arena_min_bet_money[$item_id])}{$sys_arena_min_bet_money[$item_id]}{/if}{/if}" data-parsley-pattern="^\d+$" data-parsley-required="true">
+                <div class="help-block">0表示不限制</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">每人累计最多投注</label>
+            <div class="col-md-3">
+                <input type="text" class="form-control" name="max_bet" id="max_bet" value="{$arena.max_bet ?? 0}" data-parsley-pattern="^\d+$" data-parsley-required="true">
+                <div class="help-block">0表示不限制</div>
+            </div>
+        </div>
+ <input type="hidden"  name="private" value="1">
+         <!--<div class="form-group">
+            <label class="col-md-3 control-label">隐私</label>
+            <div class="col-md-8">
+               
+               {if !isset($arena) || (isset($arena) && $arena.has_sys)}
+                <div class="radio">
+                    <label><input type="radio" name="private" value="{$Think.const.ARENA_DISPLAY_ALL}" {if !isset($arena) || !$arena || (isset($arena) && $arena.private eq ARENA_DISPLAY_ALL)}checked{/if}> 所有人可参加</label>
+                </div>
+                {/if}
+                <!--{if isset($arena) && !$arena.has_sys && !$arena.has_robot}
+                <div class="radio">
+                    <label><input type="radio" name="private" value="{$Think.const.ARENA_DISPLAY_FRIENDS}" {if (isset($arena) && $arena.private eq ARENA_DISPLAY_FRIENDS)}checked{/if}> 仅好友可参加</label>
+                </div>
+                {/if}
+                <div class="radio">
+                    <label><input type="radio" name="private" value="{$Think.const.ARENA_DISPLAY_CODE}" {if isset($arena) && $arena.private eq ARENA_DISPLAY_CODE}checked{/if}>通过邀请码参加
+                        {if isset($arena) && $arena.invit_code && $arena.private eq ARENA_DISPLAY_CODE}<span class="text-danger">邀请码：{$arena.invit_code ?? ''}</span>{/if}
+                    </label>
+                </div>
+                {if isset($arena) && $arena.has_sys}
+                <div class="checkbox" style="display: none;" id="has_hide_box">
+                    <label><input type="checkbox" name="has_hide" id="has_hide" value="1" {if isset($arena) && $arena.has_hide eq 1}checked{/if}> 隐藏房间</label>
+                </div>
+                {/if}
+            </div>
+        </div>-->
+        {/if}
+        {if !isset($has_update) || !$has_update}
+        <div class="form-group" style="display: none">
+            <label class="col-md-3 control-label">房主设置</label>
+            <div class="col-md-5">
+                <label class="radio-inline"><input type="radio" name="user" value="1" checked>显示为“系统”</label>
+                <label class="radio-inline" style="display: none;"><input type="radio" name="user" value="2">模拟用户(机器人)</label>
+            </div>
+        </div>
+        {/if}
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">更新赔率</label>
+            <div class="col-md-5">
+                <label>
+                    <input type="checkbox" value="1" name="auto_update_odds" id="auto_update_odds" {if isset($arena) && !$arena['odds_id']}disabled{/if} {if !isset($arena) || (isset($arena) && $arena['auto_update_odds'] eq 1)}checked{/if} /> 自动更新
+                    <span class="text-danger" id="company_name">{if isset($company) && isset($company.name)}({$company.name}){/if}</span>
+                    <!--{if isset($arena) && $arena}
+                    <a href="{:url($controller.'/odds_monitor',['play_id'=>$arena.play_id,'rules_type' => $arena.rules_type,'opt' => 'change'])}" class="btn btn-xs btn-primary j-dialog-handle">选择其他赔率公司</a>
+                    {/if}-->
+                </label>
+            </div>
+        </div>
+        <div class="form-group dialog-handle">
+            <label class="col-md-3 control-label">&nbsp;</label>
+            <div class="col-md-8">
+                <button type="submit" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<script>
+    var isUpdate = {if isset($arena) && $arena.id} 1 {else}0{/if};
+    var autoUpdateOdds = {$arena.auto_update_odds ?? 0};
+    $(function () {
+        $("input[type=radio][name=private]").click(function () {
+            var val = $(this).val();
+            if(val == {$Think.const.ARENA_DISPLAY_CODE}){
+                $("#has_hide_box").show();
+            }else{
+                $("#has_hide_box").hide();
+            }
+        });
+    });
+    {if isset($arena) && $arena.private eq ARENA_DISPLAY_CODE}
+        $("#has_hide_box").show();
+    {/if}
+        function oddsChange(oddsData) {
+            /*oddsData = oddsData.split(",");
+            console.log(oddsData);
+            $("#odds_id").val(oddsData[0]);
+            $("#company_id").val(oddsData[1]);
+            $("#company_name").text('('+oddsData[2]+')');
+            $("#auto_update_odds").prop("checked",true);
+            autoUpdateOdds = 1;
+            setAutoUpdateOdds();*/
+        }
+</script>
+{include file="items/odds_change_js"}

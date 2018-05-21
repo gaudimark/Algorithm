@@ -1,0 +1,266 @@
+{include file="public/header"}
+<body style="background: #eee" onload="">
+<div class="container-fluid" style="padding: 0;">
+    <div id="page-header" class="navbar navbar-fixed-top"><!--
+        <div id="tool-op-menu" class="pull-left">
+            <i class="fa fa-bars"></i>
+        </div>-->
+        <nav id="top-nav" class="navbar">
+            <a href="javascript:;" id="mobile-nav" class="navbar-brand mobile-nav"><i class="fa fa-navicon"></i></a>
+            <a class="navbar-brand logo" href="#">管理中心</a>
+            <ul class="nav navbar-nav" id="top-nav-menu">
+                {foreach $topMenu as $key => $val}
+                {if $key eq 'divider' || $val['name'] == 'divider'}
+                <li class="divider"></li>
+                {else}
+                <li class="nav-item" data-id="{$key}">
+                    <a href="#" data-id="{$key}" title="{$val.name}">
+                        <i class="fa {$val.icon}"></i>
+                        <span>{$val.name}</span>
+                    </a>
+                </li>
+                {/if}
+                {/foreach}
+            </ul>
+            <div class="pull-right navbar-nav-right">
+                <ul class="nav navbar-nav">
+                    {if checkPermit('items.all',['risk','risk_total'])}
+                    <li class="nav-item">
+                        <a href="{:url('/items.all/risk')}" class="j-dialog-handle" title="房间盈亏预警">
+                            <i class="fa fa-warning" id="arena-risk-fa"></i>
+                            房间
+                            <span class="badge" id="arena-risk-total">0</span>
+                        </a>
+                    </li>
+                    {/if}
+                    <li class="nav-item">
+                        <a href="{:url('/misc/crontabLog')}" class="j-dialog-handle" title="采集状态">
+                            <i class="fa fa-exclamation" id="arena-log-fa"></i>
+                            采集
+                            <span class="badge" id="crontab_log_total">0</span>
+                        </a>
+                    </li>
+                    {if checkPermit('common','refresh')}
+                    <li class="nav-item">
+                        <a href="{:url('common/refresh')}" title="更新数据缓存" class="j-dialog-handle"><i class="fa fa-trash"></i></a>
+                    </li>
+                    {/if}
+                </ul>
+                <div class="user-profile">
+                    <a href="#" data-toggle="dropdown">
+                        <figure class="profile-picture">
+                            <img src="{if $admin_user && $admin_user['avatar']}/assets/attach/{$admin_user['avatar']}{else}/assets/attach/avatar_90x90.jpg{/if}" width="30" height="30" class="img-circle" />
+                        </figure>
+                        <div class="profile-info">
+                            <span class="name">{$admin_user.nickname ?? $admin_user.username}</span>
+                            <span class="role">
+                                {if $admin_user['role_id'] == -1}超级管理员
+                                {else}
+                                {$admin_role['name']}
+                                {/if}
+                            </span>
+                        </div>
+                        <i class="fa fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <ul>
+
+                            <!--<li><a href="{:url('index/profile@admin')}" class="j-dialog-handle"><i class="fa fa-edit"></i> 修改资料</a></li>-->
+                            <li><a href="{:url('index/password@admin')}" class="j-dialog-handle"><i class="fa fa-lock"></i> 修改密码</a></li>
+                            <li class="logout"><a href="{:url('login/logout@admin')}" id="logout"><i class="fa fa-off"></i> 安全退出</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div id="page-container">
+        <div id="page-menu">
+            <div class="sidebar-menu-wrapper clear">
+                <ul id="menu-list"></ul>
+            </div>
+        </div>
+        <div id="page-content">
+            <div class="container" id="pjax-container">{__CONTENT__}</div>
+        </div>
+    </div>
+</div>
+<div style="display: none">
+    <video src="/assets/admin/msn.mp3" id="video_remind">
+</div>
+<script>
+    var arenaRiskTimer = null;
+    var leftMenu = {:json_encode($leftMenu)};
+    var menuMark = '{$menuActive}';
+    var menuActive = {:json_encode($leftActive)};
+    $(function () {
+        reWindowSize();
+        $(window).resize(function () {
+            reWindowSize()
+        });
+        $(document).on('click','#top-nav-menu > li > a',function () {
+            //$("#top-nav-menu").hide();
+            var li = $(this).parent();
+            var topMenuKey = li.attr('data-id');
+            setMenu(topMenuKey);
+            var self = $(".sidebar-sub-menu a").eq(0);
+            //var li = self.closest('.li-menu');
+            //$(".sidebar-sub-menu").find("li").removeClass("active");
+            //li.addClass("active");
+            //self.parent().addClass("active").siblings().removeClass("active");
+            //location.href = self.attr("href");
+            //pjax(self.attr("href"));
+            return false;
+        }).on('click','#menu-list > li > a',function () {
+            var li = $(this).parent();
+            if(li.hasClass("active")){return false;}
+            $("#menu-list > li.active").removeClass("active").find(".sidebar-sub-menu").slideUp(300);
+            li.addClass("active").find(".sidebar-sub-menu").slideDown(300);
+            return false;
+        }).on("click",".sidebar-sub-menu a",function (e) {
+            //$("#top-nav-menu").hide();
+            var self = $(this);
+            var li = self.closest('.li-menu');
+            $(".sidebar-sub-menu").find("li").removeClass("active");
+            li.addClass("active");
+            self.parent().addClass("active").siblings().removeClass("active");
+            if(!self.hasClass('j-dialog-handle')) {
+                location.href = self.attr("href");
+                //pjax(self.attr("href"));
+            }
+            return false;
+        }).on("click","#mobile-nav",function () {
+            $("#top-nav-menu").fadeToggle(100);
+        });
+        $("*").click("click",function (e) {
+            var target = $(e.target).closest(".sidebar-menu-wrapper");
+            if(target.length == 0){
+                $(".sidebar-sub-menu ul").hide();
+            }
+        });
+        setMenu(menuMark,true);
+
+        {if checkPermit('items.all',['risk','risk_total'])}
+        getArenaRiskTotal();
+        {/if}
+        {if checkPermit('log',['crontabLog','crontabLogTotal'])}
+        getCrontabLog();
+        {/if}
+
+    });
+    function setMenu(topMenuKey,_init) {
+        if(!topMenuKey){return false;}
+        var list = leftMenu[topMenuKey];
+        $("#top-nav-menu").find("li[data-id="+topMenuKey+"]").addClass('active').siblings().removeClass("active");
+        var html = '';
+        //console.log(list);
+        for(var i=0; i < list.length;i++){
+            html += '<li class="li-menu"><a href="javascript:;">' +
+                    '<i class="fa '+list[i]['icon']+'"></i>' +
+                    '<span class="title">'+list[i]['name']+'</span>' +
+                    '<i class="arrow fa fa-angle-down"></i></a>';
+            if(list[i]['list']){
+                html += '<ul class="sidebar-sub-menu">';
+                var o = list[i]['list'];
+                for(var j =0;j < o.length; j++){
+                    var d = o[j];
+                    var className = d && d['class'] ? d['class'] : '';
+                    html += '<li class="'+(d['active'] && _init? 'active':'')+'"><a href="'+d.url+'" class="'+className+'">'+d['name']+'</a> </li>';
+                }
+                html += '</ul>';
+            }
+            html += '</li>';
+        }
+        var pageMenu = $("#menu-list");
+        pageMenu.html(html);
+        if(pageMenu.find("li.active").length > 0){
+            pageMenu.find("li.active").closest('.li-menu').addClass("active").siblings().removeClass("active")
+        }else{
+            if(menuActive &&　menuActive[topMenuKey]){
+                var temp = menuActive[topMenuKey];
+                //temp.splice(0,1);
+                //console.log(temp);
+                if(!temp || temp.length == 0){
+                    pageMenu.find(".sidebar-sub-menu").eq(0).find("li").eq(0).find("a").click();
+                }else{
+                    var liMenu = pageMenu.find(".li-menu").eq(temp[0]);
+                    if(liMenu.length == 0){
+                        liMenu = pageMenu.find(".li-menu").eq(0);
+                        temp[1] = temp[0];
+                    }
+                    liMenu.addClass("active");
+                    if(temp[1]){
+                        liMenu.find(".sidebar-sub-menu li").eq(temp[1]).addClass("active");
+                    }else{
+                        liMenu.find(".sidebar-sub-menu li").eq(0).addClass("active");
+                    }
+                }
+            }else {
+                pageMenu.find(".sidebar-sub-menu").eq(0).find("li").eq(0).find("a").click();
+            }
+        }
+    }
+    function reWindowSize() {
+        var pageContainer = $("#page-container");
+        var pageHeader = $("#page-header");
+        var pageMenu = $("#page-menu");
+        var pageContent = $("#page-content");
+        var wWidth = $(window).width();
+        minHeight = $(window).height() - pageHeader.outerHeight();
+        if(pageMenu.outerWidth(true) + pageContent.outerWidth(true) < wWidth){
+            pageContent.css({
+                'min-width' : wWidth - pageMenu.width()
+            });
+        }else{
+            pageContent.css({
+                'min-width' : 'auto'
+            });
+        }
+        minHeight = Math.max(minHeight,pageMenu.outerHeight(true));
+        pageContainer.css({
+            "min-height" : minHeight
+        });
+        pageContent.css({
+            "min-height" : minHeight
+        });
+        if (document.documentElement.clientHeight < document.documentElement.offsetHeight-10)
+        {
+            $("#form-footer").addClass("form-footer").width($('#pjax-container').outerWidth(true));
+        }else{
+            $("#form-footer").removeClass("form-footer").width('auto');
+        }
+    }
+    function getArenaRiskTotal() {
+        arenaRiskTimer && clearInterval(arenaRiskTimer);
+        Ajax.get("/items.all/risk_total",{},function (ret) {
+            if(ret && ret.code == 1){
+                $("#arena-risk-fa").stop();
+                if(ret.data.total > 0) {
+                    arenaRiskTimer = setInterval(function () {
+                        $("#arena-risk-fa").stop().fadeOut(400).fadeIn(300);
+                    },1000);
+                    document.getElementById("video_remind").play();
+                    $("#arena-risk-total").text(ret.data.total).show();
+                }else{
+
+                    $("#arena-risk-total").text(0).hide();
+                }
+            }
+        },{},false);
+        setTimeout(getArenaRiskTotal,61300);
+    }
+     function getCrontabLog(){         
+         Ajax.get("/misc/crontabLogTotal",{},function (ret) {
+             if(ret && ret.code == 1){
+                 if(ret.data.total > 0) {
+                     $("#crontab_log_total").text(ret.data.total).show();
+                 }else{
+                     $("#crontab_log_total").text(0).hide();
+                 }
+             }
+         },{},false);
+         setTimeout(getCrontabLog,112000);
+     }
+</script>
+</body>
+</html>

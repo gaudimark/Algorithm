@@ -1,0 +1,56 @@
+<div class="panel">
+    <div class="panel-body">
+        {if checkPermit('layout','sports_add')}
+        <div class="mb10">
+            <a href="{:url('layout/sports_add')}" class="btn btn-success btn-sm j-dialog-handle" ><i class="fa fa-plus"></i> 添加模块</a>
+        </div>
+        {/if}
+        <div class="table-responsive clear">
+            <table class="table table-hover table-bordered table-head">
+                <thead>
+                <tr>
+                    <th width="80">id</th>
+                    <th width="120">模块名称</th>
+                    <th width="100">绑定类型</th>
+                    <th>绑定对象</th>
+                    <th width="80">状态</th>
+                    <th width="60">HOT</th>
+                    <th width="100">排序</th>
+                    <th width="150">更新时间</th>
+                    <th width="150">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.name}</td>
+                    <td>{$items[$vo.item_id]['name'] ?? $vo.item_id}</td>
+                    <td>
+                        {if $vo.type == 'all'}全部
+                        {else}
+                            {foreach $vo.detail as $detail}
+                                <label class="label-info" style="padding:4px;">{$detail.name}</label>
+                            {/foreach}
+                        {/if}
+                    </td>
+                    <td>{if $vo.status eq STATUS_ENABLED}正常{else}禁用{/if}</td>
+                    <td>{if $vo.is_hot eq STATUS_YES}是{else}否{/if}</td>
+                    <td><span class="st-input" data-action="{:url('layout/sports_sort',['id' => $vo.id])}">{$vo.sort}</span></td>
+                    <td>{:date("Y-m-d H:i:s",$vo.update_time)}</td>
+                    <td class="dr_option" >
+                        {if checkPermit('layout','sports_add')}
+                        <a class="btn btn-xs btn-primary j-dialog-handle" href="{:url('layout/sports_add',['id' => $vo.id])}" title="修改">修改</a>
+                        {/if}
+                        {if checkPermit('layout','sports_delete')}
+                        <a class="ajax-delete btn btn-xs btn-danger" href="{:url('layout/sports_delete',['id' => $vo.id])}">删除</a>
+                        {/if}
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <center></center>
+        </div>
+    </div>
+</div>

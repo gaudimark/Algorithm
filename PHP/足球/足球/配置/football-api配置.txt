@@ -1,0 +1,34 @@
+# api配置
+
+	# mysql 配置
+	打开 /footballapi/application/library/conf/database.php	文件
+		
+		## 设置单数据库
+		// 服务器地址
+		'hostname'    => 'localhost',
+		// 数据库名
+		'database'    => 'football',
+		// 数据库用户名
+		'username'    => 'root',
+		// 数据库密码
+		'password'    => 'root',
+		// 数据库连接端口
+		'hostport'    => '3306',
+		
+	# DEBUG 设置
+	打开 /footballapi/index.php	文件
+	define("APP_DEBUG", true);
+		true				开
+		false				关
+		
+		
+	# cache设置
+	'cache' => [
+        'type'      => 'redis',
+        'host'       => '127.0.0.1',
+        'port'       => 6379,
+        'password'   => null,
+    ],
+	
+	'site_domain' => 'http://ftbtest.tmttg.com/', //后台域名
+    'site_source_domain' => 'http://ftbtest.tmttg.com/assets/',  //后台域名

@@ -1,0 +1,64 @@
+{__NOLAYOUT__}
+<style>
+    .checkbox-inline{width:45%;margin-left: 0 !important;margin-bottom: 5px;margin-right: 10px;}
+</style>
+<div class="panel">
+    <div class="panel-body" style="width: 400px;">
+        <div class="form-group form-group-title">数据缓存</div>
+        <div class="form-group clear">
+            <div class="col-md-12">
+                {foreach $cacheList as $key => $list}
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="refresh-checkbox" value="{$key}">
+                    <span class="refresh-status" style="display:none;"><i class="fa-spinner fa-spin"></i></span>
+                    {$list}
+                </label>
+                {/foreach}
+            </div>
+        </div>
+        <div class="form-group form-group-title clear">其他缓存</div>
+        <div class="form-group clear">
+            <div class="col-md-12">
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="refresh-checkbox" value="runtime_template">
+                    <span class="refresh-status" style="display:none;"><i class="fa-spinner fa-spin"></i></span>
+                    页面缓存
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="refresh-checkbox" value="runtime_log">
+                    <span class="refresh-status" style="display:none;"><i class="fa-spinner fa-spin"></i></span>
+                    清理运行日志
+                </label>
+            </div>
+        </div>
+        <div class="form-group dialog-handle">
+            <div class="col-md-8">
+                <button type="button" class="btn btn-primary" id="refresh-btn">更新</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#refresh-btn").click(function () {
+            var checkBox = $(".refresh-checkbox");
+            $.each(checkBox,function () {
+                var cb = $(this);
+                if(cb.is(":checked")){
+                    var parent = cb.closest('.checkbox-inline');
+                    parent.find(".refresh-status").show().html('<i class="fa fa-spinner fa-spin"></i>');
+                    Ajax.post('{:url('common/refresh')}',{'data':cb.val()},function (ret) {
+                        if(ret.code == 1){
+                            parent.find(".refresh-status").html('<i class="fa fa-check-circle text-success"></i>');
+                        }else{
+                            parent.find(".refresh-status").html('<i class="fa fa-times-circle text-danger"></i>');
+                        }
+                    },function () {
+                        parent.find(".refresh-status").html('<i class="fa fa-times-circle text-danger"></i>');
+                    });
+                }
+            })
+        });
+    });
+</script>

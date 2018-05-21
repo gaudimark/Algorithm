@@ -1,0 +1,235 @@
+[
+  {
+    "__type__": "cc.Prefab",
+    "_name": "sectionItemType2",
+    "data": {
+      "__id__": 1
+    },
+    "asyncLoadAssets": null
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "sectionItemType2",
+    "_children": [
+      {
+        "__id__": 2
+      },
+      {
+        "__id__": 5
+      }
+    ],
+    "_components": [
+      {
+        "__type__": "cc.Sprite",
+        "node": {
+          "__id__": 1
+        },
+        "_spriteFrame": {
+          "__uuid__": "b1WuZ6yKtLRrqvuR77IaPt"
+        }
+      },
+      {
+        "__type__": "cc.Button",
+        "node": {
+          "__id__": 1
+        },
+        "clickEvents": [
+          {
+            "__type__": "cc.ClickEvent",
+            "target": {
+              "__id__": 1
+            },
+            "component": "ChooseItemType2Delegate",
+            "handler": "onItemClick"
+          }
+        ],
+        "_N$target": {
+          "__id__": 1
+        }
+      },
+      {
+        "__type__": "6a00baojQhHDqyqdHFtkR4u",
+        "node": {
+          "__id__": 1
+        },
+        "pointLabel": {
+          "__id__": 4
+        },
+        "circle": {
+          "__id__": 2
+        },
+        "oddLabel": {
+          "__id__": 6
+        }
+      }
+    ],
+    "_prefab": {
+      "__type__": "cc.PrefabInfo",
+      "root": {
+        "__id__": 1
+      },
+      "asset": {
+        "__uuid__": "8fYXyniq5Pk50YS/spvuIE"
+      },
+      "fileId": "46QJj3cslOeJDv93N/v4OA"
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 223,
+      "height": 72
+    },
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 111.5,
+      "y": -36
+    }
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "circle",
+    "_parent": {
+      "__id__": 1
+    },
+    "_children": [
+      {
+        "__id__": 3
+      }
+    ],
+    "_components": [
+      {
+        "__type__": "cc.Sprite",
+        "node": {
+          "__id__": 2
+        },
+        "_spriteFrame": {
+          "__uuid__": "39TaD5c4xI95gHzmn9XeMN"
+        },
+        "_type": 1,
+        "_sizeMode": 0
+      }
+    ],
+    "_prefab": {
+      "__type__": "cc.PrefabInfo",
+      "root": {
+        "__id__": 1
+      },
+      "asset": {
+        "__uuid__": "8fYXyniq5Pk50YS/spvuIE"
+      },
+      "fileId": "d51SLMnfBMkoQvpFURHz/E"
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 80,
+      "height": 64
+    },
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": -49
+    }
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "label1",
+    "_parent": {
+      "__id__": 2
+    },
+    "_components": [
+      {
+        "__id__": 4
+      }
+    ],
+    "_prefab": {
+      "__type__": "cc.PrefabInfo",
+      "root": {
+        "__id__": 1
+      },
+      "asset": {
+        "__uuid__": "8fYXyniq5Pk50YS/spvuIE"
+      },
+      "fileId": "dcBC1sQ8NHJow9KurJrOrs"
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 47,
+      "height": 32
+    },
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 1,
+      "y": 2
+    }
+  },
+  {
+    "__type__": "cc.Label",
+    "node": {
+      "__id__": 3
+    },
+    "_useOriginalSize": false,
+    "_actualFontSize": 32,
+    "_fontSize": 32,
+    "_lineHeight": 32,
+    "_N$file": {
+      "__uuid__": "6fNGMcd8dLqKbohQUc5sGg"
+    },
+    "_isSystemFontUsed": false,
+    "_N$string": "4:0",
+    "_N$horizontalAlign": 1,
+    "_N$verticalAlign": 1
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "ping",
+    "_parent": {
+      "__id__": 1
+    },
+    "_components": [
+      {
+        "__id__": 6
+      }
+    ],
+    "_prefab": {
+      "__type__": "cc.PrefabInfo",
+      "root": {
+        "__id__": 1
+      },
+      "asset": {
+        "__uuid__": "8fYXyniq5Pk50YS/spvuIE"
+      },
+      "fileId": "b9UYIQMc5AfqQiB3bSOcLu"
+    },
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 102,
+      "g": 102,
+      "b": 102
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 63,
+      "height": 32
+    },
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 44,
+      "y": 1
+    }
+  },
+  {
+    "__type__": "cc.Label",
+    "node": {
+      "__id__": 5
+    },
+    "_useOriginalSize": false,
+    "_actualFontSize": 32,
+    "_fontSize": 32,
+    "_lineHeight": 32,
+    "_N$file": {
+      "__uuid__": "6fNGMcd8dLqKbohQUc5sGg"
+    },
+    "_isSystemFontUsed": false,
+    "_N$string": "1.69",
+    "_N$horizontalAlign": 1,
+    "_N$verticalAlign": 1
+  }
+]
